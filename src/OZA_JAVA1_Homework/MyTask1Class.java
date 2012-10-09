@@ -1,5 +1,5 @@
 /*
- * The Package with implementation of tasks for Lecture 1, Java 1.
+ * The Package with implementation of Task1 for Lecture 1, Java 1.
  */
 /*
  * @author Olga Zaharenko
@@ -29,7 +29,7 @@ public class MyTask1Class {
 	 */
 	public static void main(String[] args) {
 
-		/* Declare and initialize integer variables: mEm, k, j: */
+		/* Declare and initialize integer variable: mEm: */
 
 		int mEm = 0;
 
