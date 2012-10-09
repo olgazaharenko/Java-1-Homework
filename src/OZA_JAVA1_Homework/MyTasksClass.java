@@ -37,15 +37,19 @@ public class MyTasksClass {
 		int[] myArray;
 
 		myArray = new int[2];
-
+		
 		/* Prepare data for array - invite the user to enter data from keyboard: */
 
-		Scanner reader = new Scanner(System.in);
-		for (int k = 0; k <= 2; k++) {
-			System.out.println("Enter an integer number and press enter:");
-			myArray[k] = reader.nextInt();
-		}
+		//Scanner reader = new Scanner(System.in);
+		//for (int k = 0; k <= 2; k++) {
+		//	System.out.println("Enter an integer number and press enter:");
+		//	myArray[k] = reader.nextInt();
+		//}
 
+		myArray[0]=3;
+		myArray[1]=112;
+		myArray[2]=32;
+		
 		/* Save 1-st array's element as max: */
 
 		mEm = myArray[0];
