@@ -40,10 +40,10 @@ int [] myArray = new myArray[2];
 
 /*Prepare data for array - invite the user to enter data from keyboard: */
 
-Scanner scanner = new Scanner(System.in);
+Scanner reader = new Scanner(System.in);
 for (k=0; k<=2; k++) {
 	System.out.println ("Enter an integer number and press enter");
-	myArray[k] = Scanner.nextInt();
+	myArray[k] = reader.nextInt();
 }
  
 /*Save 1-st array's element as max:*/
