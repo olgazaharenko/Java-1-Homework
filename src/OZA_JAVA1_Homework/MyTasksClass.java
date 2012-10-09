@@ -20,7 +20,7 @@
  * перезаписываем его в переменную max. 
  * После завершения цикла сравнения выводим на печать переменную max.
  * ---------------------------------------------------------------------
- */ 
+ */
 package OZA_JAVA1_Homework;
 
 import java.util.Scanner;
@@ -28,39 +28,39 @@ import java.util.Scanner;
 public class MyTasksClass {
 	public static void main(String[] args) {
 
-/*Declare  and initialize integer variables: mEm, k, j: */
+		/* Declare and initialize integer variables: mEm, k, j: */
 
-int mEm = 0;
+		int mEm = 0;
 
-/*Declare and create array as integer, 3 elements: */
+		/* Declare and create array as integer, 3 elements: */
 
-int[] myArray; 
+		int[] myArray;
 
-myArray = new int[2];
+		myArray = new int[2];
 
-/*Prepare data for array - invite the user to enter data from keyboard: */
+		/* Prepare data for array - invite the user to enter data from keyboard: */
 
-Scanner reader = new Scanner(System.in);
-for (int k=0; k<=2; k++) {
-	System.out.println ("Enter an integer number and press enter:");
-	myArray[k] = reader.nextInt();
-}
- 
-/*Save 1-st array's element as max:*/
+		Scanner reader = new Scanner(System.in);
+		for (int k = 0; k <= 2; k++) {
+			System.out.println("Enter an integer number and press enter:");
+			myArray[k] = reader.nextInt();
+		}
 
-mEm = myArray[0];
+		/* Save 1-st array's element as max: */
 
-/*Compare all array's elements with max within FOR cycle:*/
+		mEm = myArray[0];
 
-for (int j=1; j<=2; j++) {
-	if (myArray[j] > mEm) {
-	
-	mEm = myArray[j];
-			
-	}
-}
- 
-/* Output result:*/
-System.out.println ("Max number from the array = " + mEm);
+		/* Compare all array's elements with max within FOR cycle: */
+
+		for (int j = 1; j <= 2; j++) {
+			if (myArray[j] > mEm) {
+
+				mEm = myArray[j];
+
+			}
+		}
+
+		/* Output result: */
+		System.out.println("Max number from the array = " + mEm);
 	}
 }
