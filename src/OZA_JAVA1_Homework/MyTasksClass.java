@@ -31,8 +31,6 @@ public class MyTasksClass {
 /*Declare  and initialize integer variables: mEm, k, j: */
 
 int mEm = 0;
-int k = 0; 
-int j = 0;
 
 /*Declare and create array as integer, 3 elements: */
 
@@ -43,8 +41,8 @@ myArray = new int[2];
 /*Prepare data for array - invite the user to enter data from keyboard: */
 
 Scanner reader = new Scanner(System.in);
-for (k=0; k<=2; k++) {
-	System.out.println ("Enter an integer number and press enter");
+for (int k=0; k<=2; k++) {
+	System.out.println ("Enter an integer number and press enter:");
 	myArray[k] = reader.nextInt();
 }
  
@@ -54,7 +52,7 @@ mEm = myArray[0];
 
 /*Compare all array's elements with max within FOR cycle:*/
 
-for (j=1; j<=2; j++) {
+for (int j=1; j<=2; j++) {
 	if (myArray[j] > mEm) {
 	
 	mEm = myArray[j];
