@@ -34,8 +34,8 @@ public class MyTask2Class {
 		
 		/* Declare and initialize integer variables: 4et and ne4et: */
 
-		int 4et = 0;
-		int ne4et = 0;
+		int even = 0;
+		int odd = 0;
 
 		/* Declare and create array as integer, 11 elements: */
 
@@ -51,7 +51,7 @@ public class MyTask2Class {
 		myArray[3]=41;
 		myArray[4]=5;
 		myArray[5]=82;
-		myArray[6]=38
+		myArray[6]=38;
 		myArray[7]=56;
 		myArray[8]=66;
 		myArray[9]=69;
@@ -60,19 +60,19 @@ public class MyTask2Class {
 		/* Compare all array's elements with result of %2 within FOR cycle: */
 
 		for (int j = 0; j <= 10; j++) {
-			if (myArray[j]%2 <> 0) {
+			if (myArray[j]%2 != 0) {
 
-				ne4et++;
+				odd++;
 
 			}
 			else {
-				4et++;
+				even++;
 			}
 		}
 
 		/* Output result: */
-		System.out.println("Amount of even numbers from the array = " + 4et);
-		System.out.println("Amount of odd numbers from the array = " + ne4et);
+		System.out.println("Amount of even numbers from the array = " + even);
+		System.out.println("Amount of odd numbers from the array = " + odd);
 	
 	}
 	
