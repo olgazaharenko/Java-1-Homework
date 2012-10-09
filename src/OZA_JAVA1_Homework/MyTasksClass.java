@@ -1,7 +1,7 @@
 /**
  * The Package with implementation of tasks for Lecture 1, Java 1.
  */
-/**
+/*
  * @author Olga Zaharenko
  *
  */
@@ -10,7 +10,8 @@ package OZA_JAVA1_Homework;
 import java.util.Scanner;
 
 public class MyTasksClass {
-/**
+	public static void main(String[] args) {
+/*
  * Task 1. Find greatest value among 3 variables. 
  * Write a program which finds a greatest value among 3 integer variables
  * -----------------------------------------------------------------------
@@ -26,36 +27,40 @@ public class MyTasksClass {
  * После завершения цикла сравнения выводим на печать переменную max.
  * ---------------------------------------------------------------------
  */ 
- /** Declare array as integer: */
+
+/*Declare  and initialize integer variables: mEm, k, j: */
+
+int mEm = 0;
+int k = 0; 
+int j = 0;
+
+/*Declare and create array as integer, 3 elements: */
  
-int x[];
+int [] myArray = new myArray[2];
 
- /** Create instance of array, 3 elements: */
-int x[] = new x[2];
-  
- /** Prepare data for array - invite the user to enter data from keyboard: */
+/*Prepare data for array - invite the user to enter data from keyboard: */
 
-Scanner scanner = new Scanner(System.in)
-for (int i=0, i<=2, i++) {
+Scanner scanner = new Scanner(System.in);
+for (k=0; k<=2; k++) {
 	System.out.println ("Enter an integer number and press enter");
-	x[i] = Scanner.nextInt();
-};
- 
-/** Declare integer variable max: */
-
-int max;
-
-/** Save 1-st array's element as max:*/
-
-max = x[0];
-
-/** Compare all array's elements with max within FOR cycle:*/
-
-for (int i=1; i<=2; i++) {
-	if (x[i] - max) < 0 then max = x[i];
-};
- 
-/** Output result:*/
-System.out.println ("Max number from the array = " + max);
+	myArray[k] = Scanner.nextInt();
 }
+ 
+/*Save 1-st array's element as max:*/
+
+mEm = myArray[0];
+
+/*Compare all array's elements with max within FOR cycle:*/
+
+for (j=1; j<=2; j++) {
+	if (myArray[j] > mEm) {
+	
+	mEm = myArray[j];
+			
+	}
+}
+ 
+/* Output result:*/
+System.out.println ("Max number from the array = " + mEm);
+	}
 }
