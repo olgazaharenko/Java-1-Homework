@@ -1,16 +1,10 @@
-/**
+/*
  * The Package with implementation of tasks for Lecture 1, Java 1.
  */
 /*
  * @author Olga Zaharenko
  *
  */
-package OZA_JAVA1_Homework;
-
-import java.util.Scanner;
-
-public class MyTasksClass {
-	public static void main(String[] args) {
 /*
  * Task 1. Find greatest value among 3 variables. 
  * Write a program which finds a greatest value among 3 integer variables
@@ -27,6 +21,12 @@ public class MyTasksClass {
  * После завершения цикла сравнения выводим на печать переменную max.
  * ---------------------------------------------------------------------
  */ 
+package OZA_JAVA1_Homework;
+
+import java.util.Scanner;
+
+public class MyTasksClass {
+	public static void main(String[] args) {
 
 /*Declare  and initialize integer variables: mEm, k, j: */
 
@@ -35,8 +35,10 @@ int k = 0;
 int j = 0;
 
 /*Declare and create array as integer, 3 elements: */
- 
-int [] myArray = new myArray[2];
+
+int[] myArray; 
+
+myArray = new int[2];
 
 /*Prepare data for array - invite the user to enter data from keyboard: */
 
