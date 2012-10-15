@@ -60,13 +60,13 @@ public class MyTask5Class {
 		
 		public static int askUserToCompareNumber (int lim) {
 			int userAnswer;
-			userAnswer=0;
+			userAnswer=5;
 			
-		/*    while (userAnswer != 0 || userAnswer != 1 || userAnswer != 2) { */
+			/* while (userAnswer != 0 || userAnswer != 1 || userAnswer != 2) { */ 
 		    	System.out.println ("Your number is less (0), more (1) or equal (2) then " + lim + "? Enter 0, 1 or 2.");
 		    	Scanner reader = new Scanner(System.in);
 		    	userAnswer = reader.nextInt();
-		/*    } */
+			/* } */
 		return userAnswer;
 		}
 		
