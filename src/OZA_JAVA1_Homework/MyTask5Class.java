@@ -1,5 +1,7 @@
 package OZA_JAVA1_Homework;
 
+import java.util.Scanner;
+
 public class MyTask5Class {
 
 	/*
@@ -15,66 +17,64 @@ public class MyTask5Class {
 	 * Если пользователь на число 50 ответил, что загаданное число больше, 
 	 * то программа не станет называть числа меньше 50.)
 	 * ---------------------------------------------------------------
-	 * Решение. Загадайте число от 1 до 100
-	 * Скажите мне, оно больше 50?
-	 * Варианты: >, <, =
-	 * ответ: <
-	 * Считаем половину от 50
-	 * и задаем новый вопрос:
-	 * Скажите мне, оно больше 25?
-	 * Варианты: >, <, =
-	 * ответ: >
-	 * Считаем расстояние от 25 до 50, делим пополам, прибавляем к 25 - получаем 37.5, округляем до 37 и задаем новый вопрос
-	 * Скажите мне, оно больше 37? Варианты: >, <, =
-	 * ответ: <
-	 * Считаем расстояние от 25 до 37, делим пополам, прибавляем к 25 - получаем 31, округлять не надо, задаем новый вопрос
-	 * Скажите мне, оно больше 31? Варианты: >, <, =
-	 * ну и так до угадывания
-	 * надо обеспечить сходимость к точке 
-	 * 
-	 * Алгоритм
-	 * 
-	 * Определить временную переменную temp
-	 * Инициализировать ее temp = 50
-	 * 
-	 * Определить временную переменную Flag
-	 * 
-	 * Определить граничные переменные Start и End
-	 * Инициализировать их как Start = 0, End = 100 	 
-	 * 
-	 *     
-	 * Функция Ask вызова приглашения и получения ответа: 
-	 * Ask (Start, End, temp, Flag): {
-	 * 
-	 * Вывести приглашение загадать число от Start до End
-	 * Вывести вопрос "Загаданное число больше temp?
-	 * Варианты ответов: Flag = да (Y), Flag = нет (N), Flag = равно (=)"
-	 * Return Flag;
-	 * }
-	 * 
-	 * Обработать варианты ответов
-	 * 
-	 * Вариант Flag = да (Y): работаем с отрезком числовой прямой от temp до End, включая End
-	 * 
-	 * While (End - temp)/2 != 0 do: {
-	 * Вызываем Ask (temp, End, (End - temp)/2);
-	 * 
-	 * }
-	 *   
-	 * Вариант Flag = нет (N): работаем с отрезком числовой прямой от Start до temp, включая Start:
-	 * 
-	 * Вариант Flag = равно (=): Выводим ответ "Вы загадали число " + temp 
-	 * 
-	 * 
-	 * Запомнить введенное число во вспомогательной переменной temp
-	 * 
-	 * 
-	 * -----------------------------------------------------------------------
-	 * 
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
+			int start = 0;
+			int end = 100; 
+			
+			int lim;
+			lim = (end-start)/2;
+			
+			String keyToWin;
+			keyToWin = null;
+			
+			while (keyToWin != "E") {
+				
+				keyToWin = askUserToCompareNumber (lim);
+				
+				switch (keyToWin) {
+				
+				case "Y":
+					end = lim;
+					lim = lim - findNewTarget(start,end);
+				break;
+				
+				case "N":
+					start = lim;
+					lim = lim + findNewTarget(start,end);
+				break;
+				
+				}
+				
+			}
+			
+			printGuessNumber (lim);
+						
+		}
+		
+		public static int findNewTarget (int start, int end) {
+			int target;
+			target=(end - start)/2;
+			return target;
+		}
+		
+		public static String askUserToCompareNumber (int lim) {
+			String keyToWin;
+			keyToWin = null;
+		
+			while (keyToWin != "Y" || keyToWin != "N" || keyToWin != "E") {
+			
+			System.out.println ("Your number is less (Y), more (N) or equal (E) then " + lim + "? Use Y, N or E symbols only");
+			Scanner reader = new Scanner(System.in);
+			keyToWin = reader.nextLine();
+			
+			}
+			
+			return keyToWin;
+		}
+		
+		public static void printGuessNumber (int guessNumber) {
+			System.out.println("I guess your number. It was " + guessNumber);
+		}
+		
 }
