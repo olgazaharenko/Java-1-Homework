@@ -25,27 +25,27 @@ public class MyTask5Class {
 			int newLimit;
 			newLimit = (end-start)/2;
 			
-			String keyToWin;
+			int keyToWin;
 			keyToWin = askUserToCompareNumber (newLimit);
 			
-			while (keyToWin != "E") {
-				
-				keyToWin = askUserToCompareNumber (newLimit);
+			while (keyToWin != 2) {
 				
 				switch (keyToWin) {
 				
-				case "Y":
+				case 0:
 					end = newLimit;
 					newLimit = newLimit - findNewTarget(start,end);
+					keyToWin = askUserToCompareNumber (newLimit);
 				break;
 				
-				case "N":
+				case 1:
 					start = newLimit;
 					newLimit = newLimit + findNewTarget(start,end);
+					keyToWin = askUserToCompareNumber (newLimit);
 				break;
 				
 				}
-				
+						
 			}
 			
 			printGuessNumber (newLimit);
@@ -58,18 +58,16 @@ public class MyTask5Class {
 			return target;
 		}
 		
-		public static String askUserToCompareNumber (int lim) {
-			String userAnswer;
-			userAnswer=null;
+		public static int askUserToCompareNumber (int lim) {
+			int userAnswer;
+			userAnswer=0;
 			
-			while (userAnswer != "Y" || userAnswer != "N" || userAnswer != "E") {
-			
-			System.out.println ("Your number is less (Y), more (N) or equal (E) then " + lim + "? Use Y, N or E symbols only");
-			Scanner reader = new Scanner(System.in);
-			userAnswer = reader.nextLine();
-			}
-			
-			return userAnswer;
+		/*    while (userAnswer != 0 || userAnswer != 1 || userAnswer != 2) { */
+		    	System.out.println ("Your number is less (0), more (1) or equal (2) then " + lim + "? Enter 0, 1 or 2.");
+		    	Scanner reader = new Scanner(System.in);
+		    	userAnswer = reader.nextInt();
+		/*    } */
+		return userAnswer;
 		}
 		
 		public static void printGuessNumber (int guessNumber) {
