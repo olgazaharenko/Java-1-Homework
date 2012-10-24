@@ -7,7 +7,7 @@ public class Dog {
 	String name;
 	
 	void bark () {
-		System.out.println("Ruff! Ruff!");
+		System.out.println(name + " says Ruff!");
 	}
 	
 
