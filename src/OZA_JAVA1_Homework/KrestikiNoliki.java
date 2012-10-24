@@ -53,6 +53,27 @@ public class KrestikiNoliki {
 	}
 	
 	
+	public static String [][] CreateGameField () {
+		String [][] GameField = new String [3][3];
+		int i, j;
+		
+		for (i = 0; i<3; i++) {
+			for (j = 0; j<3; j++) {
+				GameField [i][j] = "_";
+				System.out.println (GameField [i][j]);
+			}			
+		}	
+	
+		return GameField;		
+	}
+	
+	public static String [][] FillGameField () {
+		String [][] FilledGameField = new String [3][3];
+		// заполняем поле полученными ходами
+		// перерисовываем матрицу поля
+		return FilledGameField;		
+	}
+	
 }
 
 
