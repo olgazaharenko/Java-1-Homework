@@ -7,18 +7,16 @@ public class KrestikiNolikiGame {
 
 	/*
 	 * Объект КрестикиНоликиИгра (По псевдокоду = Игра)
-	 * - выводит предложение сыграть
-	 * - выводит правила игры
-	 * - запрашивает имена игроков
-	 * - считывает имена игроков
-	 * - хранит имена игроков
-	 * - запрашивает фигуры игроков
-	 * - считывает фигуры игроков
-	 * - хранит фигуры игроков
-	 * - запрашивает тип игроков (человек-человек, человек-компьютер, компьютер-компьютер)
-	 * - хранит тип игроков
-	 * - определяет победителя
-	 * - выводит имя победителя
+	 * - выводит предложение сыграть - метод GameInvitation()
+	 * - выводит правила игры - метод GameRules()
+	 * - запрашивает, считывает и возвращает имя игрока - метод LetMeKnowWhatIsYourName (String ComputerXOPlayerName) 
+	 * - запрашивает, считывает и возвращает фигуры игроков - метод LetMeKnowWhatIsYourFigure ()
+	 * - запрашивает, считывает и возвращает тип игроков 
+	 * (человек-человек, человек-компьютер, компьютер-компьютер) - метод GamePlayersPairChoice () 
+	 * - выводит имя победителя -  метод GameWinnerNameIs (String WinnerName)
+	 * - завершает игру - метод GameOver ()
+	 * - считывает ходы Игрока (неважно какого)
+	 * - пересчитывает доступное количество пустых Клеток после каждого хода
 	 */
 	
 	static String gameInvitation = "Lets play to X or O, wouldn't you? If agree, enter Y, if not, enter N..."; 
@@ -27,8 +25,11 @@ public class KrestikiNolikiGame {
 	static String computerTalk = "And yours? Just print it...";
 	static String computer2Name = "No, it's my name is Dr. Z-z-zlo. ";
 	static String HumanXOFigureChoice = "What is your figure to play with? Just print it...";
+	static String gameXOWinnerIs = "Tadam! The Game Winner's Name Is... ";
+	static String gamePlayersXOChoiseIs1 = "You will play with Human (H), with Computer (C) or you will look how two Robots play (R)?";
+	static String gamePlayersXOChoiseIs2 = "Enter H, C or R to make a choice...";
 	
-	public static String GameInvitation (){
+	public static String GameInvitation(){
 		String userAnswer = "";
 		System.out.print(gameInvitation);
 		Scanner reader = new Scanner(System.in);
@@ -38,6 +39,19 @@ public class KrestikiNolikiGame {
 	
 	public static void GameOver (){
 		System.out.print (gameOverMessage);
+	}
+	
+	public static void GameWinnerNameIs (String WinnerName){
+		gameXOWinnerIs = gameXOWinnerIs + WinnerName;
+		System.out.print (gameXOWinnerIs);		
+	}
+	
+	public static String GamePlayersPairChoice (){
+		String ChoiseIs;
+		System.out.print(gamePlayersXOChoiseIs1 + gamePlayersXOChoiseIs2);
+		Scanner reader = new Scanner(System.in);
+    	ChoiseIs = reader.nextLine();
+    	return ChoiseIs;
 	}
 	
 	public static void GameRules() {
