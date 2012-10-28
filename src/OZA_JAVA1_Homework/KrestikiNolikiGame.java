@@ -11,12 +11,12 @@ public class KrestikiNolikiGame {
 	 * - выводит правила игры - метод GameRules()
 	 * - запрашивает, считывает и возвращает имя игрока - метод LetMeKnowWhatIsYourName (String ComputerXOPlayerName) 
 	 * - запрашивает, считывает и возвращает фигуры игроков - метод LetMeKnowWhatIsYourFigure ()
-	 * - запрашивает, считывает и возвращает тип игроков 
-	 * (человек-человек, человек-компьютер, компьютер-компьютер) - метод GamePlayersPairChoice () 
+	 * 
+	 * - запрашивает, считывает и возвращает тип игроков: 
+	 * (человек-человек, человек-компьютер, компьютер-компьютер)  - метод DefineGamers()
+	 * 
 	 * - выводит имя победителя -  метод GameWinnerNameIs (String WinnerName)
 	 * - завершает игру - метод GameOver ()
-	 * - считывает ходы Игрока (неважно какого)
-	 * - пересчитывает доступное количество пустых Клеток после каждого хода
 	 */
 	
 	static String gameInvitation = "Lets play to X or O, wouldn't you? If agree, enter Y, if not, enter N..."; 
@@ -78,59 +78,30 @@ public class KrestikiNolikiGame {
 		}
 		return userName;
 	}
+
+	//выбрать, кто с кем играет
+	public static int DefineGamers () {
+		
+		int who;
+		
+		String gamersPairs = "You with your friend (press 1), you with me (press 2) or me with my AI (press 3)...";
+		
+		System.out.print(gamersPairs);
+		Scanner reader = new Scanner(System.in);
+		who = reader.nextInt();
+		
+		return who;
+	}
 	
 	public static String LetMeKnowWhatIsYourFigure () {
 		
 		String userFigure = "";
+		
 		System.out.print(HumanXOFigureChoice);
 		Scanner reader = new Scanner(System.in);
     	userFigure = reader.nextLine();
 		return userFigure;
 	}
-	
-	
-	
-	//-----------------------------------------------------------------------------
-	//Attempt to use java.awt package:
-	//
-	//public static void paint(Graphics g){
-		//draw a rectangle starting at 100,100 width a width and height of 80
-	//	  g.drawRect(100, 100, 80, 80);
-	//	}
-	
-	//public static void CreateGameField(String player1Name, String player2Name) {
-		
-	//	Graphics newGameField = null;
-		
-	//	System.out.println(player1Name + "X or O" + player2Name);
-		
-	//draw a rectangle starting at 100,100 width a width and height of 90
-		//newGameField = g.drawRect(0, 0, 90, 90);
-		
-		
-		
-		//String [][] FilledGameField = new String [3][3];
-		
-		//String [][] GameField = new String [3][3];
-		//int i, j;
-		
-		//for (i = 0; i<3; i++) {
-		//	for (j = 0; j<3; j++) {
-		//		GameField [i][j] = "_";
-		//		System.out.println (GameField [i][j]);
-		//	}		
-		
-			
-		//}	
-	
-	//}
-	
-	//public static void FillGameField () {
-	
-		// заполняем поле полученными ходами
-		// перерисовываем матрицу поля
-		
-	//}
 	
 }
 
