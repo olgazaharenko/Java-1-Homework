@@ -2,24 +2,39 @@ package OZA_JAVA1_ClassWork;
 
 public class Car {
 	
-	public void buttonTurnMyLights(String q) {
-		
-		//резервируем память под 4 фары
-		Light light[] = new Light[4];
-		
-		//помещаем туда ссылки на 4 фары
-		light[0] = new Light();
-		light[1] = new Light();
-		light[2] = new Light();
-		light[3] = new Light();
-		
-		//будем передавать номер фары, чтобы убедиться, что все 4 объекта отработали
-		String tmp;
+	//машина знает, сколько у нее фар
+	private int numberOfLight = 4;
+	
+	//метод для доступа к количеству фар (по логике задачи, он не нужен,
+	//сам объект может получить доступ к своей переменной, но
+	//может понадобиться, если будем запрашивать извне количество фар
+	public int getNumberOfLight() {
+		return numberOfLight;
+	}
+	
+	//метод для изменения количества фар
+	public int setNumberOfLight() {
+		if (numberOfLight == 0) {
+			numberOfLight = 4;
+		}
+		return numberOfLight;
+	}
+	
+	//машина знает, какого типа у нее фары
+	private Light[] mySetOfLights = new Light[numberOfLight];
+	
+	//метод, который создает фары
+	public Light[] setLight(int numberOfLight) {
+		for (int j = 0; j < numberOfLight; j++) {
+			mySetOfLights[j] = new Light();
+			}
+		return mySetOfLights[numberOfLight];
+	}
 
-		//вызываем метод для включения либо выключения фар
-		for (int i = 0; i < 4; i++) {
-			tmp = Integer.toString(i+1);
-			light[i].turnLights(q, tmp);
+	//метод для включения фар
+	public void buttonTurnMyLights(String q) {
+		for (int i = 0; i < numberOfLight+1; i++) {
+			mySetOfLights[i].turnLights(q, Integer.toString(i));
 		}
 	}
 }

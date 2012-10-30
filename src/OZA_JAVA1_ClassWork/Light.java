@@ -2,6 +2,8 @@ package OZA_JAVA1_ClassWork;
 
 public class Light {
 
+	//помним состояние фар
+	
 	public void turnLights(String onOFF, String nameOfLight) {
 		
 		//создадим всякие вспомогательные тексты для отладки
