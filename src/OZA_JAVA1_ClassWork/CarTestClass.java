@@ -6,12 +6,11 @@ public class CarTestClass {
 		Car car = new Car();
 		
 		//создадим 4 фары для машины
-		car.getNumberOfLight();
-		car.setLight();
+		car.setLight(car.getNumberOfLight());
 		//включим фары
-		car.buttonTurnMyLights("ON");
+		car.buttonTurnMyLights(true);
 		//погасим фары
-		car.buttonTurnMyLights("OFF");
+		car.buttonTurnMyLights(false);
 	}
 
 }

@@ -1,7 +1,6 @@
 package OZA_JAVA1_Homework;
 
 import java.util.Scanner;
-import java.awt.*;
 
 public class KrestikiNolikiGame {
 
@@ -29,7 +28,7 @@ public class KrestikiNolikiGame {
 	static String gamePlayersXOChoiseIs1 = "You will play with Human (H), with Computer (C) or you will look how two Robots play (R)?";
 	static String gamePlayersXOChoiseIs2 = "Enter H, C or R to make a choice...";
 	
-	public static String GameInvitation(){
+	public String GameInvitation(){
 		String userAnswer = "";
 		System.out.print(gameInvitation);
 		Scanner reader = new Scanner(System.in);
@@ -37,16 +36,16 @@ public class KrestikiNolikiGame {
     	return userAnswer;
 	}
 	
-	public static void GameOver (){
+	public void GameOver (){
 		System.out.print (gameOverMessage);
 	}
 	
-	public static void GameWinnerNameIs (String WinnerName){
+	public void GameWinnerNameIs (String WinnerName){
 		gameXOWinnerIs = gameXOWinnerIs + WinnerName;
 		System.out.print (gameXOWinnerIs);		
 	}
 	
-	public static String GamePlayersPairChoice (){
+	public String GamePlayersPairChoice (){
 		String ChoiseIs;
 		System.out.print(gamePlayersXOChoiseIs1 + gamePlayersXOChoiseIs2);
 		Scanner reader = new Scanner(System.in);
@@ -54,7 +53,7 @@ public class KrestikiNolikiGame {
     	return ChoiseIs;
 	}
 	
-	public static void GameRules() {
+	public void GameRules() {
 		System.out.println("=============================================");
 		System.out.println("--------- You will see 3x3 field: -----------");
 		System.out.println("--------------=================--------------");
@@ -68,7 +67,7 @@ public class KrestikiNolikiGame {
 		System.out.println("=============================================");
 	}
 	
-	public static String LetMeKnowWhatIsYourName (String ComputerXOPlayerName) {
+	public String LetMeKnowWhatIsYourName (String ComputerXOPlayerName) {
 		
 		String userName = "";
 		System.out.print(ComputerXOPlayerName);
@@ -80,7 +79,7 @@ public class KrestikiNolikiGame {
 	}
 
 	//выбрать, кто с кем играет
-	public static int DefineGamers () {
+	public int DefineGamers () {
 		
 		int who;
 		
@@ -93,7 +92,7 @@ public class KrestikiNolikiGame {
 		return who;
 	}
 	
-	public static String LetMeKnowWhatIsYourFigure () {
+	public String LetMeKnowWhatIsYourFigure () {
 		
 		String userFigure = "";
 		

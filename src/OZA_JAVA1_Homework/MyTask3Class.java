@@ -1,6 +1,5 @@
 package OZA_JAVA1_Homework;
 
-import java.util.Scanner;
 
 public class MyTask3Class {
 

@@ -117,15 +117,18 @@ public class KrestikiNolikiTestClass {
 	 * Завершение программы.
 	 */
 	public static void main(String[] args) {
+
+		KrestikiNolikiGame xoParty = new KrestikiNolikiGame();
 		
-		if (KrestikiNolikiGame.GameInvitation().equals("Y")) {
+		if (xoParty.GameInvitation().equals("Y")) {
 			
-			KrestikiNolikiGame.GameRules();
+			xoParty.GameRules();
 			
 		}
 		else {
-			KrestikiNolikiGame.GameOver();
+			xoParty.GameOver();
 		}
 	}
 	
 }
+ 
