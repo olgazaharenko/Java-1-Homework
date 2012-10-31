@@ -6,7 +6,7 @@ public class CarTestClass {
 		Car car = new Car();
 		
 		//создадим 4 фары для машины
-		car.setLight(car.getNumberOfLight());
+		//car.setLight(car.getNumberOfLight());
 		//включим фары
 		car.buttonTurnMyLights(true);
 		//погасим фары

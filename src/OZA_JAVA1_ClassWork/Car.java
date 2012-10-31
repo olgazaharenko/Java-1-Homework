@@ -24,15 +24,18 @@ public class Car {
 	private Light[] mySetOfLights = new Light[numberOfLight];
 	
 	//метод, который создает фары
-	public Light[] setLight(int numberOfLight) {
-		for (int j = 0; j < numberOfLight; j++) {
-			mySetOfLights[j] = new Light();
-			}
-	return mySetOfLights;
-	}
+	//public void setLight(int numberOfLight) {
+	//	for (int j = 0; j < numberOfLight; j++) {
+	//		mySetOfLights[j] = new Light();
+	//		}
+	//}
 
 	//метод для включения-выключения фар
 	public void buttonTurnMyLights(boolean q) {
+		for (int j = 0; j < numberOfLight; j++) {
+		mySetOfLights[j] = new Light();
+		}
+		
 		for (int i = 0; i <= numberOfLight; i++) {
 			mySetOfLights[i].turnLights(q, Integer.toString(i+1));
 		}

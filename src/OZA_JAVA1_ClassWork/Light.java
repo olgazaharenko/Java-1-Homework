@@ -5,7 +5,7 @@ public class Light {
 	//помним состояние фар
 	public String onORoff = "Undefined";
 	
-	public void turnLights(boolean onOFF, String nameOfLight) {
+	public void turnLights(boolean q, String nameOfLight) {
 		
 		//создадим всякие вспомогательные тексты для отладки
 	
@@ -14,14 +14,14 @@ public class Light {
 		String str3 = "Гасим фару ";
 		String str4 = " Light " + nameOfLight + " is " + onORoff;
 		
-		if (onOFF == true) {
+		if (q == true) {
 			//включаем фары
 			onORoff = "ON";
 			System.out.println(str1);
 			System.out.println(str2);
 			}
 		
-		if (onOFF == false) {
+		if (q == false) {
 			//гасим фары
 			onORoff = "OFF";
 			System.out.println(str1);
