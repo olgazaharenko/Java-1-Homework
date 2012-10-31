@@ -22,7 +22,7 @@ public class Light {
 	
 	public void turnLights(boolean q, String nameOfLight) {
 		
-		//создадим всякие вспомогательные тексты для отладки
+		//создадим вспомогательные тексты для отладки
 	
 		String str1 = "===================";
 		String str2 = "Включаем фару " + nameOfLight;
@@ -42,11 +42,6 @@ public class Light {
 		}
 		System.out.println(str4);
 	}	
-	
-	public void close(int numberOfLight) {
-		
-	} 
-	
 }
 		
 
