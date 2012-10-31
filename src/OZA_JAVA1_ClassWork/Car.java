@@ -28,13 +28,13 @@ public class Car {
 		for (int j = 0; j < numberOfLight; j++) {
 			mySetOfLights[j] = new Light();
 			}
-		return mySetOfLights;
+	return mySetOfLights;
 	}
 
 	//метод для включения-выключения фар
 	public void buttonTurnMyLights(boolean q) {
-		for (int i = 0; i < numberOfLight+1; i++) {
-			mySetOfLights[i].turnLights(q, Integer.toString(i));
+		for (int i = 0; i <= numberOfLight; i++) {
+			mySetOfLights[i].turnLights(q, Integer.toString(i+1));
 		}
 	}
 }

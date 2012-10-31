@@ -3,11 +3,12 @@ package OZA_JAVA1_ClassWork;
 public class Light {
 
 	//помним состояние фар
+	public String onORoff = "Undefined";
 	
 	public void turnLights(boolean onOFF, String nameOfLight) {
 		
 		//создадим всякие вспомогательные тексты для отладки
-		String onORoff = "";
+	
 		String str1 = "===================";
 		String str2 = "Включаем фару " + nameOfLight;
 		String str3 = "Гасим фару ";
