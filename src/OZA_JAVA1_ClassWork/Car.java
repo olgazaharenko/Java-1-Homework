@@ -23,20 +23,23 @@ public class Car {
 	//машина знает, какого типа у нее фары
 	private Light[] mySetOfLights = new Light[numberOfLight];
 	
-	//метод, который создает фары
-	//public void setLight(int numberOfLight) {
-	//	for (int j = 0; j < numberOfLight; j++) {
-	//		mySetOfLights[j] = new Light();
-	//		}
-	//}
-
-	//метод для включения-выключения фар
+	//метод для создания и включения-выключения фар
 	public void buttonTurnMyLights(boolean q) {
+		
 		for (int j = 0; j < numberOfLight; j++) {
+			
+		//создаем фары
+		//тут нужна проверка, не существует ли уже комплект фар, чтобы не плодить фары
+		//if () {mySetOfLights[j] = new Light();}
+			
 		mySetOfLights[j] = new Light();
+		
+		//меняем состояние фар
+		mySetOfLights[j].setonORoff(q);
 		}
 		
-		for (int i = 0; i <= numberOfLight; i++) {
+		//визуализация для контроля результата
+		for (int i = 0; i < numberOfLight; i++) {
 			mySetOfLights[i].turnLights(q, Integer.toString(i+1));
 		}
 	}
