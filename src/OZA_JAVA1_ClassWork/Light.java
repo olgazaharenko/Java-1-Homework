@@ -42,6 +42,11 @@ public class Light {
 		}
 		System.out.println(str4);
 	}	
+	
+	public void close(int numberOfLight) {
+		
+	} 
+	
 }
 		
 
