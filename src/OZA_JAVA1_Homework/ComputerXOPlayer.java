@@ -6,7 +6,7 @@ public class ComputerXOPlayer {
 	 * Объект Игрок-Компьютер
 	 * - рассчитывает ходы (должен иметь доступ ко всем полям и методам объекта Поле)
 	 */
-	
+	 
 	public static void doMove() {
 
 	/*

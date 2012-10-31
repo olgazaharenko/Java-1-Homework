@@ -3,7 +3,7 @@ package OZA_JAVA1_Homework;
 import java.util.Scanner;
 
 public class GameXOField {
-
+ 
 	/*
 	 * Объект Поле
 	 * - отрисовывает графику поля (пустого или с ходом) одним перегруженным методом drawField ()

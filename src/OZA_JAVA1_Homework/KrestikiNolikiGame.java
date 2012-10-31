@@ -27,7 +27,7 @@ public class KrestikiNolikiGame {
 	static String gameXOWinnerIs = "Tadam! The Game Winner's Name Is... ";
 	static String gamePlayersXOChoiseIs1 = "You will play with Human (H), with Computer (C) or you will look how two Robots play (R)?";
 	static String gamePlayersXOChoiseIs2 = "Enter H, C or R to make a choice...";
-	
+	 
 	public String GameInvitation(){
 		String userAnswer = "";
 		System.out.print(gameInvitation);
