@@ -2,10 +2,11 @@ package OZA_JAVA1_Homework;
 
 import java.util.Scanner;
 
-public class GameXOField {
+public class xoGameBoard {
  
 	/*
 	 * Объект Поле
+	 * - выводит правила игры на поле - метод GameRules()
 	 * - отрисовывает графику поля (пустого или с ходом) одним перегруженным методом drawField ()
 	 * или drawField (int x, int y, char F)
 	 * - считывает ходы Игрока (неважно какого) - ReadXMove(), ReadYMove()
@@ -59,7 +60,20 @@ public class GameXOField {
 		return linesO;
 	}
 	
-		
+	public void GameRules() {
+		System.out.println("=============================================");
+		System.out.println("--------- You will see 3x3 field: -----------");
+		System.out.println("--------------=================--------------");
+		System.out.println("--------------== [ ] [ ] [ ] ==--------------");
+		System.out.println("--------------== [ ] [ ] [ ] ==--------------");
+		System.out.println("--------------== [ ] [ ] [ ] ==--------------");
+		System.out.println("--------------=================--------------");
+		System.out.println("---------- Fill it either X or O. -----------");
+		System.out.println("------- Winner will first one, who will -----");
+		System.out.println("--- able to align your X or O in one line. --");
+		System.out.println("=============================================");
+	}
+	
 	//перегруженный метод отрисовки поля без координат ходов
 	public void drawField() {
 
