@@ -1,5 +1,9 @@
 package OZA_JAVA1_Homework;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
 //вывести меню пользователя
 
 //0:
@@ -12,7 +16,7 @@ package OZA_JAVA1_Homework;
 //считать все записи в структуру данных ExpenseRegister, 
 //объявленную как список объектов типа Expense
 
-//СТАНДАРТНАЯ ЧАСТЬ РЕДАКТИРОВАНИЯ
+//СТАНДАРТНАЯ ЧАСТЬ для ввода данных
 //вывести меню для ввода данных (введите дату расходов, введите сумму, введите описание)
 //создать новую структуру данных (Expense)
 //ожидать ввода пользователя
@@ -33,42 +37,57 @@ public class ExpenseTestClass {
 		String msgMenu = "User Menu: \n";
 		String msg0 = "0 - create new expense register\n";
 		String msg1 = "1 - edit existed expense register\n";
-		String msg2 = "2 - close program\n";
-		String msg21 = "Program is closed.";
+		String msg2 = "2 - exit\n";
+		String msgExit = "Program closed.";
 		
-		msgMenu = msgMenu + msg1 + msg2; 
+		//создать новую структуру для 1 записи (Expense)
+		private Expense myExpense = new Expense(); 
+
+		//создать структуру данных ExpenseRegister как список объектов типа Expense
+		ExpenseRegister myFinance = new ExpenseRegister();
 		
+		//дать имя файлу для записи расходов
+		String nameMyFile = "myfinances.txt";
+		
+		//вывести меню пользователя и ожидать выбора:
+		msgMenu = msgMenu + msg0 + msg1 + msg2; 
+		Integer i = 0; 
 		String userInput = ExpenseInputHelper.getUserInput(msgMenu);
-		
-		while (userInput != null) {
-		
-			for (int i = 0; i<3; i++) {
-				switch (i) {
+		i = i.parseInt(userInput);
+
+			switch (i) {
 
 				//0:
 				//если нет файла для расходов, создать файл (myfinance_ddmmyyyy.txt)
-				//создать структуру данных ExpenseRegister как список объектов типа Expense
 				case 0: {
-					ExpenseRegister myFinance = new ExpenseRegister();
-					} //end case 0
-			
+					
+					File myFile = new File(nameMyFile);
+					
+					myFinance.addExpenseToRegister(myExpense);
+					
+					myFile.write();
+					
+					System.out.println("do case 0");
+					break;
+				
+				} //end case 0
+					
 				//1:
 				//искать существующий файл (myfinance.txt) для расходов
-				//считать все записи в структуру данных ExpenseRegister, 
+				//считать все записи из файла в структуру данных ExpenseRegister, 
 				//объявленную как список объектов типа Expense
 				case 1: {
-				
+					
+					myFinance.addExpenseToRegister(myExpense);
+					
+					System.out.println("do case 1");
+					break;
 					} //end case 1
 				
-				//2:
-				//выход из программы
 				case 2: {
-					System.out.println(msg21);
-					break;
-				} //end case 2
-								
+					System.out.println(msgExit);
+				}
+				
 				}//end switch i
-			}//end for i loop	
-		}//end while loop for empty user' input
-	} //end main method 
+		} //end main method 
 } //end ExpenseTestClass

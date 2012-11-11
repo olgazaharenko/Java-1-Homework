@@ -2,19 +2,7 @@ package OZA_JAVA1_Homework;
 
 import java.util.*;
 
-//makes objects Expenses, gets user input, add it to the file
-//
-public class ExpenseRegister {
-
-	private List <Expense> list = new ArrayList <Expense>();
-
-	String msgUser = "3 - add new";
-	String msgU1 = "";
-	
-	String userToDo = ExpenseInputHelper.getUserInput(msgUser);
-
-	
-	//СТАНДАРТНАЯ ЧАСТЬ РЕДАКТИРОВАНИЯ
+//СТАНДАРТНАЯ ЧАСТЬ РЕДАКТИРОВАНИЯ
 	//вывести меню для ввода данных (введите дату расходов, введите сумму, введите описание)
 	//создать новую структуру данных (Expense)
 	//ожидать ввода пользователя
@@ -24,32 +12,30 @@ public class ExpenseRegister {
 	//записать список ExpenseRegister в файл
 	//сохранить файл
 	//выйти в меню пользователя
+
+public class ExpenseRegister {
+
+	private List <Expense> list = new ArrayList <Expense>();
 	
-			for (int j = 3; j<6; j++) {
-				switch (j) {
-	
-					case 3: {
-			
-					} //end case 3
-					case 4: {
-			
-					} //end case 4
-					case 5: {
-			
-					}// end case 5
-				} //end switch j
-			} //end for j
-					default: {
-					} //end default
-	
-	private Expense myExpense = new Expense(); 
+	//набор строковых сообщений для пользователя
+	String msgEnterData = "Введите дату:";
+	String msgEnterSum = "Введите сумму:";
+	String msgEnterDescription = "Введите комментарий к расходам:";
 	
 	public void addExpenseToRegister(Expense n) {
-		list.add(myExpense);
+						
+		//вывести сообщения для ввода данных (введите дату расходов, введите сумму, введите описание)
+		n.setDate(ExpenseInputHelper.getUserInput(msgEnterData));
+		n.setSum(ExpenseInputHelper.getUserInput(msgEnterSum));
+		n.setDescription(ExpenseInputHelper.getUserInput(msgEnterDescription));
+		
+		//добавить заполненную строку к списку
+		list.add(n);
+		
 	}
 	
 	public void removeExpenseFromRegister(Expense q) {
-		list.remove(myExpense);		
+		list.remove(q);		
 	}
 
 }

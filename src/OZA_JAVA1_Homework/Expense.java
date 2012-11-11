@@ -8,25 +8,24 @@ import java.util.*;
 
 public class Expense {
 
-	private Date date;
-	private float sum;
+	private String date;
+	private String sum;
 	private String description;
-	
-	
-	public Date getDate() {
-		return date;
+		
+	public String getDate() {
+		return this.date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
-	public float getSum() {
-		return sum;
+	public String getSum() {
+		return this.sum;
 	}
-	public void setSum(float sum) {
+	public void setSum(String sum) {
 		this.sum = sum;
 	}
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
