@@ -11,7 +11,17 @@ public class Expense {
 	private String date;
 	private String sum;
 	private String description;
+	
+	private String msgEnterData = "Введите дату:";
+	private String msgEnterSum = "Введите сумму:";
+	private String msgEnterDescription = "Введите комментарий к расходам:";
 		
+	Expense() {
+		setDate(ExpenseInputHelper.getUserInput(msgEnterData));
+		setSum(ExpenseInputHelper.getUserInput(msgEnterSum));
+		setDescription(ExpenseInputHelper.getUserInput(msgEnterDescription));
+	}
+	
 	public String getDate() {
 		return this.date;
 	}

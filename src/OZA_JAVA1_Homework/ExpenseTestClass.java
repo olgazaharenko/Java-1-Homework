@@ -40,9 +40,6 @@ public class ExpenseTestClass {
 		String msg2 = "2 - exit\n";
 		String msgExit = "Program closed.";
 		
-		//создать новую структуру для 1 записи (Expense)
-		private Expense myExpense = new Expense(); 
-
 		//создать структуру данных ExpenseRegister как список объектов типа Expense
 		ExpenseRegister myFinance = new ExpenseRegister();
 		
@@ -58,35 +55,33 @@ public class ExpenseTestClass {
 			switch (i) {
 
 				//0:
-				//если нет файла для расходов, создать файл (myfinance_ddmmyyyy.txt)
 				case 0: {
-					
-					File myFile = new File(nameMyFile);
-					
+					//TODO: если нет файла для расходов, создать файл (myfinance_ddmmyyyy.txt)
+					//создать новую структуру для 1 записи (Expense)
+					Expense myExpense = new Expense(); 
 					myFinance.addExpenseToRegister(myExpense);
-					
-					myFile.write();
-					
-					System.out.println("do case 0");
 					break;
 				
 				} //end case 0
 					
 				//1:
-				//искать существующий файл (myfinance.txt) для расходов
-				//считать все записи из файла в структуру данных ExpenseRegister, 
-				//объявленную как список объектов типа Expense
+				
 				case 1: {
-					
+					//TODO: открыть существующий файл (myfinance.txt) для расходов
+					//TODO: считать все записи из файла в структуру данных ExpenseRegister, 
+					//TODO: объявленную как список объектов типа Expense	
+					Expense myExpense = new Expense(); 
 					myFinance.addExpenseToRegister(myExpense);
-					
-					System.out.println("do case 1");
 					break;
 					} //end case 1
 				
 				case 2: {
 					System.out.println(msgExit);
 				}
+				
+				default: {  
+					System.out.println(msgExit);
+				} //end default case
 				
 				}//end switch i
 		} //end main method 
