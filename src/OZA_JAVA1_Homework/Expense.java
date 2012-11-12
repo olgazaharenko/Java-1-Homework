@@ -1,11 +1,5 @@
 package OZA_JAVA1_Homework;
 
-import java.util.*;
-//data structure for 1 record about expense, like:
-//9 Nov 2012, 10 LVL, топливо
-//7 Nov 2012, 5 LVL, билет в кино
-//
-
 public class Expense {
 
 	private String date;
@@ -17,9 +11,9 @@ public class Expense {
 	private String msgEnterDescription = "Введите комментарий к расходам:";
 		
 	Expense() {
-		setDate(ExpenseInputHelper.getUserInput(msgEnterData));
-		setSum(ExpenseInputHelper.getUserInput(msgEnterSum));
-		setDescription(ExpenseInputHelper.getUserInput(msgEnterDescription));
+		setDate(ReadUserInputHelper.getUserInput(msgEnterData));
+		setSum(ReadUserInputHelper.getUserInput(msgEnterSum));
+		setDescription(ReadUserInputHelper.getUserInput(msgEnterDescription));
 	}
 	
 	public String getDate() {
@@ -40,7 +34,4 @@ public class Expense {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
-	
 }
