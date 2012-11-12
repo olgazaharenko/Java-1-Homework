@@ -3,6 +3,7 @@ package OZA_JAVA1_Homework;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**вывести меню пользователя
 
@@ -50,6 +51,7 @@ public class ExpenseMain {
 	
 		String tmpExpense = "";
 		
+		
 		msgUserMenu = msgUserMenu + msg0 + msg1 + msg2; 
 		Integer i = 0; 
 		String userInput = ReadUserInputHelper.getUserInput(msgUserMenu);
@@ -60,23 +62,51 @@ public class ExpenseMain {
 		
 		switch (i) {
 			case 1: {
-				ExpenseRegister myFinance = new ExpenseRegister();
 				
-				myFinance.addExpenseToRegister();
-				tmpExpense = myFinance.readExpenseFromRegister();
-
-				WorkWithFiles.CreateNewFile(myFinanceFileName);
-				WorkWithFiles.WriteToFile(tmpExpense, myFinanceFileName);
+				File f;
+				f=new File(myFinanceFileName);
+			  
+				if( !f.exists() ) {
+					ExpenseRegister myFinance = new ExpenseRegister();
+					myFinance.addExpenseToRegister();
+					tmpExpense = myFinance.getExpenseAsString();
+					
+					WorkWithFiles.CreateNewFile(myFinanceFileName);
+					WorkWithFiles.WriteToFile(tmpExpense, myFinanceFileName);
+				}
+				else {
+					//считываем строки из файла во временный список строк
+					ExpenseRegister myFinance = new ExpenseRegister();
+			        ArrayList<String> tmpList = new ArrayList<String>();
+			        
+					for (int j = 1; j <= tmpList.size(); j++) {
+						tmpList.set(j, WorkWithFiles.ReadFromFile(myFinanceFileName));
+					}
+					//пользователь ввел новую запись о расходах
+					myFinance.addExpenseToRegister();
+					
+					//добавили ее во временный список строк
+					tmpList.add(myFinance.getExpenseAsString());
+					
+					//переписали список строк в файле
+					for (int k = 1; k <= tmpList.size(); k++) {
+						WorkWithFiles.WriteToFile(tmpList.get(k), myFinanceFileName);
+					}
+				}
 				break;
 				} 
 			case 2: {
 								
 				//TODO: открыть существующий файл (myfinance.txt) для расходов
-				//TODO: считать все записи из файла в структуру данных ExpenseRegister, 
+				//TODO: считать все записи из файла как строки в структуру данных 
+				//TODO: ExpenseRegister, 
 				//TODO: объявленную как список объектов типа Expense	
 				//TODO: определить, что удалять
 				//TODO: удалить запись из ExpenseRegister
 				//TODO: перезаписать файл с новыми данными.
+				
+				
+		        
 				
 				break;
 			}

@@ -3,9 +3,9 @@ package OZA_JAVA1_Homework;
 import java.util.*;
 
 public class ExpenseRegister {
-
+	
 	Expense myExpense = new Expense();
-	String d = ";";
+	private String d = ";";
 	
 	private List <Expense> list = new ArrayList <Expense>();
 	
@@ -17,9 +17,9 @@ public class ExpenseRegister {
 		list.remove(q);	
 	}
 	
-	public String readExpenseFromRegister() {
-		String strExpense = "";
-		strExpense = myExpense.getDate() + d + myExpense.getSum() + d + myExpense.getDescription() + d;
-		return strExpense;
+	public String getExpenseAsString () {
+		String myExpenseAsString = myExpense.getDate() + d + myExpense.getSum() + d + myExpense.getDescription() + d;
+		return myExpenseAsString;
 	}
+	
 }
