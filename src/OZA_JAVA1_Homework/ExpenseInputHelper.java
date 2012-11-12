@@ -4,6 +4,8 @@ import java.io.*;
 
 public class ExpenseInputHelper {
 
+	static String myFinanceFileName = "myfinance.txt";
+	
 	public static String getUserInput(String prompt) {
 		
 		String inputLine = null;
@@ -22,5 +24,40 @@ public class ExpenseInputHelper {
 			System.out.println ("IOException: " + e);
 		}
 		return inputLine;
+	}
+	
+	public static String ReadFromFile() {
+		
+		String readLine = "";
+		
+		try {
+			FileReader fr = new FileReader(myFinanceFileName);
+			BufferedReader br = new BufferedReader(fr);
+
+			readLine = br.readLine();
+
+			br.close();
+			fr.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return readLine;
+	}
+	
+public static void WriteToFile(String newLineToRecord) {
+		
+	try {
+		FileWriter fw = new FileWriter(myFinanceFileName);
+		BufferedWriter bw = new BufferedWriter(fw);
+
+		bw.write(newLineToRecord);
+
+		bw.close();
+		fw.close();
+		} 
+	catch (IOException e) {
+		e.printStackTrace();
+		}
 	}
 }
