@@ -16,7 +16,6 @@ public class WorkWithFiles {
 	static String msgForUser3 = "File ";
 	static String msgForUser4 = " already exists.";
 	
-	
 	public static void CreateNewFile(String NameForNewFile) {
 		
 		try {
@@ -40,14 +39,16 @@ public class WorkWithFiles {
 	
 	public static String ReadFromFile(String NameForFile) {
 		
+		
 		String readLine = "";
 		
 		try {
 			FileReader fr = new FileReader(NameForFile);
 			BufferedReader br = new BufferedReader(fr);
-
+			
 			readLine = br.readLine();
-
+			System.out.println(readLine);
+			
 			br.close();
 			fr.close();
 
@@ -56,6 +57,31 @@ public class WorkWithFiles {
 		}
 		return readLine;
 	}
+	
+	
+	public static String ReadFromFile1(String NameForFile) {
+		String readLine = "";
+		
+	    try {
+	       FileReader fr = new FileReader(NameForFile);
+	       BufferedReader br = new BufferedReader(fr);
+
+	       while (br.readLine() != null) {
+				readLine = br.readLine();
+				System.out.println(readLine);
+	               }
+	       br.close();
+	       fr.close();
+	           } 
+	    catch (FileNotFoundException e) {
+	        System.out.println("Файл " + NameForFile + " не найден");
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+		
+		return readLine;
+	}
+	
 	
 public static void WriteToFile(String newLineToRecord, String NameForFile) {
 		
