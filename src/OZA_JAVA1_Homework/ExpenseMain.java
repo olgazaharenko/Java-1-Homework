@@ -1,9 +1,8 @@
 package OZA_JAVA1_Homework;
 
 import java.io.*;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 /**вывести меню пользователя
 *
@@ -53,6 +52,7 @@ public class ExpenseMain {
 	public static void main(String[] args) throws IOException {
 		
 		String myFinanceFileName = "myfinance.txt";
+		String myBackup = "myfinance.bak";
 		
 		String msgUserMenu = "User Menu: \n";
 		String msg0 = "1 - add new expense to the list\n";
@@ -87,21 +87,42 @@ public class ExpenseMain {
 				
 				else { //если файл существует
 					
+					//делаем его резервную копию
+					File fb = new File(myBackup);
+					if (!fb.exists()) {
+						FileChannel fChannel = new FileInputStream(myFinanceFileName).getChannel();
+						FileChannel fbChannel = new FileOutputStream(myBackup).getChannel();
+						fChannel.transferTo(0, fChannel.size(), fbChannel);
+						fChannel.close();
+						fbChannel.close();
+					}
+					
 					//создаем временный список строк
 					ArrayList<String> tmpFinanceList = new ArrayList<String>();
-										
-					//читаем из файла строки во временный список строк
 					
-				 	int j = 0;
-				 	
-				 	BufferedReader myFileReader = new BufferedReader (new FileReader(myFinanceFileName));
-					while (myFileReader.readLine() != null) {
-						tmpFinanceList.add(j, myFileReader.readLine());
-						System.out.println("#" + j + " =" + myFileReader.readLine());
-			     		System.out.println(tmpFinanceList.get(j));
-			     		j++;
-			     		}
-					myFileReader.close();
+					//Построчно читаем файл 
+					//записываем строки во временный список строк
+					
+					   OutputStreamWriter OSW = new OutputStreamWriter(System.out, "UTF-8");
+					   PrintWriter         PW = new PrintWriter(OSW, true);
+					
+				       FileReader myFileReader = new FileReader(myFinanceFileName);
+				       BufferedReader myBufferedReader = new BufferedReader(myFileReader);
+				       String stroka="\n";
+				       int j = 0;
+				       do
+				        {
+				        stroka=myBufferedReader.readLine();
+				        if(stroka!=null) {
+				        	tmpFinanceList.add(j, stroka);
+				        	PW.println(j + ". В файле: " + stroka + ". В памяти: " + tmpFinanceList.get(j));
+					        j++;
+				        }
+
+				        }
+				       	while(stroka!=null);
+				       
+				    myBufferedReader.close();
 				       
 				    //создаем структуру данных в памяти для нового списка объектов
 					ExpenseRegister myFinance = new ExpenseRegister();
@@ -110,14 +131,21 @@ public class ExpenseMain {
 					myFinance.addExpenseToRegister();
 					
 					//добавили новую запись последней во временный список строк
-					tmpFinanceList.add(myFinance.getExpenseAsString());
-					System.out.println(tmpFinanceList.size());
+					tmpFinanceList.add(j, myFinance.getExpenseAsString());
 					
-					//TODO: переписали список строк в файл
+					//переписываем список строк в файл
+					FileWriter myFileWriter = new FileWriter(myFinanceFileName);
+					BufferedWriter myBufferedWriter = new BufferedWriter(myFileWriter);
 					
+					for (j = 0; j < tmpFinanceList.size(); j++) {
+				    	myBufferedWriter.write(tmpFinanceList.get(j));
+				    	myBufferedWriter.newLine();
+				        }
+				        myBufferedWriter.close();
 				}
 				break;
 				}
+			
 			
 			case 2: {
 								
