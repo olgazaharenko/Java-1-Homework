@@ -5,7 +5,7 @@ import java.util.*;
 public class ExpenseRegister {
 	
 	Expense myExpense = new Expense();
-	private String d = ";";
+	private String d = ";"; //разделитель значений
 	
 	private List <Expense> list = new ArrayList <Expense>();
 	

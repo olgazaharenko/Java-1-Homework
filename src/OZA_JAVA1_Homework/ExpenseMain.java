@@ -48,10 +48,16 @@ import java.util.ArrayList;
 public class ExpenseMain {
 
 	public static void main(String[] args) throws IOException {
+		//TODO: вынести все операции с файлами в отдельный класс
+		//наследующий от File
 		
-		String myFinanceFileName = "myfinance.txt";
-		String myBackup = "myfinance.bak";
+		String myFinanceFileName = "myfinance.txt"; //скопировано в myOperationsWithFile
+		String myBackup = "myfinance.bak"; //скопировано в myOperationsWithFile
+
+		//создаем файловую переменную
+		File f = new File(myFinanceFileName);
 		
+		//делаем меню
 		String msgUserMenu = "User Menu: \n";
 		String msg0 = "1 - add new expense to the list\n";
 		String msg1 = "2 - remove expense from the list\n";
@@ -63,17 +69,18 @@ public class ExpenseMain {
 		String userInput = ReadUserInputHelper.getUserInput(msgUserMenu);
 		i = Integer.parseInt(userInput);
 		
-		//TODO: сделать цикл, чтобы меню висело стабильно, 
-		//а не выключалось после первого ввода
-		
+		//TODO: исправить цикл, чтобы меню висело стабильно, 
+		//а не выключалось после первого ввода - while ниже зацикливает на вводе, и не дает выйти
+		//из ситуации 1
+		//while (i != 3) {
 		switch (i) {
 			case 1: {
 				
-				File f = new File(myFinanceFileName);
-				
 				if (!f.exists()) {
 				
+				//создаем переменную для операций с регистром расходов 
 				ExpenseRegister myFinance = new ExpenseRegister();
+								
 				myFinance.addExpenseToRegister();
 				
 				//составляем строку из значений переменных объекта Expense и пишем ее в файл 
@@ -85,8 +92,6 @@ public class ExpenseMain {
 				
 				else { //если файл существует
 					
-					//делаем его резервную копию
-					File fb = new File(myBackup);
 					FileChannel fChannel = new FileInputStream(myFinanceFileName).getChannel();
 					FileChannel fbChannel = new FileOutputStream(myBackup).getChannel();
 					fChannel.transferTo(0, fChannel.size(), fbChannel);
@@ -97,11 +102,9 @@ public class ExpenseMain {
 					ArrayList<String> tmpFinanceList = new ArrayList<String>();
 					
 					//Построчно читаем файл 
-					//записываем строки во временный список строк
-					
+					//Записываем строки во временный список строк
 					   OutputStreamWriter OSW = new OutputStreamWriter(System.out, "UTF-8");
 					   PrintWriter         PW = new PrintWriter(OSW, true);
-					
 				       FileReader myFileReader = new FileReader(myFinanceFileName);
 				       BufferedReader myBufferedReader = new BufferedReader(myFileReader);
 				       String stroka="\n";
@@ -109,20 +112,18 @@ public class ExpenseMain {
 				       do
 				        {
 				        stroka=myBufferedReader.readLine();
-				        if(stroka!=null) {
+				        	if(stroka!=null) {
 				        	tmpFinanceList.add(j, stroka);
 				        	PW.println(j + ". В файле: " + stroka + ". В памяти: " + tmpFinanceList.get(j));
 					        j++;
-				        }
-
+				        	}
 				        }
 				       	while(stroka!=null);
-				       
-				    myBufferedReader.close();
-				       
-				    //создаем структуру данных в памяти для нового списка объектов
+				       myBufferedReader.close();
+					
+				    //создаем переменную для операций с регистром расходов 
 					ExpenseRegister myFinance = new ExpenseRegister();
-				       
+						
 					//вводим новую и единственную запись о расходах в память
 					myFinance.addExpenseToRegister();
 					
@@ -142,7 +143,6 @@ public class ExpenseMain {
 				break;
 				}
 			
-			
 			case 2: {
 								
 				//TODO: открыть существующий файл (myfinance.txt) для расходов
@@ -158,7 +158,8 @@ public class ExpenseMain {
 				String msgExit = "Program closed.";
 				System.out.println(msgExit);
 				break;
+				}
 			}
-		}
+		//}
 	}
 }
