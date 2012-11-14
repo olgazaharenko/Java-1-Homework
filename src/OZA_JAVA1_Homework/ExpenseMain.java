@@ -15,15 +15,13 @@ import java.util.ArrayList;
 * записать ввод пользователя в файл
 * сохранить и закрыть файл
 * 
-* если файл есть, открыть его
+* если файл есть, создать бекап.
+* работаем с оригинальным файлом.
 * считать все записи из файла во временный список 
 * закрыть файл
 * считать ввод пользователя 
 * записать ввод пользователя последним элементом списка
-* скопировать файл в архивную копию *.bak
-* удалить файл myfinance.txt
-* если нет файла для расходов, создать файл (myfinance.txt)
-* открыть файл для записи
+* открыть оригинальный файл для записи
 * записать список в файл
 * сохранить и закрыть файл 
 *
@@ -89,13 +87,11 @@ public class ExpenseMain {
 					
 					//делаем его резервную копию
 					File fb = new File(myBackup);
-					if (!fb.exists()) {
-						FileChannel fChannel = new FileInputStream(myFinanceFileName).getChannel();
-						FileChannel fbChannel = new FileOutputStream(myBackup).getChannel();
-						fChannel.transferTo(0, fChannel.size(), fbChannel);
-						fChannel.close();
-						fbChannel.close();
-					}
+					FileChannel fChannel = new FileInputStream(myFinanceFileName).getChannel();
+					FileChannel fbChannel = new FileOutputStream(myBackup).getChannel();
+					fChannel.transferTo(0, fChannel.size(), fbChannel);
+					fChannel.close();
+					fbChannel.close();
 					
 					//создаем временный список строк
 					ArrayList<String> tmpFinanceList = new ArrayList<String>();
