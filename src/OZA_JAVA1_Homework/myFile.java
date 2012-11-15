@@ -1,6 +1,7 @@
 package OZA_JAVA1_Homework;
 
 import java.io.*;
+import java.nio.channels.FileChannel;
 
 /**
  * myOperationsWithFile class methods:
@@ -9,39 +10,19 @@ import java.io.*;
  * WriteToFile(String newLineToRecord).
  */
 
-class myFile {
+public class myFile {
 	
-	private String myFinanceFileName = "myfinance.txt";
-	private String myBackup = "myfinance.bak";
-	
-	
-	//конструктор класса создает новый файл и его бекап
-	myFile() {
-		File f = new File(myFinanceFileName);
-		File fb = new File(myBackup);
+	myFile(String fileName){
+		File f = new File(fileName);
 	}
 
+public void doBackup(String fileName, String myBackup) throws IOException {
 	
-	public static void CreateNewFile(String NameForNewFile) throws IOException {
-		
-		
-	  }
-
+	FileChannel fChannel = new FileInputStream(fileName).getChannel();
+	FileChannel fbChannel = new FileOutputStream(myBackup).getChannel();
+	fChannel.transferTo(0, fChannel.size(), fbChannel);
+	fChannel.close();
+	fbChannel.close();
+}
 	
-	public static String ReadFromFile(String NameForFile) throws IOException {
-		
-		String readLine = "";
-		
-		return readLine;
-	}
-	
-	
-	
-	
-	public static void WriteToFile(String newLineToRecord, String NameForFile) throws IOException {
-		
-	
-
-	}
-
 }

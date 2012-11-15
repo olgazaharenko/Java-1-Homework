@@ -1,7 +1,6 @@
 package OZA_JAVA1_Homework;
 
 import java.io.*;
-import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 
 /**вывести меню пользователя
@@ -48,12 +47,10 @@ import java.util.ArrayList;
 public class ExpenseMain {
 
 	public static void main(String[] args) throws IOException {
-		//TODO: вынести все операции с файлами в отдельный класс
-		//наследующий от File
 		
-		String myFinanceFileName = "myfinance.txt"; //скопировано в myOperationsWithFile
-		String myBackup = "myfinance.bak"; //скопировано в myOperationsWithFile
-
+		String myFinanceFileName = "myfinance.txt"; 
+		String myBackup = "myfinance.bak"; 
+		
 		//создаем файловую переменную
 		File f = new File(myFinanceFileName);
 		
@@ -65,6 +62,7 @@ public class ExpenseMain {
 		
 		msgUserMenu = msgUserMenu + msg0 + msg1 + msg2; 
 		
+		//ожидаем ввод пользователя
 		Integer i = 0; 
 		String userInput = ReadUserInputHelper.getUserInput(msgUserMenu);
 		i = Integer.parseInt(userInput);
@@ -78,73 +76,47 @@ public class ExpenseMain {
 				
 				if (!f.exists()) {
 				
-				//создаем переменную для операций с регистром расходов 
-				ExpenseRegister myFinance = new ExpenseRegister();
-								
-				myFinance.addExpenseToRegister();
-				
-				//составляем строку из значений переменных объекта Expense и пишем ее в файл 
-				BufferedWriter myFileWriter = new BufferedWriter(new FileWriter(myFinanceFileName));
-				myFileWriter.write(myFinance.getExpenseAsString());
-				myFileWriter.close();
-				
+					ExpenseRegister myFinance = new ExpenseRegister();
+
+					myFinance.addExpenseToRegister();
+					String tmpStr = myFinance.getExpenseAsString();
+					myFinance.writeStringToFile(tmpStr, myFinanceFileName);
 				}
 				
 				else { //если файл существует
 					
-					FileChannel fChannel = new FileInputStream(myFinanceFileName).getChannel();
-					FileChannel fbChannel = new FileOutputStream(myBackup).getChannel();
-					fChannel.transferTo(0, fChannel.size(), fbChannel);
-					fChannel.close();
-					fbChannel.close();
+					//делаем бекап
+					myFile fb = new myFile(myFinanceFileName);
+					fb.doBackup(myFinanceFileName, myBackup);
 					
-					//создаем временный список строк
-					ArrayList<String> tmpFinanceList = new ArrayList<String>();
-					
-					//Построчно читаем файл 
-					//Записываем строки во временный список строк
-					   OutputStreamWriter OSW = new OutputStreamWriter(System.out, "UTF-8");
-					   PrintWriter         PW = new PrintWriter(OSW, true);
-				       FileReader myFileReader = new FileReader(myFinanceFileName);
-				       BufferedReader myBufferedReader = new BufferedReader(myFileReader);
-				       String stroka="\n";
-				       int j = 0;
-				       do
-				        {
-				        stroka=myBufferedReader.readLine();
-				        	if(stroka!=null) {
-				        	tmpFinanceList.add(j, stroka);
-				        	PW.println(j + ". В файле: " + stroka + ". В памяти: " + tmpFinanceList.get(j));
-					        j++;
-				        	}
-				        }
-				       	while(stroka!=null);
-				       myBufferedReader.close();
-					
-				    //создаем переменную для операций с регистром расходов 
+					//создаем переменную для операций с регистром расходов 
 					ExpenseRegister myFinance = new ExpenseRegister();
-						
-					//вводим новую и единственную запись о расходах в память
+					
+					//создаем временную переменную для хранения строк из файла
+					ArrayList<String> tmpFinanceList = new ArrayList<String>();
+
+					//считываем существующие строки и запоминаем номер последней строки
+					tmpFinanceList = myFinance.readStringFromFile(myFinanceFileName);
+					
+					//добавляем еще одну запись о расходах в память
 					myFinance.addExpenseToRegister();
 					
 					//добавили новую запись последней во временный список строк
-					tmpFinanceList.add(j, myFinance.getExpenseAsString());
+					tmpFinanceList.add(myFinance.getExpenseAsString());
 					
-					//переписываем список строк в файл
+					//переписываем весь список строк в файл
 					FileWriter myFileWriter = new FileWriter(myFinanceFileName);
 					BufferedWriter myBufferedWriter = new BufferedWriter(myFileWriter);
-					
-					for (j = 0; j < tmpFinanceList.size(); j++) {
-				    	myBufferedWriter.write(tmpFinanceList.get(j));
-				    	myBufferedWriter.newLine();
-				        }
-				        myBufferedWriter.close();
+					for (int j = 0; j < tmpFinanceList.size(); j++) {
+						System.out.println(j + " element = " + tmpFinanceList.get(j));
+						myBufferedWriter.write(tmpFinanceList.get(j));
+						myBufferedWriter.newLine();
+				       }
+				      myBufferedWriter.close();
 				}
 				break;
 				}
-			
 			case 2: {
-								
 				//TODO: открыть существующий файл (myfinance.txt) для расходов
 				//TODO: считать все записи из файла как строки в структуру данных 
 				//TODO: ExpenseRegister, 
@@ -160,6 +132,5 @@ public class ExpenseMain {
 				break;
 				}
 			}
-		//}
 	}
 }
