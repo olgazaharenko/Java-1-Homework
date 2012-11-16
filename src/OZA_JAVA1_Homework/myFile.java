@@ -16,7 +16,7 @@ public class myFile {
 		File f = new File(fileName);
 	}
 
-public void doBackup(String fileName, String myBackup) throws IOException {
+public void doBackupFromTo(String fileName, String myBackup) throws IOException {
 	
 	FileChannel fChannel = new FileInputStream(fileName).getChannel();
 	FileChannel fbChannel = new FileOutputStream(myBackup).getChannel();
@@ -24,5 +24,10 @@ public void doBackup(String fileName, String myBackup) throws IOException {
 	fChannel.close();
 	fbChannel.close();
 }
-	
+
+public void printFileNotFound () {
+	System.out.println("File with expenses not found.");
+	System.out.println("Please start to add expenses first.");
+}
+
 }

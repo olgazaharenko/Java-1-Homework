@@ -9,10 +9,17 @@ import java.util.*;
 
 public class ExpenseRegister {
 	
+//TODO: конструктор класса без new Expense();
+//только для доступа к методам класса
+// ExpenseRegister () {
+//	
+//}
+	
 	Expense myExpense = new Expense();
 	private String d = ";"; //разделитель значений
 	
 	private List <Expense> list = new ArrayList <Expense>();
+	
 	
 	public void addExpenseToRegister() {
 		list.add(myExpense);
