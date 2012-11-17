@@ -49,8 +49,8 @@ public class ExpenseRegister {
 	     while(str.hasMoreTokens()){
 	    	 
 	    	 myStringAsExpense.setDate(str.nextToken());
-	    	 myStringAsExpense.setDate(str.nextToken());
-	    	 myStringAsExpense.setDate(str.nextToken());
+	    	 myStringAsExpense.setSum(str.nextToken());
+	    	 myStringAsExpense.setDescription(str.nextToken());
 	}
 		return myStringAsExpense;
 	}	
