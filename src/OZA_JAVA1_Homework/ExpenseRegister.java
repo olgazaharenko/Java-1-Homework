@@ -2,6 +2,7 @@ package OZA_JAVA1_Homework;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,12 +15,20 @@ public class ExpenseRegister {
 // ExpenseRegister () {
 //	
 //}
-	
-	Expense myExpense = new Expense();
 	private String d = ";"; //разделитель значений
-	
 	private List <Expense> list = new ArrayList <Expense>();
+	private Expense myExpense = new Expense();
+
+	ExpenseRegister() {
+		
+	}
 	
+	ExpenseRegister(File fromRead, Expense tmpEx) {
+
+		
+	}
+
+	//Expense myExpense = new Expense();
 	
 	public void addExpenseToRegister() {
 		list.add(myExpense);
@@ -81,4 +90,5 @@ public class ExpenseRegister {
 	      myBufferedReader.close();
 		return tmpFinanceList;
 	}
+
 }

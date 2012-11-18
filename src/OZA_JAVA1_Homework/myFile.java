@@ -4,17 +4,15 @@ import java.io.*;
 import java.nio.channels.FileChannel;
 
 /**
- * myOperationsWithFile class methods:
- * CreateNewFile();
- * ReadFromFile();
- * WriteToFile(String newLineToRecord).
+ * myFile class methods:
+ * doBackupFromTo(String fileName, String myBackup)
  */
 
 public class myFile {
 	
-	myFile(String fileName){
-		File f = new File(fileName);
-	}
+myFile(String fileName){
+	File f = new File(fileName);
+}
 
 public void doBackupFromTo(String fileName, String myBackup) throws IOException {
 	

@@ -16,6 +16,12 @@ public class Expense {
 		setDescription(ReadUserInputHelper.getUserInput(msgEnterDescription));
 	}
 	
+	Expense(String myDate, String mySum, String myDescription) {
+		setDate(myDate);
+		setSum(mySum);
+		setDescription(myDescription);
+	}
+	
 	public String getDate() {
 		return this.date;
 	}
