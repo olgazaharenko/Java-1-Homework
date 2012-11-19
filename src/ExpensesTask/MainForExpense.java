@@ -48,14 +48,12 @@ public class MainForExpense {
 					}
 					
 				
-				case 2: {//удаление одной записи из списка расходов (если список расходов 
-					//в памяти пуст, загрузить из файла
-					//иначе загрузить из памяти)
+				case 2: {//удаление одной записи из списка расходов 
 					
-					Integer j;
+					Integer l;
 					String userWantDelete = ReadUserInputHelper.getUserInput(recordToDelete);
-					j = Integer.parseInt(userWantDelete);
-					list.remove(j);
+					l = Integer.parseInt(userWantDelete);
+					list.remove(l);
 					break;
 						
 				}
