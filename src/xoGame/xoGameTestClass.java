@@ -115,13 +115,14 @@ public class xoGameTestClass {
 	 */
 	public static void main(String[] args) {
 		
-		xoGame xoParty = new xoGame();
-	
-		if (xoParty.GameInvitation() == true) {
+		xoSpeaker xoVoice = new xoSpeaker();
+		
+		if (xoVoice.GameInvitation() == true) {
+			xoGame xoParty = new xoGame();
 			xoParty.GameStart(xoParty.DefineGamers());	
 		}
 		else {
-			xoParty.GameOver();
+			xoVoice.GameOver();
 		}
 	}
 }

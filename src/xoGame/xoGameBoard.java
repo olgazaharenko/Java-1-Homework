@@ -1,7 +1,5 @@
 package xoGame;
 
-import java.util.Scanner;
-
 public class xoGameBoard {
  
 	/*
@@ -21,131 +19,162 @@ public class xoGameBoard {
 	//в данном случае равна 9, в общем случае равна x*x, где х длина стороны поля в клетках.
 	public int maxBoxesInTheField = 9;
 
-	public int emptyBoxesInTheField = 9;
-	public int linesX = 0;
-	public int linesO = 0;
+	public int lines = 0;
 	
 	char gameFieldBox [][] = new char [3][3];
+	char finalGameFieldBox[][] = new char [3][3];
+	char emptyBoxesInTheField[][] = new char [3][3];
+	char setEmptyFieldBoxes[][] = new char [3][3];
+	
 	char underScore = '_';
-
-	String Border = "--------------=======================--------------";
-	String lineLeft = "--------------== [";
-	String lineRight = "] ==--------------";
+	
+	String Border = "--------------=======0===1===2=======--------------";
+	String lineLeft = "-----------------=";
+	String lineLeftEnd = " [";
+	String lineRight = "=-----------------";
+	String lineRightStart = "] ";
 	String lineBetween = "] [";
+	String longEmptyLine = "                                                   ";
 
 	String xCoord = "Enter move's x coordinate: 0, 1 or 2: ";
 	String yCoord = "Enter move's y coordinate: 0, 1 or 2: ";
 	
-	public int returnMaxBoxesInTheField (){
-		return maxBoxesInTheField;
-	}
-
-	//каждый вызов метода уменьшает счетчик на 1
-	//k - число ходов
-	public int returnEmptyBoxesInTheField (int k){
-		while (k > 0) {
-		emptyBoxesInTheField = emptyBoxesInTheField - 1 * k;
-		}
-		return emptyBoxesInTheField;
-	}
-	//каждый вызов метода увеличивает счетчик на 1
-	public int returnLinesX (){
-		linesX = linesX + 1;
-		return linesX;
-	}
-	
-	//каждый вызов метода увеличивает счетчик на 1
-	public int returnLinesO (){
-		linesO = linesO + 1;
-		return linesO;
-	}
-	
-	public void GameRules() {
+	public void GameRules(String nameX, String nameO) {
+		System.out.println("==X-O-X Game between "+ nameX + " and " + nameO + "==");
 		System.out.println("=============================================");
 		System.out.println("--------- You will see 3x3 field: -----------");
-		System.out.println("--------------=================--------------");
-		System.out.println("--------------== [ ] [ ] [ ] ==--------------");
-		System.out.println("--------------== [ ] [ ] [ ] ==--------------");
-		System.out.println("--------------== [ ] [ ] [ ] ==--------------");
-		System.out.println("--------------=================--------------");
+		System.out.println("--------------====0===1===2====--------------");
+		System.out.println("--------------0= [ ] [ ] [ ] =0--------------");
+		System.out.println("--------------1= [ ] [ ] [ ] =1--------------");
+		System.out.println("--------------2= [ ] [ ] [ ] =2--------------");
+		System.out.println("--------------====0===1===2====--------------");
 		System.out.println("---------- Fill it either X or O. -----------");
 		System.out.println("------- Winner will first one, who will -----");
 		System.out.println("--- able to align your X or O in one line. --");
 		System.out.println("=============================================");
 	}
+
+	public char[][] returnFinalGameFieldBox() {
+		return finalGameFieldBox;
+	}
+	
+	public int returnMaxBoxesInTheField (){
+		return maxBoxesInTheField;
+	}
+
+	public int returnEmptyBoxesInTheField (){
+		int numberOfEmptyBoxes = 9;
+		for (int i = 0; i <= 2; i++) {
+			for (int j = 0; j <= 2; j++) {
+				if 	(finalGameFieldBox[i][j] != underScore) {
+					numberOfEmptyBoxes = numberOfEmptyBoxes - 1;
+					}	
+				}
+			}
+		return numberOfEmptyBoxes;
+	}
+
+	public boolean returnLines (char Fishka){
+		boolean lines = false;
+		//собрана левая вертикаль
+		if 	((finalGameFieldBox[0][0] == Fishka) && (finalGameFieldBox[0][1] == Fishka) && (finalGameFieldBox[0][2] == Fishka)) {lines = true;}
+			
+		//собрана центральная вертикаль
+		if 	((finalGameFieldBox[1][0] == Fishka) && (finalGameFieldBox[1][1] == Fishka) && (finalGameFieldBox[1][2] == Fishka)) {lines = true;}
+				
+		//собрана правая вертикаль
+		if 	((finalGameFieldBox[2][0] == Fishka) && (finalGameFieldBox[2][1] == Fishka) && (finalGameFieldBox[2][2] == Fishka)) {lines = true;}
+			
+		//собрана верхняя горизонталь
+		if 	((finalGameFieldBox[0][0] == Fishka) && (finalGameFieldBox[1][0] == Fishka) && (finalGameFieldBox[2][0] == Fishka)) {lines = true;}
+			
+		//собрана центральная горизонталь
+		if 	((finalGameFieldBox[0][1] == Fishka) && (finalGameFieldBox[1][1] == Fishka) && (finalGameFieldBox[2][1] == Fishka)) {lines = true;}
+			
+		//собрана нижняя горизонталь
+		if 	((finalGameFieldBox[0][2] == Fishka) && (finalGameFieldBox[1][2] == Fishka) && (finalGameFieldBox[2][2] == Fishka)) {lines = true;}
+
+		//собрана центральная левая диагональ
+		if 	((finalGameFieldBox[0][0] == Fishka) && (finalGameFieldBox[1][1] == Fishka) && (finalGameFieldBox[2][2] == Fishka)) {lines = true;}
+			
+		//собрана центральная правая диагональ
+		if 	((finalGameFieldBox[2][0] == Fishka) && (finalGameFieldBox[1][1] == Fishka) && (finalGameFieldBox[0][2] == Fishka)) {lines = true;}
+
+		return lines;
+	}
 	
 	//перегруженный метод отрисовки поля без координат ходов
 	public void drawField() {
-
-		char finalGameFieldBox[][] = new char [3][3];
-		
 		for (int i = 0; i <= 2; i++) {
-			for (int j = 0; i <= 2; j++) {
+			for (int j = 0; j <= 2; j++) {
 				finalGameFieldBox[i][j] = underScore;
 				}
 			}
-		
+		System.out.println(longEmptyLine);
 		System.out.println(Border);
-		System.out.println(lineLeft + finalGameFieldBox [0][0] + lineBetween + finalGameFieldBox [1][0] + lineBetween + finalGameFieldBox [2][0] + lineRight);
-		System.out.println(lineLeft + finalGameFieldBox [0][1] + lineBetween + finalGameFieldBox [1][1] + lineBetween + finalGameFieldBox [2][1] + lineRight);
-		System.out.println(lineLeft + finalGameFieldBox [0][2] + lineBetween + finalGameFieldBox [1][2] + lineBetween + finalGameFieldBox [2][2] + lineRight);
+		System.out.println(lineLeft + "0" + lineLeftEnd + finalGameFieldBox [0][0] + lineBetween + finalGameFieldBox [1][0] + lineBetween + finalGameFieldBox [2][0] + lineRightStart + "0" + lineRight);
+		System.out.println(lineLeft + "1" + lineLeftEnd + finalGameFieldBox [0][1] + lineBetween + finalGameFieldBox [1][1] + lineBetween + finalGameFieldBox [2][1] + lineRightStart + "1" + lineRight);
+		System.out.println(lineLeft + "2" + lineLeftEnd + finalGameFieldBox [0][2] + lineBetween + finalGameFieldBox [1][2] + lineBetween + finalGameFieldBox [2][2] + lineRightStart + "2" + lineRight);
 		System.out.println(Border);
-		
+		System.out.println(longEmptyLine);
 	}
 	
 	//перегруженный метод отрисовки поля с координатами ходов
-	public void drawField(int x, int y, char F) {
-
-		char finalGameFieldBox[][] = new char [3][3];
+	/**
+	 * @param humanXY
+	 * @param aiXY
+	 * @param fHuman
+	 * @param fAI
+	 */
+	public void drawField(int humanXY[], int aiXY[], char fHuman, char fAI) {
 		
 		for (int i = 0; i <= 2; i++) {
-			for (int j = 0; i <= 2; j++) {
-				gameFieldBox[i][j] = underScore;
+			for (int j = 0; j <= 2; j++) {
+				//отрисовываем пустые клетки подчеркиванием
+				if ((gameFieldBox[i][j] != fHuman) && (gameFieldBox[i][j] != fAI)) {
+					gameFieldBox[i][j] = underScore;
+				} 
+				
+				//отрисовываем ход человека
+				//если дошли до элемента массива с заданными координатами
+				if ((i == humanXY[0]) && (j == humanXY[1])) {
+					//вписываем символ в этот элемент
+					gameFieldBox[i][j] = fHuman;
+					//запоминаем его же в массив для печати
+					finalGameFieldBox[i][j] = gameFieldBox[i][j];
 				}
-			}
-		
-		gameFieldBox[x][y] = F;
-		finalGameFieldBox[x][y] = gameFieldBox[x][y];
-		
-		System.out.println(Border);
-		System.out.println(lineLeft + finalGameFieldBox [0][0] + lineBetween + finalGameFieldBox [1][0] + lineBetween + finalGameFieldBox [2][0] + lineRight);
-		System.out.println(lineLeft + finalGameFieldBox [0][1] + lineBetween + finalGameFieldBox [1][1] + lineBetween + finalGameFieldBox [2][1] + lineRight);
-		System.out.println(lineLeft + finalGameFieldBox [0][2] + lineBetween + finalGameFieldBox [1][2] + lineBetween + finalGameFieldBox [2][2] + lineRight);
-		System.out.println(Border);
-		
+					
+				//отрисовываем ход компьютера
+				//если дошли до элемента массива с заданными координатами
+				if ((i == aiXY[0]) && (j == aiXY[1])) {
+					//вписываем символ в клетку с указанными координатами
+					gameFieldBox[i][j] = fAI;
+					//запоминаем его же в массив для печати
+					finalGameFieldBox[i][j] = gameFieldBox[i][j];
+				}
+			}		
+		}
+			System.out.println(longEmptyLine);
+			System.out.println(Border);
+			System.out.println(lineLeft + "0" + lineLeftEnd + finalGameFieldBox [0][0] + lineBetween + finalGameFieldBox [1][0] + lineBetween + finalGameFieldBox [2][0] + lineRightStart + "0" + lineRight);
+			System.out.println(lineLeft + "1" + lineLeftEnd + finalGameFieldBox [0][1] + lineBetween + finalGameFieldBox [1][1] + lineBetween + finalGameFieldBox [2][1] + lineRightStart + "1" + lineRight);
+			System.out.println(lineLeft + "2" + lineLeftEnd + finalGameFieldBox [0][2] + lineBetween + finalGameFieldBox [1][2] + lineBetween + finalGameFieldBox [2][2] + lineRightStart + "2" + lineRight);
+			System.out.println(Border);
+			System.out.println(longEmptyLine);
 	}
 	
 	//метод считывания введенных координат по оси X
 	public int readXMove () {
-		int x;
-    	System.out.println (xCoord);
-	    Scanner xReader = new Scanner(System.in);
-	    x = xReader.nextInt();
+		Integer x = 0;
+    	x = Integer.parseInt(ReadUserInputHelper.getUserInput(xCoord));
 	    return x;
 	}
 
 	//метод считывания введенных координат по оси Y
 	public int readYMove () {
-		int y;
-    	System.out.println (yCoord);
-	    Scanner yReader = new Scanner(System.in);
-	    y = yReader.nextInt();
+		Integer y = 0;
+    	y = Integer.parseInt(ReadUserInputHelper.getUserInput(yCoord));
 	    return y;
-	}
-	
-	//метод определения координат элементов множества пустых клеток поля
-	public int [][] EmptyFieldBoxes() {
-		
-		int[][] setEmptyFieldBoxes = new int [3][3];
-		
-		for (int i = 0; i <= 2; i++) {
-			for (int j = 0; i <= 2; j++) {
-				if (gameFieldBox[i][j] == underScore) {
-					setEmptyFieldBoxes [i][j] = gameFieldBox[i][j];
-				}
-				}
-			}
-		return setEmptyFieldBoxes;
 	}
 	
 }
