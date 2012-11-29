@@ -1,63 +1,54 @@
 package XOX_Game;
 
-import xoGame.xoGameBoard;
-
 public class Player {
 
-	Speaker xoVoice = new Speaker(); 
-	UserMenu xoMenu = new UserMenu();
-	
 	private String playerName = "";
 	
-	public String setPlayerName() {
+	public String setPlayerName(Speaker xoVoice) {
 		playerName = xoVoice.doName();
 		return playerName;
 	}
 	
-	public int[] doMove() {
-		
-		int XY[] = new int[2];
-		
-		XY[0] = xoVoice.readXMove(); //x
-		XY[1] = xoVoice.readYMove(); //y
-		
-		return XY;
+	public void setPlayerName(String newPlayerName) {
+		playerName = newPlayerName;
 	}
 	
+	public int[] doMove(Speaker xoVoice) {
+		int XY[] = new int[2];
+		XY[0] = xoVoice.readXMove(); //x
+		XY[1] = xoVoice.readYMove(); //y
+		return XY;
+	}	
 	
-	public static int[] doAIMove(xoGameBoard Board, char xF, char oF) {
-	/*
-	 * Запросить множество координат всех свободных клеток у поля
-	 * Оценить вероятность выигрыша при ходе на каждую из этих клеток
-	 * Выбрать для хода клетку с самой высокой оценкой вероятности выигрыша
-	 * Передать координаты выбранной клетки полю для отрисовки хода 
-	 */
-		int moveAI[] = new int[2];
+	public int[] doAIMove(Board board, char[] Fishki) {
+		int XY[] = new int[2];
 		char emptyGameFieldBox[][] = new char [3][3];
-		emptyGameFieldBox = Board.returnFinalGameFieldBox();
-		
-		//TODO: перебираем все пустые клетки поля
+		emptyGameFieldBox = board.returnFinalGameFieldBox();
+		//TODO: перебираем все клетки поля
 		for (int i = 0; i <= 2; i++) {
 			for (int j = 0; j <= 2; j++) {
-				//по каждой клетке проверяем,
-				//если вероятность выиграть равна 0 или 1,
-				//то делаем ход в первую попавшуюся пустую проверенную клетку
-				if ((emptyGameFieldBox[i][j] != xF) || (emptyGameFieldBox[i][j] != oF)) {
-					if (checkWinBoxToMove(Board, i, j, xF, oF) >=0 ) {
-						moveAI[0] = i;
-						moveAI[1] = j;
+				//исключая заполненные клетки
+				if ((emptyGameFieldBox[i][j] != Fishki[0]) && (emptyGameFieldBox[i][j] != Fishki[1])) {
+					
+					//по каждой клетке проверяем, если вероятность выиграть равна 0 или 1,
+					int q = checkWinBoxToMove(board, i, j, Fishki);
+					if (q >= 0) {
+						//то делаем ход в первую попавшуюся пустую клетку с достаточным уровнем вероятности выиграть
+						System.out.println("For box "+ emptyGameFieldBox[i][j] + " ["+i+"]"+"["+j+"]"+" p = "+q);
+						XY[0] = i;
+						XY[1] = j;
+						break;
 					}
 				}
 			}
 		}
-			
-		return moveAI;
+		return XY;
 	}
 	
-	public static int checkWinBoxToMove(xoGameBoard Board, int xAI, int yAI, char xFishka, char oFishka) {
+	public static int checkWinBoxToMove(Board board, int xAI, int yAI, char[] Fishki) {
 	/* Реализация критерия выбора хода компьютером
 	 *
-	 * определим функцию p выиграть, сделав ход в клетку с координатами (i,j)
+	 * определим функцию p - шанс для компьютера выиграть, сделав ход в клетку с координатами (i,j)
 	 * как (1, 0, -1)
 	 * p = 1, если на одной линии с клеткой (i,j) есть клетки, где уже поставлена своя фигура
 	 * p = 0, если все клетки на одной линии с клеткой (i,j) пусты
@@ -71,10 +62,13 @@ public class Player {
 	 * и присваивать клетке значение функции p по результату проверки
 	 * 
 	 */
-
+		
+		char xFishka = Fishki[0];
+		char oFishka = Fishki[1];
+		
 		//Получить состояние поля на момент оценки
 		char t[][] = new char [3][3];
-		t = Board.returnFinalGameFieldBox();
+		t = board.returnFinalGameFieldBox();
 		
 		//изначально считаем, что линии пусты и готовимся к ходу
 		int p = 0;

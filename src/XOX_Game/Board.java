@@ -95,27 +95,31 @@ public class Board {
 	}
 		
 	//перегруженный метод отрисовки поля с координатами ходов
-	public void drawField(int XY[], char fishki[]) {
+	public void drawField(int XY[], char fishki[], int n) {
 		char fPl1 = fishki[0];
 		char fPl2 = fishki[1];
 		
-		System.out.println("fPl1 = " + fPl1);
-		System.out.println("fPl2 = " + fPl2);
+		System.out.println("fPl1 = " + fishki[0]);
+		System.out.println("fPl2 = " + fishki[1]);
+		
+		System.out.println("XY[0] = " + XY[0]);
+		System.out.println("XY[1] = " + XY[1]);
 		
 		for (int i = 0; i <= 2; i++) {
 			for (int j = 0; j <= 2; j++) {
-				
+	
 				//если дошли до элемента массива с заданными координатами
 				//и он свободен,
-				
 				if ((i == XY[0]) && (j == XY[1]) && (gameFieldBox[i][j] != underScore) && (gameFieldBox[i][j] != fPl2) && (gameFieldBox[i][j] != fPl1)) {
 					//вписываем символ в этот элемент
-					gameFieldBox[i][j] = fPl1;
+					gameFieldBox[i][j] = fishki[n];
 					//запоминаем его же в массив для печати
 					finalGameFieldBox[i][j] = gameFieldBox[i][j];
 				}
-				
-				//отрисовываем пустые, не совпавшие с ходом клетки подчеркиванием
+			}
+
+			//отрисовываем пустые, не совпавшие с ходом клетки подчеркиванием
+			for (int j = 0; j <= 2; j++) {
 				if ((finalGameFieldBox[i][j] != fPl1) && (finalGameFieldBox[i][j] != fPl2)) {
 					finalGameFieldBox[i][j] = underScore;
 				} 
