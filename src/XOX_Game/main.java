@@ -10,7 +10,7 @@ public class main {
 		if (xoVoice.GameInvitation() == true) {
 			Game xoParty = new Game();
 			xoParty.GameStart(xoMenu, xoVoice);
-		}
+		} 
 		else {
 			xoVoice.GameOver();
 		}

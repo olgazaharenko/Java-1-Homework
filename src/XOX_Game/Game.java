@@ -27,8 +27,7 @@ public class Game {
 		this.GamePlay(Gamer1, Gamer2, aiPlayersAmount, xoMenu, xoVoice);
 	}
 
-	public void GamePlay(Player Gamer1, Player Gamer2, int aiPlayersAmount,
-			UserMenu xoMenu, Speaker xoVoice) {
+	public void GamePlay(Player Gamer1, Player Gamer2, int aiPlayersAmount,	UserMenu xoMenu, Speaker xoVoice) {
 
 		List<Player> listOfPlayers = new ArrayList<Player>();
 
@@ -74,12 +73,29 @@ public class Game {
 
 		while ((zeroBoxes > 0)) {
 			while (!Win) {
-				for (int p = 0; p <= 1; p++) {
-					switch (aiPlayersAmount) {
+				switch (aiPlayersAmount) {
 					case 0:
+						for (int p = 0; p <= 1; p++) {
 						xoVoice.namePlayerWhoMove(listOfPlayersName.get(p) + " " + Fishki[p]);
 						XY = listOfPlayers.get(p).doMove(xoVoice);
 						xoBoard.drawField(XY, Fishki, p);
+						
+						Win = xoBoard.returnLines(Fishki[p]);
+						if (Win) {
+							xoVoice.GameWinner(1, listOfPlayersName.get(p));
+							break;
+						}
+						else if ((zeroBoxes == 0) && !Win) {
+							xoVoice.GameWinner(0, "");
+							break;
+						}
+						else {
+							// TODO: вылечить ошибку не выхода из while когда уже 0 клеток осталось
+							zeroBoxes = xoBoard.returnEmptyBoxesInTheField(); 
+							System.out.println("Осталось свободных клеток: " + zeroBoxes);
+						
+							}
+						}
 						break;
 					case 1:
 						xoVoice.namePlayerWhoMove(listOfPlayersName.get(0) + " " + Fishki[0]);
@@ -91,29 +107,31 @@ public class Game {
 						xoBoard.drawField(XY, Fishki, 1);
 						break;
 					case 2:
+						for (int p = 0; p <= 1; p++) {
 						xoVoice.namePlayerWhoMove(listOfPlayersName.get(p) + " " + Fishki[p]);
 						XY = listOfPlayers.get(p).doAIMove(xoBoard, Fishki);
 						xoBoard.drawField(XY, Fishki, p);
+						
+						Win = xoBoard.returnLines(Fishki[p]);
+						if (Win) {
+							xoVoice.GameWinner(1, listOfPlayersName.get(p));
+							break;
+						} 
+						else if ((zeroBoxes == 0) && !Win) {
+							xoVoice.GameWinner(0, "");
+							break;
+						}
+						else {
+							// TODO: вылечить ошибку не выхода из while когда уже 0 клеток осталось
+							zeroBoxes = xoBoard.returnEmptyBoxesInTheField(); 
+							System.out.println("Осталось свободных клеток: " + zeroBoxes);
+						}
+						}
 						break;
 					}
 
-					Win = xoBoard.returnLines(Fishki[p]);
-					if (Win) {
-						xoVoice.GameWinner(1, listOfPlayersName.get(p));
-						break;
-					}
-					else if ((zeroBoxes == 0) && !Win) {
-						xoVoice.GameWinner(0, "");
-						break;
-					}
-					else {
-						// TODO: вылечить ошибку не выхода из while когда уже 0 клеток осталось
-						zeroBoxes = xoBoard.returnEmptyBoxesInTheField(); 
-						System.out.println("Осталось свободных клеток: " + zeroBoxes);
-					}
-					break;
+					
 				}
 			}
 		}
 	}
-}

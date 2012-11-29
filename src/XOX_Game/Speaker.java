@@ -16,7 +16,7 @@ public class Speaker {
 	private String gamersPairs = "You with your friend (press 1), you with me (press 2) or me with my AI (press 3)...";
 
 	private String movePlayer = "Move of ";
-
+ 
 	public int DefineGamers() {
 		Integer who = 0;
 		who = Integer.parseInt(ReadUserInputHelper.getUserInput(gamersPairs));

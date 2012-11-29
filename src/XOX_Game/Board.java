@@ -8,7 +8,7 @@ public class Board {
 	public void GameRules(String nameX, String nameO) {
 		xoMenu.GameRules(nameX, nameO);
 	}
-	
+	 
 	private int maxBoxesInTheField = 9;
 
 	public int lines = 0;
