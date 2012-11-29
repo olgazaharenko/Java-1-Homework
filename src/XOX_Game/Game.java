@@ -8,24 +8,21 @@ public class Game {
 	Speaker xoVoice = new Speaker();
 	UserMenu xoMenu = new UserMenu();
 
-	boolean Win1 = false;
-	boolean Win2 = false;
+	boolean Win = false;
 	
 	int XY[] = new int[3];
 	
-	int g = xoVoice.DefineGamers();
+	int gameOption = xoVoice.DefineGamers();
 	
 	char Fishki[] = xoVoice.doFigure();
 	
-	Board xoBoard = new Board();
 	int zeroBoxes = 9; 
-	{
-	xoBoard.drawField(xoBoard.finalGameFieldBox);
-	}
+	
+	Board xoBoard = new Board();
 	
 	public void GameStart() {
  		
-		switch(g) {
+		switch(gameOption) {
 			//Human with Human
 			case 1: {
 				Player hPlayer1 = new Player();
@@ -35,11 +32,9 @@ public class Game {
 				String hPl2 = xoVoice.doName();
 				
 				List <Player> listOfHumanPlayers = new ArrayList <Player>();{
-					listOfHumanPlayers.add(1, hPlayer1);
-					listOfHumanPlayers.add(2, hPlayer2);
+					listOfHumanPlayers.add(0, hPlayer1);
+					listOfHumanPlayers.add(1, hPlayer2);
 				}
-				
-				xoMenu.GameRules(hPl1, hPl2);
 				
 				this.GamePlay(listOfHumanPlayers, hPl1, hPl2);
 				break; 
@@ -57,8 +52,6 @@ public class Game {
 					listOfMixPlayers.add(2, aiPlayer1);
 				}
 				
-				xoMenu.GameRules(hPl1, aiPl1);
-				
 				this.GamePlay(listOfMixPlayers, hPl1, aiPl1);				
 				break; 
 				}
@@ -74,7 +67,6 @@ public class Game {
 					listOfAIPlayers.add(1, aiPlayer1);
 					listOfAIPlayers.add(2, aiPlayer2);
 				}
-				xoMenu.GameRules(aiPl1, aiPl2);
 				
 				this.GamePlay(listOfAIPlayers, aiPl1, aiPl2);	
 				break;
@@ -83,25 +75,24 @@ public class Game {
 	}
 
 	public void GamePlay(List <Player> listOfPlayers, String Pl1, String Pl2) {
+		
+		xoMenu.GameRules(Pl1, Pl2);
+		
 		//пока есть пустые клетки на поле, либо никто не выиграл	
-		while ((zeroBoxes > 0) || !Win1 || !Win2 ){ 
+		while ((zeroBoxes > 0) || !Win ){ 
 	
-			for (int p = 1; p<3; p++) {
+			for (int p = 0; p<1; p++) {
+				//TODO: xoVoice.namePlayerWhoMove(movePlayer);
 				XY = listOfPlayers.get(p).doMove();
 				xoBoard.drawField(XY, Fishki);
-				Win1 = xoBoard.returnLines(Fishki[0]);
-				Win2 = xoBoard.returnLines(Fishki[1]);
+				Win = xoBoard.returnLines(Fishki[p]);
 				zeroBoxes = xoBoard.returnEmptyBoxesInTheField();
+				
+				if (Win) {
+					xoVoice.GameWinnerNameIs(Pl1);
+					break;
+				} 
 			}
-			if (Win1) {
-				xoVoice.GameWinnerNameIs(Pl1);
-				break;
-			} 
-			
-			if (Win2) {
-				xoVoice.GameWinnerNameIs(Pl2);
-				break;
-			} 
 		}	
 	}
 	

@@ -57,12 +57,19 @@ public class Speaker {
 		return userName;
 	}
 	
+	public void namePlayerWhoMove(String movePlayer) {
+		System.out.println(movePlayer);
+	}
+	
 	public char[] doFigure () {
 		String userFigure = ReadUserInputHelper.getUserInput(HumanXOFigureChoice);
 		char Fishki[] = new char[2];
-		Fishki = userFigure.toCharArray();
-		System.out.println(Fishki[0]);
-		System.out.println(Fishki[1]);
+		userFigure = userFigure + '_';
+		
+		for (int k=0; k>=1; k++); {
+			Fishki = userFigure.toCharArray();
+		}
+		
 		{
 			if (Fishki[0] == 'X') {
 				Fishki[1] = 'O';
@@ -71,6 +78,8 @@ public class Speaker {
 				Fishki[0] = 'O';
 				Fishki[1] = 'X';
 			}
+			System.out.println(Fishki[0]);
+			System.out.println(Fishki[1]);
 		return Fishki;
 		}
 	}

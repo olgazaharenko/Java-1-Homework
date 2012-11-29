@@ -1,17 +1,7 @@
 package XOX_Game;
 
 public class Board {
- 
-	/*
-	 * Объект Поле
-	 * - считывает ходы Игрока (неважно какого) - ReadXMove(), ReadYMove()
-	 * - возвращает массив координат элементов множества пустых Клеток - EmptyFieldBoxes() 
-	 * - хранит и возвращает информацию о максимальном количестве Клеток в поле - maxBoxInTheField
-	 * - хранит и возвращает доступное количество пустых Клеток после каждого хода - returnEmptyBoxInTheField()
-	 * - хранит и возвращает информацию о количестве заполненных Х линиях поля - returnLinesX()
-	 * - хранит и возвращает информацию о количестве заполненных О линиях поля - returnLinesO()
-	 */
-	
+
 	Speaker xoVoice = new Speaker();
 	UserMenu xoMenu = new UserMenu();
 	
@@ -104,29 +94,31 @@ public class Board {
 		xoMenu.drawField(Box);
 	}
 		
-		
 	//перегруженный метод отрисовки поля с координатами ходов
 	public void drawField(int XY[], char fishki[]) {
-		char fHuman = fishki[0];
-		char fAI = fishki[1];
-
+		char fPl1 = fishki[0];
+		char fPl2 = fishki[1];
+		
+		System.out.println("fPl1 = " + fPl1);
+		System.out.println("fPl2 = " + fPl2);
+		
 		for (int i = 0; i <= 2; i++) {
 			for (int j = 0; j <= 2; j++) {
-				
-				//отрисовываем пустые, не совпавшие с ходом клетки подчеркиванием
-				if ((gameFieldBox[i][j] != fHuman) && (gameFieldBox[i][j] != fAI)) {
-					gameFieldBox[i][j] = underScore;
-				} 
 				
 				//если дошли до элемента массива с заданными координатами
 				//и он свободен,
 				
-				if ((i == XY[0]) && (j == XY[1]) && (gameFieldBox[i][j] != underScore) && (gameFieldBox[i][j] != fAI) && (gameFieldBox[i][j] != fHuman)) {
+				if ((i == XY[0]) && (j == XY[1]) && (gameFieldBox[i][j] != underScore) && (gameFieldBox[i][j] != fPl2) && (gameFieldBox[i][j] != fPl1)) {
 					//вписываем символ в этот элемент
-					gameFieldBox[i][j] = fHuman;
+					gameFieldBox[i][j] = fPl1;
 					//запоминаем его же в массив для печати
 					finalGameFieldBox[i][j] = gameFieldBox[i][j];
 				}
+				
+				//отрисовываем пустые, не совпавшие с ходом клетки подчеркиванием
+				if ((finalGameFieldBox[i][j] != fPl1) && (finalGameFieldBox[i][j] != fPl2)) {
+					finalGameFieldBox[i][j] = underScore;
+				} 
 			}		
 		}
 		xoMenu.drawField(finalGameFieldBox);

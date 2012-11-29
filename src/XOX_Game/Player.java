@@ -9,8 +9,9 @@ public class Player {
 	
 	private String playerName = "";
 	
-	public void setPlayerName() {
-		
+	public String setPlayerName() {
+		playerName = xoVoice.doName();
+		return playerName;
 	}
 	
 	public int[] doMove() {
