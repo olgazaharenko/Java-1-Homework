@@ -53,6 +53,8 @@ public class MainForExpense {
 					Integer l;
 					String userWantDelete = ReadUserInputHelper.getUserInput(recordToDelete);
 					l = Integer.parseInt(userWantDelete);
+					System.out.println(l);
+					
 					list.remove(l);
 					break;
 						

@@ -22,30 +22,19 @@ public class ExpenseRegister {
 	//	
 	//}
 	
+	//ExpenseRegister (String fileName) {
+	//	String dateOfToday = "";
+	//	String sumOfToday = "";
+	//	String descOfToday = "";
+	//	Expense myExpense = new Expense(dateOfToday, sumOfToday, descOfToday);
+	//}
+	
 	public void addExpenseToRegister() {
 		list.add(myExpense);
 	}
 	
 	public void addExpenseToRegister(int l) {
 		list.add(l, myExpense);
-	}
-
-	public void addExpenseToRegister_test () throws IOException {
-		
-		//создаем файловую переменную
-		File f = new File(myFinanceFileName);
-				
-		//создаем переменную для операций с регистром расходов 
-		ExpenseRegister myFinance = new ExpenseRegister();
-		
-		//если файл не существует (первый ввод расхода)
-		if (!f.exists()) {
-
-			myFinance.addExpenseToRegister();
-			
-			String tmpStr = myFinance.getExpenseAsString();
-			myFinance.writeStringToFile(tmpStr, myFinanceFileName);
-		}
 	}
 	
 	public void removeExpenseFromRegister(Expense q) {

@@ -74,6 +74,21 @@ public class xoGameBoard {
 		return numberOfEmptyBoxes;
 	}
 
+	//метод определения координат элементов множества пустых клеток поля
+		public char [][] returnEmptyFieldBoxes() {
+
+			char[][] setEmptyFieldBoxes = new char [3][3];
+
+			for (int i = 0; i <= 2; i++) {
+				for (int j = 0; i <= 2; j++) {
+					if (gameFieldBox[i][j] == underScore) {
+						setEmptyFieldBoxes [i][j] = gameFieldBox[i][j];
+					}
+					}
+				}
+			return setEmptyFieldBoxes;
+		}
+	
 	public boolean returnLines (char Fishka){
 		boolean lines = false;
 		//собрана левая вертикаль
@@ -130,14 +145,15 @@ public class xoGameBoard {
 		
 		for (int i = 0; i <= 2; i++) {
 			for (int j = 0; j <= 2; j++) {
-				//отрисовываем пустые клетки подчеркиванием
+				//отрисовываем пустые, не совпавшие с ходом клетки подчеркиванием
 				if ((gameFieldBox[i][j] != fHuman) && (gameFieldBox[i][j] != fAI)) {
 					gameFieldBox[i][j] = underScore;
 				} 
 				
 				//отрисовываем ход человека
 				//если дошли до элемента массива с заданными координатами
-				if ((i == humanXY[0]) && (j == humanXY[1])) {
+				//и он свободен,
+				if ((i == humanXY[0]) && (j == humanXY[1]) && (gameFieldBox[i][j] != underScore) && (gameFieldBox[i][j] != fAI) && (gameFieldBox[i][j] != fHuman)) {
 					//вписываем символ в этот элемент
 					gameFieldBox[i][j] = fHuman;
 					//запоминаем его же в массив для печати
@@ -146,7 +162,8 @@ public class xoGameBoard {
 					
 				//отрисовываем ход компьютера
 				//если дошли до элемента массива с заданными координатами
-				if ((i == aiXY[0]) && (j == aiXY[1])) {
+				//и он свободен
+				if ((i == aiXY[0]) && (j == aiXY[1]) && (gameFieldBox[i][j] != fAI) && (gameFieldBox[i][j] != fHuman)) {
 					//вписываем символ в клетку с указанными координатами
 					gameFieldBox[i][j] = fAI;
 					//запоминаем его же в массив для печати

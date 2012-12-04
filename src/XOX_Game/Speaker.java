@@ -2,11 +2,11 @@ package XOX_Game;
 
 public class Speaker {
 
-	private String gameInvitation = "Lets play to 'X-O-X', wouldn't you? If agree, enter 1, if not, enter 2...";
+	private String gameInvitation = "Lets play to 'Crisscross', wouldn't you? If agree, enter 1, if not, enter 2...";
 	private String gameOverMessage = "Game Over. Restart application to play again.";
 
-	private String xoPlayerName = "What is your name? Just print it...";
-	private String HumanXOFigureChoice = "What is your figure to play with? Just print it...";
+	private String xoPlayerName = "Print your nick name: ";
+	private String HumanXOFigureChoice = "Print figure to play, X or O: ";
 
 	private String xCoord = "Enter move's x coordinate: 0, 1 or 2: ";
 	private String yCoord = "Enter move's y coordinate: 0, 1 or 2: ";
