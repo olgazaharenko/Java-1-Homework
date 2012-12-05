@@ -2,7 +2,7 @@ package CrissCrossGame;
 
 public class ComputerLogic {
 
-	public static int checkWinBoxToMove(Board board, int xAI, int yAI, char[] Fishki) {
+	public static int checkWinBoxToMove(Board board, int xAI, int yAI, String[] Fishki) {
 	/* Реализация критерия выбора хода компьютером
 	 *
 	 * определим функцию p - шанс для компьютера выиграть, сделав ход в клетку с координатами (i,j)
@@ -20,11 +20,11 @@ public class ComputerLogic {
 	 * 
 	 */
 		
-		char xFishka = Fishki[0];
-		char oFishka = Fishki[1];
+		String xFishka = Fishki[0];
+		String oFishka = Fishki[1];
 		
 		//Получить состояние поля на момент оценки
-		char t[][] = new char [3][3];
+		String t[][] = new String [3][3];
 		t = board.returnGameFieldBox();
 		
 		//изначально считаем, что линии пусты и готовимся к ходу

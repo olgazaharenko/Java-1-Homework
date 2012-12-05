@@ -13,16 +13,10 @@ public class Speaker {
 
 	private static String gameXOWinnerIs = "Tadam! The Game Winner's Name Is... ";
 	private static String gameXODraw = "Draw!";
-	private static String gamersPairs = "You with your friend (press 1), you with me (press 2) or me with my AI (press 3)...";
+	private static String gamersPairs = "You with your friend (press 0), you with me (press 1) or me with my AI (press 2)...";
 
 	private static String movePlayer = "Move of ";
  
-	public static int DefineGamers() {
-		Integer who = 0;
-		who = Integer.parseInt(ReadUserInputHelper.getUserInput(gamersPairs));
-		return who;
-	}
-
 	public static boolean GameInvitation() {
 		boolean qu;
 		Integer userAnswer = 0;
@@ -35,6 +29,12 @@ public class Speaker {
 			qu = false;
 		}
 		return qu;
+	}
+	
+	public static int DefineGamers() {
+		Integer who = 0;
+		who = Integer.parseInt(ReadUserInputHelper.getUserInput(gamersPairs));
+		return who;
 	}
 
 	public static int readXMove() {
@@ -59,48 +59,37 @@ public class Speaker {
 		System.out.println(movePlayer + gamerName);
 	}
 
-	public static char[] doFigure(int aiPlayersAmount) {
+	public static String[] doFigure(int aiPlayersAmount) {
 
-		char Fishki[] = new char[2];
+		String Fishki[] = new String[2];
 
 		switch (aiPlayersAmount) {
 		case 0: {
-			String userFigure = ReadUserInputHelper.getUserInput(HumanXOFigureChoice);
-			userFigure = userFigure + '_';
-			for (int k = 0; k >= 1; k++) {
-				Fishki = userFigure.toCharArray();
-			}
-
+			Fishki[0] = ReadUserInputHelper.getUserInput(HumanXOFigureChoice);
+			System.out.println("Fishki[0] = " + Fishki[0]);
 			{
-				if (Fishki[0] == 'X') {
-					Fishki[1] = 'O';
-				} else {
-					Fishki[0] = 'O';
-					Fishki[1] = 'X';
+				if (Fishki[0].equals("X")) {
+					Fishki[1] = "O";
+				} else if (Fishki[0].equals("O")) {
+					Fishki[1] = "X";
 				}
 			}
 			break;
 		}
 		case 1: {
-			String userFigure = ReadUserInputHelper.getUserInput(HumanXOFigureChoice);
-			userFigure = userFigure + '_';
-			for (int k = 0; k >= 1; k++) {
-				Fishki = userFigure.toCharArray();
-			}
-
+			Fishki[0] = ReadUserInputHelper.getUserInput(HumanXOFigureChoice);
 			{
-				if (Fishki[0] == 'X') {
-					Fishki[1] = 'O';
-				} else {
-					Fishki[0] = 'O';
-					Fishki[1] = 'X';
+				if (Fishki[0].equals("X")) {
+					Fishki[1] = "O";
+				} else if (Fishki[0].equals("O")) {
+					Fishki[1] = "X";
 				}
 			}
 			break;
 		}
 		case 2:
-			Fishki[0] = 'X';
-			Fishki[1] = 'O';
+			Fishki[0] = "O";
+			Fishki[1] = "X";
 			break;
 		}
 		return Fishki;

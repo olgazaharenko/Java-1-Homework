@@ -2,7 +2,7 @@ package CrissCrossGame;
 
 public class AIWinStrategy {
 
-	public static int checkWinBoxToMove(Board board, int xAI, int yAI, char[] Fishki) {
+	public static int checkWinBoxToMove(Board board, int xAI, int yAI, String[] fishki) {
 		/* Реализация критерия выбора хода компьютером
 		 *
 		 * определим функцию p - шанс для компьютера выиграть, сделав ход в клетку с координатами (i,j)
@@ -20,11 +20,11 @@ public class AIWinStrategy {
 		 * 
 		 */
 			
-			char xFishka = Fishki[0];
-			char oFishka = Fishki[1];
+			String xFishka = fishki[0];
+			String oFishka = fishki[1];
 			
 			//Получить состояние поля на момент оценки
-			char t[][] = new char [3][3];
+			String t[][] = new String [3][3];
 			t = board.returnGameFieldBox();
 			
 			//изначально считаем, что линии пусты и готовимся к ходу

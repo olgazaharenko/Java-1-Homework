@@ -28,12 +28,12 @@ public class UserMenu {
 		System.out.println("=============================================");
 	}
 	
-	public static void drawField(char Box[][]) {
+	public static void drawField(String[][] box) {
 		System.out.println(longEmptyLine);
 		System.out.println(Border);
-		System.out.println(lineLeft + "0" + lineLeftEnd + Box [0][0] + lineBetween + Box [1][0] + lineBetween + Box [2][0] + lineRightStart + "0" + lineRight);
-		System.out.println(lineLeft + "1" + lineLeftEnd + Box [0][1] + lineBetween + Box [1][1] + lineBetween + Box [2][1] + lineRightStart + "1" + lineRight);
-		System.out.println(lineLeft + "2" + lineLeftEnd + Box [0][2] + lineBetween + Box [1][2] + lineBetween + Box [2][2] + lineRightStart + "2" + lineRight);
+		System.out.println(lineLeft + "0" + lineLeftEnd + box [0][0] + lineBetween + box [1][0] + lineBetween + box [2][0] + lineRightStart + "0" + lineRight);
+		System.out.println(lineLeft + "1" + lineLeftEnd + box [0][1] + lineBetween + box [1][1] + lineBetween + box [2][1] + lineRightStart + "1" + lineRight);
+		System.out.println(lineLeft + "2" + lineLeftEnd + box [0][2] + lineBetween + box [1][2] + lineBetween + box [2][2] + lineRightStart + "2" + lineRight);
 		System.out.println(Border);
 		System.out.println(longEmptyLine);
 	}
@@ -43,14 +43,17 @@ public class UserMenu {
 		String gamer2Name = "Baron";
 		
 		switch (gamers) {
-		case 1: {
+		case 0: {
 			gamer1Name = Speaker.doName();
 			gamer2Name = Speaker.doName();
 			break;
 		}
-		case 2: {
+		case 1: {
 			gamer1Name = Speaker.doName();
 			gamer2Name = "Fantomaas";
+			break;
+		}
+		case 2: {
 			break;
 		}
 		default: break;

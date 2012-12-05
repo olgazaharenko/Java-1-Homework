@@ -5,21 +5,25 @@ import java.util.List;
 
 public class Game {
 
+	int zeroBoxes = 9;
+	boolean Win = false;
+	int XY[] = new int[3];
+
 	public void Play() {
 
 		int gamers = Speaker.DefineGamers();
 		Board xoBoard = new Board();
 
 		switch (gamers) {
-		case 1: {
+		case 0: {
 			this.TwoHumansPlay(gamers, xoBoard);
 			break;
 		}
-		case 2: {
+		case 1: {
 			this.HumanWithAIPlay(gamers, xoBoard);
 			break;
 		}
-		case 3: {
+		case 2: {
 			this.TwoAIPlay(gamers, xoBoard);
 			break;
 		}
@@ -36,42 +40,47 @@ public class Game {
 		String gamer2Name = listOfGamersNames.get(1);
 		UserMenu.GameRules(gamer1Name, gamer2Name);
 
-		char Fishki[] = Speaker.doFigure(gamers);
+		String Fishki[] = Speaker.doFigure(gamers);
 
 		HumanGamer gamer1 = new HumanGamer();
+		while ((zeroBoxes > 0)) {
+			while (!Win) {
 
-		int XY[] = new int[3];
+				Speaker.namePlayerWhoMove(listOfGamersNames.get(0) + " "+ Fishki[0]);
+				XY = gamer1.doMove();
+				xoBoard.drawField(XY, Fishki, 0);
 
-		boolean Win = false;
-		int zeroBoxes = 9;
+				Win = xoBoard.returnLines(Fishki[0]);
+				zeroBoxes = xoBoard.returnEmptyBoxesInTheField();
+				
+				if (Win) {
+					Speaker.GameWinner(1, listOfGamersNames.get(0));
+					break;
+				} else if (!Win && (zeroBoxes == 0)) {
+					Speaker.GameWinner(0, "");
+					break;
+				} 
+				
+				Speaker.namePlayerWhoMove(listOfGamersNames.get(1) + " "
+						+ Fishki[1]);
 
-		Speaker.namePlayerWhoMove(listOfGamersNames.get(0) + " " + Fishki[0]);
-		XY = gamer1.doMove();
-		xoBoard.drawField(XY, Fishki, 0);
+				ComputerGamer gamer2 = new ComputerGamer();
+				XY = gamer2.doMove(xoBoard, Fishki);
 
-		Win = xoBoard.returnLines(Fishki[0]);
-		if (Win) {
-			Speaker.GameWinner(1, listOfGamersNames.get(0));
-		} else if ((zeroBoxes == 0) && !Win) {
-			Speaker.GameWinner(0, "");
-		} else {
-			zeroBoxes = xoBoard.returnEmptyBoxesInTheField();
-		}
+				xoBoard.drawField(XY, Fishki, 1);
 
-		Speaker.namePlayerWhoMove(listOfGamersNames.get(1) + " " + Fishki[1]);
-
-		ComputerGamer gamer2 = new ComputerGamer();
-		XY = gamer2.doMove(xoBoard, Fishki);
-
-		xoBoard.drawField(XY, Fishki, 1);
-
-		Win = xoBoard.returnLines(Fishki[1]);
-		if (Win) {
-			Speaker.GameWinner(1, listOfGamersNames.get(1));
-		} else if ((zeroBoxes == 0) && !Win) {
-			Speaker.GameWinner(0, "");
-		} else {
-			zeroBoxes = xoBoard.returnEmptyBoxesInTheField();
+				Win = xoBoard.returnLines(Fishki[1]);
+				zeroBoxes = xoBoard.returnEmptyBoxesInTheField();
+				
+				if (Win) {
+					Speaker.GameWinner(1, listOfGamersNames.get(1));
+					break;
+				} else if ((zeroBoxes == 0) && !Win) {
+					Speaker.GameWinner(0, "");
+					break;
+				}
+				break;
+			}
 		}
 	}
 
@@ -92,36 +101,36 @@ public class Game {
 		String gamer2Name = listOfGamersNames.get(1);
 		UserMenu.GameRules(gamer1Name, gamer2Name);
 
-		char Fishki[] = Speaker.doFigure(gamers);
+		String Fishki[] = Speaker.doFigure(gamers);
+		System.out.println("Fishki[0] = " + Fishki[0]);
+		System.out.println("Fishki[1] = " + Fishki[1]);
 
-		int XY[] = new int[3];
+		while ((zeroBoxes > 0)) {
+			while (!Win) {
 
-		boolean Win = false;
-		int zeroBoxes = 9;
+				for (int p = 0; p <= 1; p++) {
+					Speaker.namePlayerWhoMove(listOfGamersNames.get(p) + " "
+							+ Fishki[p]);
+					XY = listOfGamers.get(p).doMove(xoBoard, Fishki);
+					xoBoard.drawField(XY, Fishki, p);
 
-		for (int p = 0; p <= 1; p++) {
-			Speaker.namePlayerWhoMove(listOfGamersNames.get(p) + " "
-					+ Fishki[p]);
-			XY = listOfGamers.get(p).doMove(xoBoard, Fishki);
-			xoBoard.drawField(XY, Fishki, p);
+					Win = xoBoard.returnLines(Fishki[p]);
+					zeroBoxes = xoBoard.returnEmptyBoxesInTheField();
 
-			Win = xoBoard.returnLines(Fishki[p]);
-			if (Win) {
-				Speaker.GameWinner(1, listOfGamersNames.get(p));
-				break;
-			} else if ((zeroBoxes == 0) && !Win) {
-				Speaker.GameWinner(0, "");
-				break;
-			} else {
-				zeroBoxes = xoBoard.returnEmptyBoxesInTheField();
+					if (Win) {
+						Speaker.GameWinner(1, listOfGamersNames.get(p));
+						break;
+					} else if ((zeroBoxes == 0) && !Win) {
+						Speaker.GameWinner(0, "");
+						break;
+					}
+				}
 			}
+
 		}
 	}
 
 	public void TwoHumansPlay(int gamers, Board xoBoard) {
-
-		int zeroBoxes = 9;
-		boolean Win = false;
 
 		List<String> listOfGamersNames = new ArrayList<String>();
 
@@ -131,7 +140,7 @@ public class Game {
 		String gamer2Name = listOfGamersNames.get(1);
 		UserMenu.GameRules(gamer1Name, gamer2Name);
 
-		char Fishki[] = Speaker.doFigure(gamers);
+		String Fishki[] = Speaker.doFigure(gamers);
 
 		HumanGamer gamer1 = new HumanGamer();
 		HumanGamer gamer2 = new HumanGamer();
@@ -143,8 +152,6 @@ public class Game {
 			listOfGamers.add(1, gamer2);
 		}
 
-		int XY[] = new int[3];
-		
 		while ((zeroBoxes > 0)) {
 			while (!Win) {
 				for (int p = 0; p <= 1; p++) {
@@ -152,17 +159,12 @@ public class Game {
 							+ Fishki[p]);
 					XY = listOfGamers.get(p).doMove();
 
-					//System.out.println("p = "+ p);
-					//System.out.println("XY[0] = "+ XY[0]);
-					//System.out.println("XY[1] = "+ XY[1]);
-					//System.out.println("zeroBoxes = "+ zeroBoxes);
-					//System.out.println("Win = "+ Win);
-			
 					xoBoard.drawField(XY, Fishki, p);
 
 					Win = xoBoard.returnLines(Fishki[p]);
+
 					zeroBoxes = xoBoard.returnEmptyBoxesInTheField();
-					
+
 					if (Win) {
 						Speaker.GameWinner(1, listOfGamersNames.get(p));
 						break;
@@ -170,9 +172,9 @@ public class Game {
 						Speaker.GameWinner(0, "");
 						break;
 					}
-				} //end for
+				}
 				break;
-			} //end Win while 
-		} //end zeroBoxes while
-	} //end method TwoHumansPlay()
-} //end class
+			}
+		}
+	}
+}
