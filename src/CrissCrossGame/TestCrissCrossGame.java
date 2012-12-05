@@ -72,7 +72,7 @@ public class TestCrissCrossGame {
 		testBoard[2][2] = "X";
 		
 		xoBoard.setFinalGameBox(testBoard);
-		zeroBoxes = xoBoard.returnEmptyBoxesInTheField();
+		zeroBoxes = xoBoard.getEmptyBoxesInTheField();
 		Assert.assertTrue(zeroBoxes == 0);
 	}
 	
@@ -91,7 +91,7 @@ public class TestCrissCrossGame {
 		testBoard[2][2] = "_";
 		
 		xoBoard.setFinalGameBox(testBoard);
-		zeroBoxes = xoBoard.returnEmptyBoxesInTheField();
+		zeroBoxes = xoBoard.getEmptyBoxesInTheField();
 		Assert.assertFalse(zeroBoxes == 0);		
 	}
 	
@@ -110,7 +110,7 @@ public class TestCrissCrossGame {
 		testBoard[2][2] = "_";
 		
 		xoBoard.setFinalGameBox(testBoard);
-		zeroBoxes = xoBoard.returnEmptyBoxesInTheField();
+		zeroBoxes = xoBoard.getEmptyBoxesInTheField();
 		Assert.assertTrue(zeroBoxes == 7);		
 	}
 
@@ -131,7 +131,7 @@ public class TestCrissCrossGame {
 
 		String Fishka = "X";
 		xoBoard.setFinalGameBox(testBoard);
-		lines = xoBoard.returnLines(Fishka);
+		lines = xoBoard.getWinLines(Fishka);
 
 		Assert.assertTrue(lines == true);
 	}
@@ -152,7 +152,7 @@ public class TestCrissCrossGame {
 
 		String Fishka = "O";
 		xoBoard.setFinalGameBox(testBoard);
-		lines = xoBoard.returnLines(Fishka);
+		lines = xoBoard.getWinLines(Fishka);
 
 		Assert.assertTrue(lines == true);
 
@@ -174,7 +174,7 @@ public class TestCrissCrossGame {
 
 		String Fishka = "X";
 		xoBoard.setFinalGameBox(testBoard);
-		lines = xoBoard.returnLines(Fishka);
+		lines = xoBoard.getWinLines(Fishka);
 		
 		Assert.assertTrue(lines == true);
 	}
@@ -195,7 +195,7 @@ public class TestCrissCrossGame {
 
 		String Fishka = "O";
 		xoBoard.setFinalGameBox(testBoard);
-		lines = xoBoard.returnLines(Fishka);
+		lines = xoBoard.getWinLines(Fishka);
 		
 		Assert.assertTrue(lines == true);
 		
@@ -217,7 +217,7 @@ public class TestCrissCrossGame {
 
 		String Fishka = "O";
 		xoBoard.setFinalGameBox(testBoard);
-		lines = xoBoard.returnLines(Fishka);
+		lines = xoBoard.getWinLines(Fishka);
 
 		Assert.assertTrue(lines == true);
 	}
@@ -238,7 +238,7 @@ public class TestCrissCrossGame {
 
 		String Fishka = "X";
 		xoBoard.setFinalGameBox(testBoard);
-		lines = xoBoard.returnLines(Fishka);
+		lines = xoBoard.getWinLines(Fishka);
 
 		Assert.assertTrue(lines == true);
 

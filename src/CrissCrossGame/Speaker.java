@@ -20,8 +20,7 @@ public class Speaker {
 	public static boolean GameInvitation() {
 		boolean qu;
 		Integer userAnswer = 0;
-		userAnswer = Integer.parseInt(ReadUserInputHelper
-				.getUserInput(gameInvitation));
+		userAnswer = Integer.parseInt(ReadUserInputHelper.getUserInput(gameInvitation));
 
 		if (userAnswer == 1) {
 			qu = true;

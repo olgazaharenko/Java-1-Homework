@@ -6,7 +6,7 @@ public class ComputerGamer {
 		int XY[] = new int[2];
 		String[][] emptyGameFieldBox = new String [3][3];
 		
-		emptyGameFieldBox = board.returnGameFieldBox();
+		emptyGameFieldBox = board.getGameFieldBox();
 		for (int i = 0; i <= 2; i++) {
 			for (int j = 0; j <= 2; j++) {
 				//исключая заполненные клетки

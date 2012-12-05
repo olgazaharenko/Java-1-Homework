@@ -50,8 +50,8 @@ public class Game {
 				XY = gamer1.doMove();
 				xoBoard.drawField(XY, Fishki, 0);
 
-				Win = xoBoard.returnLines(Fishki[0]);
-				zeroBoxes = xoBoard.returnEmptyBoxesInTheField();
+				Win = xoBoard.getWinLines(Fishki[0]);
+				zeroBoxes = xoBoard.getEmptyBoxesInTheField();
 				
 				if (Win) {
 					Speaker.GameWinner(1, listOfGamersNames.get(0));
@@ -69,8 +69,8 @@ public class Game {
 
 				xoBoard.drawField(XY, Fishki, 1);
 
-				Win = xoBoard.returnLines(Fishki[1]);
-				zeroBoxes = xoBoard.returnEmptyBoxesInTheField();
+				Win = xoBoard.getWinLines(Fishki[1]);
+				zeroBoxes = xoBoard.getEmptyBoxesInTheField();
 				
 				if (Win) {
 					Speaker.GameWinner(1, listOfGamersNames.get(1));
@@ -114,8 +114,8 @@ public class Game {
 					XY = listOfGamers.get(p).doMove(xoBoard, Fishki);
 					xoBoard.drawField(XY, Fishki, p);
 
-					Win = xoBoard.returnLines(Fishki[p]);
-					zeroBoxes = xoBoard.returnEmptyBoxesInTheField();
+					Win = xoBoard.getWinLines(Fishki[p]);
+					zeroBoxes = xoBoard.getEmptyBoxesInTheField();
 
 					if (Win) {
 						Speaker.GameWinner(1, listOfGamersNames.get(p));
@@ -161,9 +161,9 @@ public class Game {
 
 					xoBoard.drawField(XY, Fishki, p);
 
-					Win = xoBoard.returnLines(Fishki[p]);
+					Win = xoBoard.getWinLines(Fishki[p]);
 
-					zeroBoxes = xoBoard.returnEmptyBoxesInTheField();
+					zeroBoxes = xoBoard.getEmptyBoxesInTheField();
 
 					if (Win) {
 						Speaker.GameWinner(1, listOfGamersNames.get(p));
