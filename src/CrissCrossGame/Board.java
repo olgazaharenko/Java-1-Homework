@@ -2,18 +2,23 @@ package CrissCrossGame;
 
 public class Board {
 
-	private int maxBoxesInTheField = 9;
+	private int fieldWidth = 3;
+	private int maxBoxesInTheField = 0;
 	public int lines = 0;
 	
 	String underScore = "_";
 	
-	String gameFieldBox [][] = new String [3][3];
+	String gameFieldBox [][] = new String [fieldWidth][fieldWidth];
 	{
 		for (int i = 0; i <= 2; i++) {
 			for (int j = 0; j <= 2; j++) {
 				gameFieldBox[i][j] = underScore;
 			}
 		}
+	}
+	
+	public int getFieldWidth() {
+		return fieldWidth;
 	}
 	
 	public void GameRules(String nameX, String nameO) {

@@ -7,7 +7,7 @@ public class Game {
 
 	int zeroBoxes = 9;
 	boolean Win = false;
-	int XY[] = new int[3];
+	int XY[] = new int[2];
 
 	public void Play() {
 
@@ -43,26 +43,26 @@ public class Game {
 		String Fishki[] = Speaker.doFigure(gamers);
 
 		HumanGamer gamer1 = new HumanGamer();
+
 		while ((zeroBoxes > 0)) {
 			while (!Win) {
 
-				Speaker.namePlayerWhoMove(listOfGamersNames.get(0) + " "+ Fishki[0]);
+				Speaker.namePlayerWhoMove(listOfGamersNames.get(0) + " " + Fishki[0]);
 				XY = gamer1.doMove();
 				xoBoard.drawField(XY, Fishki, 0);
 
 				Win = xoBoard.getWinLines(Fishki[0]);
 				zeroBoxes = xoBoard.getEmptyBoxesInTheField();
-				
+
 				if (Win) {
 					Speaker.GameWinner(1, listOfGamersNames.get(0));
 					break;
 				} else if (!Win && (zeroBoxes == 0)) {
 					Speaker.GameWinner(0, "");
 					break;
-				} 
-				
-				Speaker.namePlayerWhoMove(listOfGamersNames.get(1) + " "
-						+ Fishki[1]);
+				}
+
+				Speaker.namePlayerWhoMove(listOfGamersNames.get(1) + " "+ Fishki[1]);
 
 				ComputerGamer gamer2 = new ComputerGamer();
 				XY = gamer2.doMove(xoBoard, Fishki);
@@ -71,7 +71,7 @@ public class Game {
 
 				Win = xoBoard.getWinLines(Fishki[1]);
 				zeroBoxes = xoBoard.getEmptyBoxesInTheField();
-				
+
 				if (Win) {
 					Speaker.GameWinner(1, listOfGamersNames.get(1));
 					break;
@@ -126,7 +126,6 @@ public class Game {
 					}
 				}
 			}
-
 		}
 	}
 

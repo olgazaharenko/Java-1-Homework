@@ -7,7 +7,7 @@ public class Speaker {
 
 	private static String xoPlayerName = "Print your nick name: ";
 	private static String HumanXOFigureChoice = "Print figure to play, X or O: ";
-
+	
 	private static String xCoord = "Enter move's x coordinate: 0, 1 or 2: ";
 	private static String yCoord = "Enter move's y coordinate: 0, 1 or 2: ";
 
