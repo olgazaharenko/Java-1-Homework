@@ -17,7 +17,7 @@ public class Speaker {
 
 	private static String movePlayer = "Move of ";
  
-	public static boolean GameInvitation() {
+	public static boolean gameInvitation() {
 		boolean qu;
 		Integer userAnswer = 0;
 		userAnswer = Integer.parseInt(ReadUserInputHelper.getUserInput(gameInvitation));
@@ -30,7 +30,7 @@ public class Speaker {
 		return qu;
 	}
 	
-	public static int DefineGamers() {
+	public static int defineGamers() {
 		Integer who = 0;
 		who = Integer.parseInt(ReadUserInputHelper.getUserInput(gamersPairs));
 		return who;
@@ -94,7 +94,7 @@ public class Speaker {
 		return Fishki;
 	}
 
-	public static void GameWinner(int WinnerKey, String WinnerName) {
+	public static void gameWinner(int WinnerKey, String WinnerName) {
 		switch (WinnerKey) {
 		case 0:
 			System.out.print(gameXODraw);
@@ -106,7 +106,7 @@ public class Speaker {
 		}
 	}
 
-	public static void GameOver() {
+	public static void gameOver() {
 		System.out.print(gameOverMessage);
 	}
 }

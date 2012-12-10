@@ -3,12 +3,14 @@ package CrissCrossGame;
 public class main {
 
 	public static void main(String[] args) {
-
-			if (Speaker.GameInvitation() == true) {
+			if (Speaker.gameInvitation() == true) {
+				
 				Game game = new Game();
-				game.Play();
+				game.play(Speaker.defineGamers());
 			} else {
-				Speaker.GameOver();
+				Speaker.gameOver();
 			}
 		}
 	}
+
+

@@ -5,14 +5,21 @@ import java.util.List;
 
 public class Game {
 
-	int zeroBoxes = 9;
-	boolean Win = false;
-	int XY[] = new int[2];
+	public boolean win = false;
 
-	public void Play() {
+	public Board xoBoard = new Board();
+	public int zeroBoxes = xoBoard.calcBoardArea() * xoBoard.calcBoardArea();
 
-		int gamers = Speaker.DefineGamers();
-		Board xoBoard = new Board();
+	public int xy[] = new int[2];
+
+	public List<String> listOfGamersNames = new ArrayList<String>();
+	
+	Game() {
+		listOfGamersNames = UserMenu.meetTheGamers();
+		UserMenu.GameRules(listOfGamersNames);
+	}
+
+	public void play(int gamers) {
 
 		switch (gamers) {
 		case 0: {
@@ -32,51 +39,52 @@ public class Game {
 
 	public void HumanWithAIPlay(int gamers, Board xoBoard) {
 
-		List<String> listOfGamersNames = new ArrayList<String>();
-
-		listOfGamersNames = UserMenu.meetTheGamers(gamers);
-
+		listOfGamersNames = UserMenu.meetTheGamers();
 		String gamer1Name = listOfGamersNames.get(0);
 		String gamer2Name = listOfGamersNames.get(1);
-		UserMenu.GameRules(gamer1Name, gamer2Name);
+
+		UserMenu.GameRules(listOfGamersNames);
 
 		String Fishki[] = Speaker.doFigure(gamers);
 
 		HumanGamer gamer1 = new HumanGamer();
 
 		while ((zeroBoxes > 0)) {
-			while (!Win) {
+			while (!win) {
 
-				Speaker.namePlayerWhoMove(listOfGamersNames.get(0) + " " + Fishki[0]);
-				XY = gamer1.doMove();
-				xoBoard.drawField(XY, Fishki, 0);
+				Speaker.namePlayerWhoMove(listOfGamersNames.get(0) + " "
+						+ Fishki[0]);
+				xy = gamer1.doMove();
+				xoBoard.drawField(xy, Fishki, 0);
 
-				Win = xoBoard.getWinLines(Fishki[0]);
+				
+				win = xoBoard.getWinLines(Fishki[0]);
 				zeroBoxes = xoBoard.getEmptyBoxesInTheField();
 
-				if (Win) {
-					Speaker.GameWinner(1, listOfGamersNames.get(0));
+				if (win) {
+					Speaker.gameWinner(1, listOfGamersNames.get(0));
 					break;
-				} else if (!Win && (zeroBoxes == 0)) {
-					Speaker.GameWinner(0, "");
+				} else if (!win && (zeroBoxes == 0)) {
+					Speaker.gameWinner(0, "");
 					break;
 				}
 
-				Speaker.namePlayerWhoMove(listOfGamersNames.get(1) + " "+ Fishki[1]);
+				Speaker.namePlayerWhoMove(listOfGamersNames.get(1) + " "
+						+ Fishki[1]);
 
 				ComputerGamer gamer2 = new ComputerGamer();
-				XY = gamer2.doMove(xoBoard, Fishki);
+				xy = gamer2.doMove(xoBoard, Fishki);
 
-				xoBoard.drawField(XY, Fishki, 1);
+				xoBoard.drawField(xy, Fishki, 1);
 
-				Win = xoBoard.getWinLines(Fishki[1]);
+				win = xoBoard.getWinLines(Fishki[1]);
 				zeroBoxes = xoBoard.getEmptyBoxesInTheField();
 
-				if (Win) {
-					Speaker.GameWinner(1, listOfGamersNames.get(1));
+				if (win) {
+					Speaker.gameWinner(1, listOfGamersNames.get(1));
 					break;
-				} else if ((zeroBoxes == 0) && !Win) {
-					Speaker.GameWinner(0, "");
+				} else if ((zeroBoxes == 0) && !win) {
+					Speaker.gameWinner(0, "");
 					break;
 				}
 				break;
@@ -90,38 +98,30 @@ public class Game {
 
 		List<ComputerGamer> listOfGamers = new ArrayList<ComputerGamer>();
 
-		List<String> listOfGamersNames = new ArrayList<String>();
-		listOfGamersNames = UserMenu.meetTheGamers(gamers);
-
 		{
 			listOfGamers.add(0, gamer1);
 			listOfGamers.add(1, gamer3);
 		}
-		String gamer1Name = listOfGamersNames.get(0);
-		String gamer2Name = listOfGamersNames.get(1);
-		UserMenu.GameRules(gamer1Name, gamer2Name);
-
+		
 		String Fishki[] = Speaker.doFigure(gamers);
-		System.out.println("Fishki[0] = " + Fishki[0]);
-		System.out.println("Fishki[1] = " + Fishki[1]);
 
 		while ((zeroBoxes > 0)) {
-			while (!Win) {
+			while (!win) {
 
 				for (int p = 0; p <= 1; p++) {
 					Speaker.namePlayerWhoMove(listOfGamersNames.get(p) + " "
 							+ Fishki[p]);
-					XY = listOfGamers.get(p).doMove(xoBoard, Fishki);
-					xoBoard.drawField(XY, Fishki, p);
+					xy = listOfGamers.get(p).doMove(xoBoard, Fishki);
+					xoBoard.drawField(xy, Fishki, p);
 
-					Win = xoBoard.getWinLines(Fishki[p]);
+					win = xoBoard.getWinLines(Fishki[p]);
 					zeroBoxes = xoBoard.getEmptyBoxesInTheField();
 
-					if (Win) {
-						Speaker.GameWinner(1, listOfGamersNames.get(p));
+					if (win) {
+						Speaker.gameWinner(1, listOfGamersNames.get(p));
 						break;
-					} else if ((zeroBoxes == 0) && !Win) {
-						Speaker.GameWinner(0, "");
+					} else if ((zeroBoxes == 0) && !win) {
+						Speaker.gameWinner(0, "");
 						break;
 					}
 				}
@@ -130,14 +130,6 @@ public class Game {
 	}
 
 	public void TwoHumansPlay(int gamers, Board xoBoard) {
-
-		List<String> listOfGamersNames = new ArrayList<String>();
-
-		listOfGamersNames = UserMenu.meetTheGamers(gamers);
-
-		String gamer1Name = listOfGamersNames.get(0);
-		String gamer2Name = listOfGamersNames.get(1);
-		UserMenu.GameRules(gamer1Name, gamer2Name);
 
 		String Fishki[] = Speaker.doFigure(gamers);
 
@@ -152,23 +144,23 @@ public class Game {
 		}
 
 		while ((zeroBoxes > 0)) {
-			while (!Win) {
+			while (!win) {
 				for (int p = 0; p <= 1; p++) {
 					Speaker.namePlayerWhoMove(listOfGamersNames.get(p) + " "
 							+ Fishki[p]);
-					XY = listOfGamers.get(p).doMove();
+					xy = listOfGamers.get(p).doMove();
 
-					xoBoard.drawField(XY, Fishki, p);
+					xoBoard.drawField(xy, Fishki, p);
 
-					Win = xoBoard.getWinLines(Fishki[p]);
+					win = xoBoard.getWinLines(Fishki[p]);
 
 					zeroBoxes = xoBoard.getEmptyBoxesInTheField();
 
-					if (Win) {
-						Speaker.GameWinner(1, listOfGamersNames.get(p));
+					if (win) {
+						Speaker.gameWinner(1, listOfGamersNames.get(p));
 						break;
-					} else if ((zeroBoxes == 0) && !Win) {
-						Speaker.GameWinner(0, "");
+					} else if ((zeroBoxes == 0) && !win) {
+						Speaker.gameWinner(0, "");
 						break;
 					}
 				}

@@ -1,15 +1,12 @@
 package CrissCrossGame;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Test;
 
 public class TestCrissCrossGame {
 	
 	boolean lines = false;
-	boolean Win = false;
+	boolean win = false;
 	int zeroBoxes = 9;
 	Board xoBoard = new Board();
 
@@ -32,30 +29,15 @@ public class TestCrissCrossGame {
 		expectedBoard[2][1] = "_";
 		expectedBoard[2][2] = "_";
 		
-		int XY[] = new int[2];
-		XY[0] = 0;
-		XY[1] = 1;
+		int xy[] = new int[2];
+		xy[0] = 0;
+		xy[1] = 1;
 		
 		String actualBoard[][] = new String[3][3];
-		actualBoard = xoBoard.drawField(XY, fishki, 0);
+		actualBoard = xoBoard.drawField(xy, fishki, 0);
 		
 		Assert.assertEquals(actualBoard, expectedBoard);
 	}
-	
-	@Test
-	public void testAIGamersName() {
-		
-		int gamers = 2;
-		List<String> expectedGamersNames = new ArrayList<String>();
-		expectedGamersNames.add(0, "Tomas");
-		expectedGamersNames.add(1, "Baron");
-		
-		List<String> actualGamersNames = new ArrayList<String>();
-		actualGamersNames = UserMenu.meetTheGamers(gamers);
-		
-		Assert.assertEquals(actualGamersNames, expectedGamersNames);
-	}
-	
 	
 	@Test
 	public void testCaseDraw() {
@@ -242,6 +224,35 @@ public class TestCrissCrossGame {
 
 		Assert.assertTrue(lines == true);
 
+	}
+	
+	@Test
+	public void testCheckWinLine() {
+		String testBoard1[][] = new String[3][3];
+		testBoard1[0][0] = "O";
+		testBoard1[0][1] = "X";
+		testBoard1[0][2] = "X";
+		testBoard1[1][0] = "O";
+		testBoard1[1][1] = "X";
+		testBoard1[1][2] = "O"; 
+		testBoard1[2][0] = "X";
+		testBoard1[2][1] = "X";
+		testBoard1[2][2] = "O";
+		
+		String testBoard2[][] = new String[3][3];
+		testBoard2[0][0] = "O";
+		testBoard2[0][1] = "X";
+		testBoard2[0][2] = "X";
+		testBoard2[1][0] = "O";
+		testBoard2[1][1] = "X";
+		testBoard2[1][2] = "O"; 
+		testBoard2[2][0] = "X";
+		testBoard2[2][1] = "X";
+		testBoard2[2][2] = "O";
+		
+		lines = xoBoard.checkWinLine(testBoard1, testBoard2);
+		Assert.assertTrue(lines == true);
+		
 	}
 
 }

@@ -1,14 +1,17 @@
 package CrissCrossGame;
 
+import java.util.List;
+
 public class Board {
 
-	private int fieldWidth = 3;
+	private int boardWidth = 3;
 	private int maxBoxesInTheField = 0;
 	public int lines = 0;
-	
+	boolean isEmpty = true;
+
 	String underScore = "_";
-	
-	String gameFieldBox [][] = new String [fieldWidth][fieldWidth];
+
+	String gameFieldBox[][] = new String[boardWidth][boardWidth];
 	{
 		for (int i = 0; i <= 2; i++) {
 			for (int j = 0; j <= 2; j++) {
@@ -17,83 +20,120 @@ public class Board {
 		}
 	}
 	
+	String winFieldBox[][] = new String[boardWidth][boardWidth];
+
 	public int getFieldWidth() {
-		return fieldWidth;
+		return boardWidth;
 	}
 	
-	public void GameRules(String nameX, String nameO) {
-		UserMenu.GameRules(nameX, nameO);
+	public int calcBoardArea() {
+		int boardSize = boardWidth*boardWidth;
+		return boardSize;
 	}
-	 
+
+	public void GameRules(List<String> listOfGamersNames) {
+		UserMenu.GameRules(listOfGamersNames);
+	}
+
 	public String[][] getGameFieldBox() {
 		return gameFieldBox;
 	}
-	
+
 	public String[][] setFinalGameBox(String Box[][]) {
 		gameFieldBox = Box;
 		return gameFieldBox;
 	}
-	
-	public int getMaxBoxesInTheField (){
+
+	public int getMaxBoxesInTheField() {
 		return maxBoxesInTheField;
 	}
 
-	public int getEmptyBoxesInTheField (){
+	public int getEmptyBoxesInTheField() {
 		int numberOfEmptyBoxes = 9;
 		for (int i = 0; i <= 2; i++) {
 			for (int j = 0; j <= 2; j++) {
-				if 	((gameFieldBox[i][j].equals("X")) || (gameFieldBox[i][j].equals("O"))) {
+				if ((gameFieldBox[i][j].equals("X")) || (gameFieldBox[i][j].equals("O"))) {
 					numberOfEmptyBoxes = numberOfEmptyBoxes - 1;
-					}	
 				}
 			}
+		}
 		return numberOfEmptyBoxes;
 	}
-
-	public boolean getWinLines (String Fishka){
+		
+	public boolean getWinLines(String Fishka) {
 		boolean lines = false;
-		//собрана левая вертикаль
-		if 	((gameFieldBox[0][0] == Fishka) && (gameFieldBox[0][1] == Fishka) && (gameFieldBox[0][2] == Fishka)) {lines = true;}
-			
-		//собрана центральная вертикаль
-		if 	((gameFieldBox[1][0] == Fishka) && (gameFieldBox[1][1] == Fishka) && (gameFieldBox[1][2] == Fishka)) {lines = true;}
+		
+		for (int i = 0; i <= boardWidth - 1; i++) {
+			for (int j = 0; j <= boardWidth - 1; j++) {
 				
-		//собрана правая вертикаль
-		if 	((gameFieldBox[2][0] == Fishka) && (gameFieldBox[2][1] == Fishka) && (gameFieldBox[2][2] == Fishka)) {lines = true;}
-			
-		//собрана верхняя горизонталь
-		if 	((gameFieldBox[0][0] == Fishka) && (gameFieldBox[1][0] == Fishka) && (gameFieldBox[2][0] == Fishka)) {lines = true;}
-			
-		//собрана центральная горизонталь
-		if 	((gameFieldBox[0][1] == Fishka) && (gameFieldBox[1][1] == Fishka) && (gameFieldBox[2][1] == Fishka)) {lines = true;}
-			
-		//собрана нижняя горизонталь
-		if 	((gameFieldBox[0][2] == Fishka) && (gameFieldBox[1][2] == Fishka) && (gameFieldBox[2][2] == Fishka)) {lines = true;}
-
-		//собрана центральная левая диагональ
-		if 	((gameFieldBox[0][0] == Fishka) && (gameFieldBox[1][1] == Fishka) && (gameFieldBox[2][2] == Fishka)) {lines = true;}
-			
-		//собрана центральная правая диагональ
-		if 	((gameFieldBox[2][0] == Fishka) && (gameFieldBox[1][1] == Fishka) && (gameFieldBox[0][2] == Fishka)) {lines = true;}
-
+				// если собрана вертикаль
+				winFieldBox[i][i+j] = Fishka;
+				if (this.checkWinLine(gameFieldBox, winFieldBox)) {
+					lines = true;
+				}
+				
+				//если собрана горизонталь
+				winFieldBox[i+j][j] = Fishka;
+				if (this.checkWinLine(gameFieldBox, winFieldBox)) {
+					lines = true;
+				}
+				
+				//если собрана диагональ
+				winFieldBox[i][i] = Fishka;
+				if (this.checkWinLine(gameFieldBox, winFieldBox)) {
+					lines = true;
+				}
+				}				
+			}
 		return lines;
 	}
 	
+
+	public boolean checkWinLine(String[][] gameField, 	String[][] winField) {
+		boolean lines = false;
+		String resultField[][] = new String[boardWidth][boardWidth];
+		boolean test[][] = new boolean[boardWidth][boardWidth];	
+		
+		for (int i = 0; i <= boardWidth - 1; i++) {
+			for (int j = 0; j <= boardWidth - 1; j++) {
+				if (gameField[i][j].equals(winField[i][j])) {
+					resultField[i][j] = underScore;
+					test[i][j] = true;
+				}
+				else {
+					resultField[i][j] = gameField[i][j];
+					test[i][j] = false;
+				}
+			}
+		}
+		
+		for (int i = 0; i <= boardWidth - 1; i++) {
+			for (int j = 0; j <= boardWidth - 1; j++) {
+				if (test[i][j] == true) {
+			}
+		}
+		}
+		return lines;
+	}
+
 	public String[][] drawField(int XY[], String[] fishki, int n) {
 		for (int i = 0; i <= 2; i++) {
 			for (int j = 0; j <= 2; j++) {
-				if ((i == XY[0]) && (j == XY[1]) && (gameFieldBox[i][j] != fishki[0]) && (gameFieldBox[i][j] != fishki[1])) {
+				if ((i == XY[0]) && (j == XY[1])
+						&& (gameFieldBox[i][j] != fishki[0])
+						&& (gameFieldBox[i][j] != fishki[1])) {
 					gameFieldBox[i][j] = fishki[n];
 				}
 			}
 
 			for (int j = 0; j <= 2; j++) {
-				if ((gameFieldBox[i][j] != fishki[0]) && (gameFieldBox[i][j] != fishki[1])) {
+				if ((gameFieldBox[i][j] != fishki[0])
+						&& (gameFieldBox[i][j] != fishki[1])) {
 					gameFieldBox[i][j] = underScore;
 				}
-			}		
+			}
 		}
 		UserMenu.drawField(gameFieldBox);
-		return gameFieldBox; //нужно только для работы тестов.
+		return gameFieldBox; // нужно только для работы тестов.
 	}
 }

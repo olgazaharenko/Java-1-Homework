@@ -13,8 +13,8 @@ public class UserMenu {
 	private static String lineBetween = "] [";
 	private static String longEmptyLine = "                                                   ";
 
-	public static void GameRules(String nameX, String nameO) {
-		System.out.println("==CrissCross Game between "+ nameX + " and " + nameO + "==");
+	public static void GameRules(List<String> listOfGamersNames) {
+		System.out.println("==CrissCross Game between "+ listOfGamersNames.get(0) + " and " + listOfGamersNames.get(0) + "==");
 		System.out.println("=============================================");
 		System.out.println("--------- You will see 3x3 field: -----------");
 		System.out.println("--------------====0===1===2====--------------");
@@ -38,31 +38,11 @@ public class UserMenu {
 		System.out.println(longEmptyLine);
 	}
 	
-	public static List<String> meetTheGamers(int gamers) {
-		String gamer1Name = "Tomas";
-		String gamer2Name = "Baron";
-		
-		switch (gamers) {
-		case 0: {
-			gamer1Name = Speaker.doName();
-			gamer2Name = Speaker.doName();
-			break;
-		}
-		case 1: {
-			gamer1Name = Speaker.doName();
-			gamer2Name = "Fantomaas";
-			break;
-		}
-		case 2: {
-			break;
-		}
-		default: break;
-		}
-		
+	public static List<String> meetTheGamers() {
 		List<String> listOfGamersNames = new ArrayList<String>();
 		{
-			listOfGamersNames.add(0, gamer1Name);
-			listOfGamersNames.add(1, gamer2Name);
+			listOfGamersNames.add(0, Speaker.doName());
+			listOfGamersNames.add(1, Speaker.doName());
 		}
 		return listOfGamersNames;	
 	}
