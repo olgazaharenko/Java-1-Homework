@@ -52,7 +52,7 @@ public class Board {
 		int numberOfEmptyBoxes = 9;
 		for (int i = 0; i <= 2; i++) {
 			for (int j = 0; j <= 2; j++) {
-				if ((gameFieldBox[i][j].equals("X")) || (gameFieldBox[i][j].equals("O"))) {
+				if ((gameFieldBox[i][j].equals(Token.X.toString()) || (gameFieldBox[i][j].equals(Token.O.toString())))) {
 					numberOfEmptyBoxes = numberOfEmptyBoxes - 1;
 				}
 			}
@@ -63,17 +63,18 @@ public class Board {
 	public boolean getWinLines(String Fishka) {
 		boolean lines = false;
 		
-		for (int i = 0; i <= (boardWidth - 1)/2; i++) {
-			for (int j = 0; j <= (boardWidth - 1)/2; j++) {
+		for (int i = 0; i <= boardWidth - 1; i++) {
+			int m = i;
+			for (int j = 0; j <= boardWidth -1; j++) {
 				
 				// если собрана вертикаль
-				winFieldBox[i][i+j] = Fishka;
+				winFieldBox[m][j] = Fishka;
 				if (this.checkWinLine(gameFieldBox, winFieldBox)) {
 					lines = true;
 				}
 				
 				//если собрана горизонталь
-				winFieldBox[i+j][j] = Fishka;
+				winFieldBox[i][m] = Fishka;
 				if (this.checkWinLine(gameFieldBox, winFieldBox)) {
 					lines = true;
 				}
@@ -120,7 +121,8 @@ public class Board {
 			for (int j = 0; j <= 2; j++) {
 				if ((gameFieldBox[i][j] != fishki[0])
 						&& (gameFieldBox[i][j] != fishki[1])) {
-					gameFieldBox[i][j] = underScore;
+					//gameFieldBox[i][j] = underScore;
+					gameFieldBox[i][j] = Token.Empty.toString();
 				}
 			}
 		}
