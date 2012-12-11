@@ -36,6 +36,7 @@ public class Game {
 	}
 
 	private void play(int gamers, Board xoBoard) {
+		
 		switch (gamers) {
 		case 0: {
 			HumanPlayer player1 = new HumanPlayer();
@@ -58,10 +59,11 @@ public class Game {
 			listOfPlayers.add(player2);
 			break;
 		}
+	
 		}
-		
+	
 		while (!stopGame) {
-			for (int p = 0; p <= 1; p++) {
+			for (int p = 0; p <= (gamers - 1); p++) {
 				this.makeMove(p);
 				stopGame = this.checkWin(p);
 			}
@@ -69,6 +71,7 @@ public class Game {
 	}
 
 	private boolean checkWin(int p) {
+	
 		win = xoBoard.getWinLines(Fishki[p]);
 		zeroBoxes = xoBoard.getEmptyBoxesInTheField();
 		
