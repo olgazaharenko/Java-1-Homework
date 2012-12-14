@@ -10,51 +10,56 @@ public class TestCrissCrossGame {
 	int zeroBoxes = 9;
 	Board xoBoard = new Board();
 
+	/*
 	@Test
 	@SuppressWarnings("deprecation")
 	public void testDrawField() {
 		
-		String fishki[] = new String[2];
-		fishki[0] = "X";
-		fishki[1] = "O";
-
 		String expectedBoard[][] = new String[3][3];
-		expectedBoard[0][0] = "_";
-		expectedBoard[0][1] = "X";
-		expectedBoard[0][2] = "_";
-		expectedBoard[1][0] = "_";
-		expectedBoard[1][1] = "_";
-		expectedBoard[1][2] = "_";
-		expectedBoard[2][0] = "_";
-		expectedBoard[2][1] = "_";
-		expectedBoard[2][2] = "_";
+		expectedBoard[0][0] = Token.EMPTY.setGameToken();
+		expectedBoard[0][1] = Token.FIRST.setGameToken();
+		expectedBoard[0][2] = Token.EMPTY.setGameToken();
+		expectedBoard[1][0] = Token.EMPTY.setGameToken();
+		expectedBoard[1][1] = Token.EMPTY.setGameToken();
+		expectedBoard[1][2] = Token.EMPTY.setGameToken();
+		expectedBoard[2][0] = Token.EMPTY.setGameToken();
+		expectedBoard[2][1] = Token.EMPTY.setGameToken();
+		expectedBoard[2][2] = Token.EMPTY.setGameToken();
 		
 		int xy[] = new int[2];
 		xy[0] = 0;
 		xy[1] = 1;
 		
-		String actualBoard[][] = new String[3][3];
-		actualBoard = xoBoard.drawField(xy, fishki, 0);
+		Team testTeam = new Team();
+		testTeam.gamers = 2;
+		
+		testTeam.listOfGamersNames.add("Test AIPlayer 1");
+		testTeam.listOfGamersNames.add("Test AIPlayer 2");
+		
+		testTeam.listOfPlayersFigures.add(Token.FIRST.toString());
+		testTeam.listOfPlayersFigures.add(Token.SECOND.toString());
+		
+		String[][] actualBoard = new String[3][3];
+		actualBoard = xoBoard.drawField(testTeam,0);
 		
 		Assert.assertEquals(actualBoard, expectedBoard);
-	}
+	}*/
 	
 	@Test
 	public void testCaseDraw() {
 		
-		String testBoard[][] = new String[3][3];
-		testBoard[0][0] = "X";
-		testBoard[0][1] = "O";
-		testBoard[0][2] = "X";
-		testBoard[1][0] = "X";
-		testBoard[1][1] = "O";
-		testBoard[1][2] = "O";
-		testBoard[2][0] = "O";
-		testBoard[2][1] = "X";
-		testBoard[2][2] = "X";
+		String[][] testBoard = new String[3][3];
+		testBoard[0][0] = Token.FIRST.getGameToken();
+		testBoard[0][1] = Token.SECOND.getGameToken();
+		testBoard[0][2] = Token.FIRST.getGameToken();
+		testBoard[1][0] = Token.FIRST.getGameToken();
+		testBoard[1][1] = Token.SECOND.getGameToken();
+		testBoard[1][2] = Token.SECOND.getGameToken();
+		testBoard[2][0] = Token.SECOND.getGameToken();
+		testBoard[2][1] = Token.FIRST.getGameToken();
+		testBoard[2][2] = Token.FIRST.getGameToken();
 		
-		xoBoard.setFinalGameBox(testBoard);
-		zeroBoxes = xoBoard.getEmptyBoxesInTheField();
+		zeroBoxes = xoBoard.getNumberOfEmptyBoxes();
 		Assert.assertTrue(zeroBoxes == 0);
 	}
 	
@@ -62,18 +67,17 @@ public class TestCrissCrossGame {
 	public void testCaseNoDraw() {
 		
 		String testBoard[][] = new String[3][3];
-		testBoard[0][0] = "_";
-		testBoard[0][1] = "_";
-		testBoard[0][2] = "_";
-		testBoard[1][0] = "_";
-		testBoard[1][1] = "X";
-		testBoard[1][2] = "_";
-		testBoard[2][0] = "_";
-		testBoard[2][1] = "_";
-		testBoard[2][2] = "_";
+		testBoard[0][0] = Token.EMPTY.getGameToken();;
+		testBoard[0][1] = Token.EMPTY.getGameToken();;
+		testBoard[0][2] = Token.EMPTY.getGameToken();;
+		testBoard[1][0] = Token.EMPTY.getGameToken();;
+		testBoard[1][1] = Token.FIRST.getGameToken();;
+		testBoard[1][2] = Token.EMPTY.getGameToken();;
+		testBoard[2][0] = Token.EMPTY.getGameToken();;
+		testBoard[2][1] = Token.EMPTY.getGameToken();;
+		testBoard[2][2] = Token.EMPTY.getGameToken();;
 		
-		xoBoard.setFinalGameBox(testBoard);
-		zeroBoxes = xoBoard.getEmptyBoxesInTheField();
+		zeroBoxes = xoBoard.getNumberOfEmptyBoxes();
 		Assert.assertFalse(zeroBoxes == 0);		
 	}
 	
@@ -81,60 +85,115 @@ public class TestCrissCrossGame {
 	public void testCaseNoDrawNoWin() {
 		
 		String testBoard[][] = new String[3][3];
-		testBoard[0][0] = "_";
-		testBoard[0][1] = "_";
-		testBoard[0][2] = "_";
-		testBoard[1][0] = "_";
-		testBoard[1][1] = "X";
-		testBoard[1][2] = "_";
-		testBoard[2][0] = "O";
-		testBoard[2][1] = "_";
-		testBoard[2][2] = "_";
+		testBoard[0][0] = Token.EMPTY.getGameToken();
+		testBoard[0][1] = Token.EMPTY.getGameToken();
+		testBoard[0][2] = Token.EMPTY.getGameToken();
+		testBoard[1][0] = Token.EMPTY.getGameToken();
+		testBoard[1][1] = Token.FIRST.getGameToken();
+		testBoard[1][2] = Token.EMPTY.getGameToken();
+		testBoard[2][0] = Token.SECOND.getGameToken();
+		testBoard[2][1] = Token.EMPTY.getGameToken();
+		testBoard[2][2] = Token.EMPTY.getGameToken();
 		
-		xoBoard.setFinalGameBox(testBoard);
-		zeroBoxes = xoBoard.getEmptyBoxesInTheField();
+		zeroBoxes = xoBoard.getNumberOfEmptyBoxes();
 		Assert.assertTrue(zeroBoxes == 7);		
 	}
 
 
 	@Test
-	public void testCaseXVerticalWin() {
+	public void testCaseXVerticalLeftLineWin() {
 
 		String testBoard[][] = new String[3][3];
-		testBoard[0][0] = "X";
-		testBoard[0][1] = "X";
-		testBoard[0][2] = "X";
-		testBoard[1][0] = "O";
-		testBoard[1][1] = "O";
-		testBoard[1][2] = "O"; 
-		testBoard[2][0] = "X";
-		testBoard[2][1] = "O";
-		testBoard[2][2] = "X";
+		testBoard[0][0] = Token.FIRST.getGameToken();
+		testBoard[0][1] = Token.FIRST.getGameToken();
+		testBoard[0][2] = Token.FIRST.getGameToken();
+		testBoard[1][0] = Token.SECOND.getGameToken();
+		testBoard[1][1] = Token.FIRST.getGameToken();
+		testBoard[1][2] = Token.SECOND.getGameToken();
+		testBoard[2][0] = Token.FIRST.getGameToken();
+		testBoard[2][1] = Token.SECOND.getGameToken();
+		testBoard[2][2] = Token.SECOND.getGameToken();
 
-		String Fishka = "X";
-		xoBoard.setFinalGameBox(testBoard);
-		lines = xoBoard.getWinLines(Fishka);
+		lines = xoBoard.getWinLines();
 
 		Assert.assertTrue(lines == true);
 	}
 
 	@Test
-	public void testCaseOVerticalWin() {
+	public void testCaseOVerticalLeftLineWin() {
 		
 		String testBoard[][] = new String[3][3];
-		testBoard[0][0] = "O";
-		testBoard[0][1] = "O";
-		testBoard[0][2] = "O";
-		testBoard[1][0] = "X";
-		testBoard[1][1] = "X";
-		testBoard[1][2] = "X"; 
-		testBoard[2][0] = "O";
-		testBoard[2][1] = "X";
-		testBoard[2][2] = "O";
+		testBoard[0][0] = Token.SECOND.getGameToken();
+		testBoard[0][1] = Token.SECOND.getGameToken();
+		testBoard[0][2] = Token.SECOND.getGameToken();
+		testBoard[1][0] = Token.FIRST.getGameToken();
+		testBoard[1][1] = Token.SECOND.getGameToken();
+		testBoard[1][2] = Token.FIRST.getGameToken();
+		testBoard[2][0] = Token.SECOND.getGameToken();
+		testBoard[2][1] = Token.FIRST.getGameToken();
+		testBoard[2][2] = Token.FIRST.getGameToken();
 
-		String Fishka = "O";
-		xoBoard.setFinalGameBox(testBoard);
-		lines = xoBoard.getWinLines(Fishka);
+		lines = xoBoard.getWinLines();
+
+		Assert.assertTrue(lines == true);
+
+	}
+	
+	@Test
+	public void testCaseOVerticalMediumLineWin() {
+		
+		String testBoard[][] = new String[3][3];
+		testBoard[0][0] = Token.FIRST.getGameToken();
+		testBoard[0][1] = Token.SECOND.getGameToken();
+		testBoard[0][2] = Token.FIRST.getGameToken();
+		testBoard[1][0] = Token.SECOND.getGameToken();
+		testBoard[1][1] = Token.SECOND.getGameToken();
+		testBoard[1][2] = Token.SECOND.getGameToken();
+		testBoard[2][0] = Token.SECOND.getGameToken();
+		testBoard[2][1] = Token.FIRST.getGameToken();
+		testBoard[2][2] = Token.FIRST.getGameToken();
+
+		lines = xoBoard.getWinLines();
+
+		Assert.assertTrue(lines == true);
+
+	}
+	
+	@Test
+	public void testCaseOVerticalRightLineWin() {
+		
+		String testBoard[][] = new String[3][3];
+		testBoard[0][0] = Token.FIRST.getGameToken();
+		testBoard[0][1] = Token.SECOND.getGameToken();
+		testBoard[0][2] = Token.FIRST.getGameToken();
+		testBoard[1][0] = Token.SECOND.getGameToken();
+		testBoard[1][1] = Token.FIRST.getGameToken();
+		testBoard[1][2] = Token.FIRST.getGameToken();
+		testBoard[2][0] = Token.SECOND.getGameToken();
+		testBoard[2][1] = Token.SECOND.getGameToken();
+		testBoard[2][2] = Token.SECOND.getGameToken();
+
+		lines = xoBoard.getWinLines();
+
+		Assert.assertTrue(lines == true);
+
+	}
+	
+	@Test
+	public void testCaseXVerticalRightLineWin() {
+		
+		String testBoard[][] = new String[3][3];
+		testBoard[0][0] = Token.SECOND.getGameToken();
+		testBoard[0][1] = Token.FIRST.getGameToken();
+		testBoard[0][2] = Token.SECOND.getGameToken();
+		testBoard[1][0] = Token.FIRST.getGameToken();
+		testBoard[1][1] = Token.SECOND.getGameToken();
+		testBoard[1][2] = Token.SECOND.getGameToken();
+		testBoard[2][0] = Token.FIRST.getGameToken();
+		testBoard[2][1] = Token.FIRST.getGameToken();
+		testBoard[2][2] = Token.FIRST.getGameToken();
+
+		lines = xoBoard.getWinLines();
 
 		Assert.assertTrue(lines == true);
 
@@ -144,19 +203,17 @@ public class TestCrissCrossGame {
 	public void testCaseXLeftDiagonalWin() {
 
 		String testBoard[][] = new String[3][3];
-		testBoard[0][0] = "X";
-		testBoard[0][1] = "O";
-		testBoard[0][2] = "O";
-		testBoard[1][0] = "O";
-		testBoard[1][1] = "X";
-		testBoard[1][2] = "X"; 
-		testBoard[2][0] = "X";
-		testBoard[2][1] = "O";
-		testBoard[2][2] = "X";
+		testBoard[0][0] = Token.FIRST.getGameToken();
+		testBoard[0][1] = Token.SECOND.getGameToken();
+		testBoard[0][2] = Token.SECOND.getGameToken();
+		testBoard[1][0] = Token.SECOND.getGameToken();
+		testBoard[1][1] = Token.FIRST.getGameToken();
+		testBoard[1][2] = Token.FIRST.getGameToken();
+		testBoard[2][0] = Token.FIRST.getGameToken();
+		testBoard[2][1] = Token.SECOND.getGameToken();
+		testBoard[2][2] = Token.FIRST.getGameToken();
 
-		String Fishka = "X";
-		xoBoard.setFinalGameBox(testBoard);
-		lines = xoBoard.getWinLines(Fishka);
+		lines = xoBoard.getWinLines();
 		
 		Assert.assertTrue(lines == true);
 	}
@@ -165,62 +222,113 @@ public class TestCrissCrossGame {
 	public void testCaseOLeftDiagonalWin() {
 
 		String testBoard[][] = new String[3][3];
-		testBoard[0][0] = "O";
-		testBoard[0][1] = "X";
-		testBoard[0][2] = "X";
-		testBoard[1][0] = "X";
-		testBoard[1][1] = "O";
-		testBoard[1][2] = "O"; 
-		testBoard[2][0] = "O";
-		testBoard[2][1] = "X";
-		testBoard[2][2] = "O";
+		testBoard[0][0] = Token.SECOND.getGameToken();
+		testBoard[0][1] = Token.FIRST.getGameToken();
+		testBoard[0][2] = Token.FIRST.getGameToken();
+		testBoard[1][0] = Token.FIRST.getGameToken();
+		testBoard[1][1] = Token.SECOND.getGameToken();
+		testBoard[1][2] = Token.SECOND.getGameToken();
+		testBoard[2][0] = Token.SECOND.getGameToken();
+		testBoard[2][1] = Token.FIRST.getGameToken();
+		testBoard[2][2] = Token.SECOND.getGameToken();
 
-		String Fishka = "O";
-		xoBoard.setFinalGameBox(testBoard);
-		lines = xoBoard.getWinLines(Fishka);
+		lines = xoBoard.getWinLines();
 		
 		Assert.assertTrue(lines == true);
 		
 	}
 	
 	@Test
-	public void testCaseOHorizontalWin() {
+	public void testCaseOTopHorizontalWin() {
 
 		String testBoard[][] = new String[3][3];
-		testBoard[0][0] = "O";
-		testBoard[0][1] = "X";
-		testBoard[0][2] = "X";
-		testBoard[1][0] = "O";
-		testBoard[1][1] = "O";
-		testBoard[1][2] = "X"; 
-		testBoard[2][0] = "O";
-		testBoard[2][1] = "X";
-		testBoard[2][2] = "O";
+		testBoard[0][0] = Token.SECOND.getGameToken();
+		testBoard[0][1] = Token.FIRST.getGameToken();
+		testBoard[0][2] = Token.FIRST.getGameToken();
+		testBoard[1][0] = Token.SECOND.getGameToken();
+		testBoard[1][1] = Token.SECOND.getGameToken();
+		testBoard[1][2] = Token.FIRST.getGameToken();
+		testBoard[2][0] = Token.SECOND.getGameToken();
+		testBoard[2][1] = Token.FIRST.getGameToken();
+		testBoard[2][2] = Token.SECOND.getGameToken();
 
-		String Fishka = "O";
-		xoBoard.setFinalGameBox(testBoard);
-		lines = xoBoard.getWinLines(Fishka);
+		lines = xoBoard.getWinLines();
 
 		Assert.assertTrue(lines == true);
 	}
 
 	@Test
-	public void testCaseXHorizontalWin() {
+	public void testCaseOVilkaWin() {
+
+		String testBoard[][] = new String[3][3];
+		testBoard[0][0] = Token.SECOND.getGameToken();
+		testBoard[0][1] = Token.FIRST.getGameToken();
+		testBoard[0][2] = Token.FIRST.getGameToken();
+		testBoard[1][0] = Token.SECOND.getGameToken();
+		testBoard[1][1] = Token.SECOND.getGameToken();
+		testBoard[1][2] = Token.FIRST.getGameToken();
+		testBoard[2][0] = Token.SECOND.getGameToken();
+		testBoard[2][1] = Token.FIRST.getGameToken();
+		testBoard[2][2] = Token.SECOND.getGameToken();
+
+		lines = xoBoard.getWinLines();
+		
+		Assert.assertTrue(lines == true);
+	}
+	
+	@Test
+	public void testCaseOBottomHorizontalWin() {
+
+		String testBoard[][] = new String[3][3];
+		testBoard[0][0] = Token.FIRST.getGameToken();
+		testBoard[0][1] = Token.SECOND.getGameToken();
+		testBoard[0][2] = Token.SECOND.getGameToken();
+		testBoard[1][0] = Token.FIRST.getGameToken();
+		testBoard[1][1] = Token.FIRST.getGameToken();
+		testBoard[1][2] = Token.SECOND.getGameToken();
+		testBoard[2][0] = Token.SECOND.getGameToken();
+		testBoard[2][1] = Token.FIRST.getGameToken();
+		testBoard[2][2] = Token.SECOND.getGameToken();
+
+		lines = xoBoard.getWinLines();
+
+		Assert.assertTrue(lines == true);
+	}
+	
+	@Test
+	public void testCaseXBottomHorizontalWin() {
+
+		String testBoard[][] = new String[3][3];
+		testBoard[0][0] = Token.SECOND.getGameToken();
+		testBoard[0][1] = Token.FIRST.getGameToken();
+		testBoard[0][2] = Token.FIRST.getGameToken();
+		testBoard[1][0] = Token.SECOND.getGameToken();
+		testBoard[1][1] = Token.SECOND.getGameToken();
+		testBoard[1][2] = Token.FIRST.getGameToken(); 
+		testBoard[2][0] = Token.FIRST.getGameToken();
+		testBoard[2][1] = Token.SECOND.getGameToken();
+		testBoard[2][2] = Token.FIRST.getGameToken();
+
+		lines = xoBoard.getWinLines();
+
+		Assert.assertTrue(lines == true);
+	}
+	
+	@Test
+	public void testCaseXMediumHorizontalWin() {
 		
 		String testBoard[][] = new String[3][3];
-		testBoard[0][0] = "O";
-		testBoard[0][1] = "X";
-		testBoard[0][2] = "X";
-		testBoard[1][0] = "O";
-		testBoard[1][1] = "X";
-		testBoard[1][2] = "O"; 
-		testBoard[2][0] = "X";
-		testBoard[2][1] = "X";
-		testBoard[2][2] = "O";
+		testBoard[0][0] = Token.SECOND.getGameToken();
+		testBoard[0][1] = Token.FIRST.getGameToken();
+		testBoard[0][2] = Token.FIRST.getGameToken();
+		testBoard[1][0] = Token.SECOND.getGameToken();
+		testBoard[1][1] = Token.FIRST.getGameToken();
+		testBoard[1][2] = Token.SECOND.getGameToken();
+		testBoard[2][0] = Token.FIRST.getGameToken();
+		testBoard[2][1] = Token.FIRST.getGameToken();
+		testBoard[2][2] = Token.SECOND.getGameToken();
 
-		String Fishka = "X";
-		xoBoard.setFinalGameBox(testBoard);
-		lines = xoBoard.getWinLines(Fishka);
+		lines = xoBoard.getWinLines();
 
 		Assert.assertTrue(lines == true);
 

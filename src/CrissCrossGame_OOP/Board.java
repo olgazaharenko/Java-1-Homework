@@ -2,131 +2,160 @@ package CrissCrossGame_OOP;
 
 import java.util.List;
 
-public class Board {
+public class Board<gameFieldBox> {
 
-	private int boardWidth = 3;
-	private int maxBoxesInTheField = 0;
-	public int lines = 0;
-	boolean isEmpty = true;
+	public int boardWidth;
+	public boolean isEmpty;
+	public String[][] winFilledBoard;
+	public String[][] gameFilledBoard;
 
-	String underScore = "_";
+	Board() {
+		boardWidth = 3;
+		isEmpty = true;
 
-	String gameFieldBox[][] = new String[boardWidth][boardWidth];
-	{
+		gameFilledBoard = new String[this.boardWidth][this.boardWidth];
+		winFilledBoard = new String[this.boardWidth][this.boardWidth];
+
 		for (int i = 0; i <= 2; i++) {
 			for (int j = 0; j <= 2; j++) {
-				gameFieldBox[i][j] = underScore;
+				gameFilledBoard[i][j] = Token.EMPTY.getGameToken();
+			}
+		}
+
+		for (int i = 0; i <= 2; i++) {
+			for (int j = 0; j <= 2; j++) {
+				winFilledBoard[i][j] = Token.EMPTY.getGameToken();
 			}
 		}
 	}
-	
-	String winFieldBox[][] = new String[boardWidth][boardWidth];
 
-	public int getFieldWidth() {
-		return boardWidth;
-	}
-	
-	public int calcBoardArea() {
-		int boardSize = boardWidth*boardWidth;
-		return boardSize;
-	}
+	// public String[][] setGameFilledBoardAsFinal(String Box[][]) {
+	// gameFilledBoard = Box;
+	// return gameFilledBoard;
+	// }
 
-	public void GameRules(List<String> listOfGamersNames) {
-		UserMenu.GameRules(listOfGamersNames);
-	}
-
-	public String[][] getGameFieldBox() {
-		return gameFieldBox;
-	}
-
-	public String[][] setFinalGameBox(String Box[][]) {
-		gameFieldBox = Box;
-		return gameFieldBox;
-	}
-
-	public int getMaxBoxesInTheField() {
-		return maxBoxesInTheField;
-	}
-
-	public int getEmptyBoxesInTheField() {
+	public int getNumberOfEmptyBoxes() {
 		int numberOfEmptyBoxes = 9;
 		for (int i = 0; i <= 2; i++) {
 			for (int j = 0; j <= 2; j++) {
-				if ((gameFieldBox[i][j].equals(Token.X.toString()) || (gameFieldBox[i][j].equals(Token.O.toString())))) {
+				if ((gameFilledBoard[i][j].equals(Token.FIRST.getGameToken()) || (gameFilledBoard[i][j]
+						.equals(Token.SECOND.getGameToken())))) {
 					numberOfEmptyBoxes = numberOfEmptyBoxes - 1;
 				}
 			}
 		}
 		return numberOfEmptyBoxes;
 	}
-		
-	public boolean getWinLines(String Fishka) {
-		boolean lines = false;
-		
-		for (int i = 0; i <= boardWidth - 1; i++) {
-			int m = i;
-			for (int j = 0; j <= boardWidth -1; j++) {
-				
-				// если собрана вертикаль
-				winFieldBox[m][j] = Fishka;
-				if (this.checkWinLine(gameFieldBox, winFieldBox)) {
-					lines = true;
-				}
-				
-				//если собрана горизонталь
-				winFieldBox[i][m] = Fishka;
-				if (this.checkWinLine(gameFieldBox, winFieldBox)) {
-					lines = true;
-				}
-				
-				//если собрана диагональ
-				winFieldBox[i][i] = Fishka;
-				if (this.checkWinLine(gameFieldBox, winFieldBox)) {
-					lines = true;
-				}
-				}				
-			}
-		return lines;
-	}
 
-	public boolean checkWinLine(String[][] gameField, 	String[][] winField) {
+	public boolean getWinLines() {
 		boolean lines = false;
-		String resultField[][] = new String[boardWidth][boardWidth];
-		
-		for (int i = 0; i <= (boardWidth - 1)/2; i++) {
-			for (int j = 0; j <= (boardWidth - 1)/2; j++) {
-				if (gameField[i][j].equals(winField[i][j])) {
-					resultField[i][j] = underScore;
-					lines = true;
-				}
-				else {
-					resultField[i][j] = gameField[i][j];
-					lines = false;
-				}
-			}
+
+		// если собрана 0 вертикаль
+		if (this.gameFilledBoard[0][0].equals(this.gameFilledBoard[0][1])
+				&& (this.gameFilledBoard[0][1]
+						.equals(this.gameFilledBoard[0][2])) && ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
+			lines = true;
+		}
+
+		// если собрана 0 горизонталь
+		if (this.gameFilledBoard[0][0].equals(this.gameFilledBoard[1][0])
+				&& (this.gameFilledBoard[1][0]
+						.equals(this.gameFilledBoard[2][0]))&& ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
+			lines = true;
+		}
+
+		// если собрана 1 вертикаль
+		if (this.gameFilledBoard[1][0].equals(this.gameFilledBoard[1][1])
+				&& (this.gameFilledBoard[1][1]
+						.equals(this.gameFilledBoard[1][2]))&& ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))){
+			lines = true;
+		}
+
+		// если собрана 1 горизонталь
+		if (this.gameFilledBoard[0][1].equals(this.gameFilledBoard[1][1])
+				&& (this.gameFilledBoard[1][1]
+						.equals(this.gameFilledBoard[2][1]))&& ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
+			lines = true;
+		}
+
+		// если собрана 2 вертикаль
+		if (this.gameFilledBoard[2][0].equals(this.gameFilledBoard[2][1])
+				&& (this.gameFilledBoard[2][1]
+						.equals(this.gameFilledBoard[2][2]))&& ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
+			lines = true;
+		}
+
+		// если собрана 2 горизонталь
+		if (this.gameFilledBoard[0][2].equals(this.gameFilledBoard[1][2])
+				&& (this.gameFilledBoard[1][2]
+						.equals(this.gameFilledBoard[2][2]))&& ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
+			lines = true;
+		}
+
+		// если собрана левая диагональ
+		if (this.gameFilledBoard[0][0].equals(this.gameFilledBoard[1][1])
+				&& (this.gameFilledBoard[1][1]
+						.equals(this.gameFilledBoard[2][2]))&& ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
+			lines = true;
+		}
+
+		// если собрана правая диагональ
+		if (this.gameFilledBoard[2][0].equals(this.gameFilledBoard[1][1])
+				&& (this.gameFilledBoard[1][1]
+						.equals(this.gameFilledBoard[0][2]))&& ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
+			lines = true;
 		}
 		return lines;
 	}
 
-	public String[][] drawField(int XY[], String[] fishki, int n) {
+	public boolean isCellEmpty(int i, int j) {
+		boolean isEmpty = false;
+		if (gameFilledBoard[i][j] == Token.EMPTY.getGameToken()) {
+			isEmpty = true;
+		}
+		return isEmpty;
+	}
+
+	public String setCellValue(int p) {
+		String value = Token.EMPTY.getGameToken();
+		if (p == 0) {
+			value = Token.FIRST.getGameToken();
+		}
+		if (p == 1) {
+			value = Token.SECOND.getGameToken();
+		}
+		return value;
+	}
+
+	public String setCellEmpty(int p) {
+		String value = Token.EMPTY.getGameToken();
+		return value;
+	}
+
+	public String[][] drawField(Team team, int p) {
+
+		int XY[] = team.getPlayers(team.getTeam()).get(p).doMove(this, team);
+
 		for (int i = 0; i <= 2; i++) {
-			for (int j = 0; j <= 2; j++) {
-				if ((i == XY[0]) && (j == XY[1])
-						&& (gameFieldBox[i][j] != fishki[0])
-						&& (gameFieldBox[i][j] != fishki[1])) {
-					gameFieldBox[i][j] = fishki[n];
-				}
-			}
 
 			for (int j = 0; j <= 2; j++) {
-				if ((gameFieldBox[i][j] != fishki[0])
-						&& (gameFieldBox[i][j] != fishki[1])) {
-					//gameFieldBox[i][j] = underScore;
-					gameFieldBox[i][j] = Token.Empty.toString();
+				System.out.println("Is i : j CellEmpty?" + i + " : " + j + " "
+						+ this.isCellEmpty(i, j));
+				if ((i == XY[0]) && (j == XY[1]) && (this.isCellEmpty(i, j))) {
+					gameFilledBoard[i][j] = this.setCellValue(p);
 				}
 			}
 		}
-		UserMenu.drawField(gameFieldBox);
-		return gameFieldBox; // нужно только для работы тестов.
+		UserMenu.drawField(gameFilledBoard);
+		return gameFilledBoard; // нужно только для работы тестов.
 	}
+
+	public int getBoardWidth() {
+		return boardWidth;
+	}
+
+	public String[][] getGameFieldBox() {
+		return gameFilledBoard;
+	}
+
 }

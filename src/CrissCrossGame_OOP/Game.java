@@ -1,94 +1,54 @@
 package CrissCrossGame_OOP;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Game {
-
-	public int gamers;
-	
-	public List<Player> listOfPlayers = new ArrayList<Player>();
-	public Player player1;
-	public Player player2;
-	
 	public Board xoBoard;
-	public List<String> listOfGamersNames = new ArrayList<String>();
-	public String Fishki[] = new String[2];
+	public Team team;
+	
 	public boolean win = false;
+	public boolean draw = false;
 	public boolean stopGame = false;
-	public int zeroBoxes;
-	public int xy[] = new int[2];
 
 	Game() {
-		gamers = Speaker.defineGamersPair();
-
-		listOfGamersNames = UserMenu.meetTheGamers();
-		UserMenu.GameRules(listOfGamersNames);
-
-		Fishki = Speaker.doFigure(gamers);
-
 		xoBoard = new Board();
-		zeroBoxes = xoBoard.calcBoardArea();
+		team = new Team();
 	}
 
 	public void go() {
-		this.play(gamers, xoBoard);
+		this.play(xoBoard);
 	}
 
-	private void play(int gamers, Board xoBoard) {
-		
-		switch (gamers) {
-		case 0: {
-			HumanPlayer player1 = new HumanPlayer();
-			HumanPlayer player2 = new HumanPlayer();
-			listOfPlayers.add(player1);
-			listOfPlayers.add(player2);
-			break;
-		}
-		case 1: {
-			HumanPlayer player1 = new HumanPlayer();
-			AIPlayer player2 = new AIPlayer();
-			listOfPlayers.add(player1);
-			listOfPlayers.add(player2);
-			break;
-		}
-		case 2: {
-			AIPlayer player1 = new AIPlayer();
-			AIPlayer player2 = new AIPlayer();
-			listOfPlayers.add(player1);
-			listOfPlayers.add(player2);
-			break;
-		}
-	
-		}
-	
+	private void play(Board xoBoard) {
 		while (!stopGame) {
-			for (int p = 0; p <= (gamers - 1); p++) {
-				this.makeMove(p);
-				stopGame = this.checkWin(p);
+			for (int turn = 0; turn <= 1; turn++) {
+				System.out.println("turn = " + turn);
+				Speaker.namePlayerWhoMove(team, turn);
+				this.makeMove(turn);
+				stopGame = this.checkWin(turn);
 			}
 		}
 	}
 
-	private boolean checkWin(int p) {
-	
-		win = xoBoard.getWinLines(Fishki[p]);
-		zeroBoxes = xoBoard.getEmptyBoxesInTheField();
+	private boolean checkWin(int turn) {
+		
+		int zeroBoxes = xoBoard.getNumberOfEmptyBoxes();
+		win = xoBoard.getWinLines();
+		System.out.println("zeroBoxes = " + zeroBoxes);
+		System.out.println("win = " + win);
+
+		if ((zeroBoxes == 0) && !win) {draw = true;}
 		
 		if (win) {
-			Speaker.gameWinner(1, listOfGamersNames.get(p));
+			Speaker.gameWin(team, turn);
 			stopGame = true;
-		} else if ((zeroBoxes == 0) && !win) {
-			Speaker.gameWinner(0, "");
+		} else if (draw) {
+			Speaker.gameDraw();
 			stopGame = true;
 		}
+		
 		return stopGame;		
 	}
 
-	private void makeMove(int p) {
-		Speaker.namePlayerWhoMove(listOfGamersNames.get(p) + " "
-				+ Fishki[p]);
-		xy = listOfPlayers.get(p).doMove(xoBoard, Fishki);
-		xoBoard.drawField(xy, Fishki, p);
+	private void makeMove(int turn) {
+		xoBoard.drawField(team, turn);
 	}
 }

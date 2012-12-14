@@ -2,8 +2,7 @@ package CrissCrossGame_OOP;
 
 public class AIWinStrategy {
 
-	public static int checkWinBoxToMove(Board board, int xAI, int yAI,
-			String[] fishki) {
+	public static int checkWinBoxToMove(Board board, int xAI, int yAI) {
 		/*
 		 * Реализация критерия выбора хода компьютером
 		 * 
@@ -21,9 +20,6 @@ public class AIWinStrategy {
 		 * клетке значение функции p по результату проверки
 		 */
 
-		String xFishka = fishki[0];
-		String oFishka = fishki[1];
-
 		// Получить состояние поля на момент оценки
 		String t[][] = new String[3][3];
 		t = board.getGameFieldBox();
@@ -35,7 +31,7 @@ public class AIWinStrategy {
 			for (int j = 0; j <= 2; j++) {
 
 				// берем незанятую клетку
-				if ((t[i][j] != xFishka) && (t[i][j] != oFishka)) {
+				if ((t[i][j] != Token.FIRST.getGameToken()) && (t[i][j] != Token.SECOND.getGameToken())) {
 
 					// в зависимости от координат выбранной клетки пробегаем по
 					// линиям:
@@ -47,16 +43,16 @@ public class AIWinStrategy {
 					//
 
 					if ((i == 0) && (j == 0)) {
-						if ((t[1][1] == xFishka)
-								|| (t[2][2] == xFishka)
-								|| (t[0][1] == xFishka)
-								|| (t[0][2] == xFishka || (t[1][0] == xFishka) || (t[2][0] == xFishka))) {
+						if ((t[1][1] == Token.FIRST.getGameToken())
+								|| (t[2][2] == Token.FIRST.getGameToken())
+								|| (t[0][1] == Token.FIRST.getGameToken())
+								|| (t[0][2] == Token.FIRST.getGameToken() || (t[1][0] == Token.FIRST.getGameToken()) || (t[2][0] == Token.FIRST.getGameToken()))) {
 							// если есть своя фигура на клетках линий
 							p = 1;
-						} else if ((t[1][1] == oFishka)
-								|| (t[2][2] == oFishka)
-								|| (t[0][1] == oFishka)
-								|| (t[0][2] == oFishka || (t[1][0] == oFishka) || (t[2][0] == oFishka))) {
+						} else if ((t[1][1] == Token.SECOND.getGameToken())
+								|| (t[2][2] == Token.SECOND.getGameToken())
+								|| (t[0][1] == Token.SECOND.getGameToken())
+								|| (t[0][2] == Token.SECOND.getGameToken() || (t[1][0] == Token.SECOND.getGameToken()) || (t[2][0] == Token.SECOND.getGameToken()))) {
 							// если есть фигура противника на клетках линий
 							p = -1;
 						}
@@ -69,12 +65,12 @@ public class AIWinStrategy {
 					//
 
 					if ((i == 1) && (j == 0)) {
-						if ((t[0][0] == xFishka) || (t[2][0] == xFishka)
-								|| (t[1][1] == xFishka) || (t[1][2] == xFishka)) {
+						if ((t[0][0] == Token.FIRST.getGameToken()) || (t[2][0] == Token.FIRST.getGameToken())
+								|| (t[1][1] == Token.FIRST.getGameToken()) || (t[1][2] == Token.FIRST.getGameToken())) {
 							// если есть своя фигура на клетках линий
 							p = 1;
-						} else if ((t[0][0] == oFishka) || (t[2][0] == oFishka)
-								|| (t[1][1] == oFishka) || (t[1][2] == oFishka)) {
+						} else if ((t[0][0] == Token.SECOND.getGameToken()) || (t[2][0] == Token.SECOND.getGameToken())
+								|| (t[1][1] == Token.SECOND.getGameToken()) || (t[1][2] == Token.SECOND.getGameToken())) {
 							// если есть фигура противника на клетках линий
 							p = -1;
 						}
@@ -86,14 +82,14 @@ public class AIWinStrategy {
 					// {(1,1),(0,2)}
 
 					if ((i == 2) && (j == 0)) {
-						if ((t[0][0] == xFishka) || (t[1][0] == xFishka)
-								|| (t[2][1] == xFishka) || (t[2][2] == xFishka)
-								|| (t[1][1] == xFishka) || (t[0][2] == xFishka)) {
+						if ((t[0][0] == Token.FIRST.getGameToken()) || (t[1][0] == Token.FIRST.getGameToken())
+								|| (t[2][1] == Token.FIRST.getGameToken()) || (t[2][2] == Token.FIRST.getGameToken())
+								|| (t[1][1] == Token.FIRST.getGameToken()) || (t[0][2] == Token.FIRST.getGameToken())) {
 							// если есть своя фигура на клетках линий
 							p = 1;
-						} else if ((t[0][0] == oFishka) || (t[1][0] == oFishka)
-								|| (t[2][1] == oFishka) || (t[2][2] == oFishka)
-								|| (t[1][1] == oFishka) || (t[0][2] == oFishka)) {
+						} else if ((t[0][0] == Token.SECOND.getGameToken()) || (t[1][0] == Token.SECOND.getGameToken())
+								|| (t[2][1] == Token.SECOND.getGameToken()) || (t[2][2] == Token.SECOND.getGameToken())
+								|| (t[1][1] == Token.SECOND.getGameToken()) || (t[0][2] == Token.SECOND.getGameToken())) {
 							// если есть фигура противника на клетках линий
 							p = -1;
 						}
@@ -106,12 +102,12 @@ public class AIWinStrategy {
 					//
 
 					if ((i == 0) && (j == 1)) {
-						if ((t[0][0] == xFishka) || (t[0][2] == xFishka)
-								|| (t[1][1] == xFishka) || (t[2][1] == xFishka)) {
+						if ((t[0][0] == Token.FIRST.getGameToken()) || (t[0][2] == Token.FIRST.getGameToken())
+								|| (t[1][1] == Token.FIRST.getGameToken()) || (t[2][1] == Token.FIRST.getGameToken())) {
 							// если есть своя фигура на клетках линий
 							p = 1;
-						} else if ((t[0][0] == oFishka) || (t[0][2] == oFishka)
-								|| (t[1][1] == oFishka) || (t[2][1]) == oFishka) {
+						} else if ((t[0][0] == Token.SECOND.getGameToken()) || (t[0][2] == Token.SECOND.getGameToken())
+								|| (t[1][1] == Token.SECOND.getGameToken()) || (t[2][1]) == Token.SECOND.getGameToken()) {
 							// если есть фигура противника на клетках линий
 							p = -1;
 						}
@@ -124,16 +120,16 @@ public class AIWinStrategy {
 					// {(1,0),(1,2)}
 					//
 					if ((i == 1) && (j == 1)) {
-						if ((t[0][0] == xFishka) || (t[2][2] == xFishka)
-								|| (t[0][2] == xFishka) || (t[0][1] == xFishka)
-								|| (t[2][1] == xFishka) || (t[1][0] == xFishka)
-								|| (t[1][2] == xFishka)) {
+						if ((t[0][0] == Token.FIRST.getGameToken()) || (t[2][2] == Token.FIRST.getGameToken())
+								|| (t[0][2] == Token.FIRST.getGameToken()) || (t[0][1] == Token.FIRST.getGameToken())
+								|| (t[2][1] == Token.FIRST.getGameToken()) || (t[1][0] == Token.FIRST.getGameToken())
+								|| (t[1][2] == Token.FIRST.getGameToken())) {
 							// если есть своя фигура на клетках линий
 							p = 1;
-						} else if ((t[0][0] == oFishka) || (t[2][2] == oFishka)
-								|| (t[0][2] == oFishka) || (t[0][1] == oFishka)
-								|| (t[2][1] == oFishka) || (t[1][0] == oFishka)
-								|| (t[1][2] == oFishka)) {
+						} else if ((t[0][0] == Token.SECOND.getGameToken()) || (t[2][2] == Token.SECOND.getGameToken())
+								|| (t[0][2] == Token.SECOND.getGameToken()) || (t[0][1] == Token.SECOND.getGameToken())
+								|| (t[2][1] == Token.SECOND.getGameToken()) || (t[1][0] == Token.SECOND.getGameToken())
+								|| (t[1][2] == Token.SECOND.getGameToken())) {
 							// если есть фигура противника на клетках линий
 							p = -1;
 						}
@@ -145,12 +141,12 @@ public class AIWinStrategy {
 					//
 
 					if ((i == 2) && (j == 1)) {
-						if ((t[2][0] == xFishka) || (t[2][2] == xFishka)
-								|| (t[0][1] == xFishka) || (t[2][1] == xFishka)) {
+						if ((t[2][0] == Token.FIRST.getGameToken()) || (t[2][2] == Token.FIRST.getGameToken())
+								|| (t[0][1] == Token.FIRST.getGameToken()) || (t[2][1] == Token.FIRST.getGameToken())) {
 							// если есть своя фигура на клетках линий
 							p = 1;
-						} else if ((t[2][0] == oFishka) || (t[2][2] == oFishka)
-								|| (t[0][1] == oFishka) || (t[2][1]) == oFishka) {
+						} else if ((t[2][0] == Token.SECOND.getGameToken()) || (t[2][2] == Token.SECOND.getGameToken())
+								|| (t[0][1] == Token.SECOND.getGameToken()) || (t[2][1]) == Token.SECOND.getGameToken()) {
 							// если есть фигура противника на клетках линий
 							p = -1;
 						}
@@ -163,14 +159,14 @@ public class AIWinStrategy {
 					//
 
 					if ((i == 0) && (j == 2)) {
-						if ((t[0][0] == xFishka) || (t[0][1] == xFishka)
-								|| (t[1][1] == xFishka) || (t[2][0] == xFishka)
-								|| (t[1][2] == xFishka) || (t[2][2] == xFishka)) {
+						if ((t[0][0] == Token.FIRST.getGameToken()) || (t[0][1] == Token.FIRST.getGameToken())
+								|| (t[1][1] == Token.FIRST.getGameToken()) || (t[2][0] == Token.FIRST.getGameToken())
+								|| (t[1][2] == Token.FIRST.getGameToken()) || (t[2][2] == Token.FIRST.getGameToken())) {
 							// если есть своя фигура на клетках линий
 							p = 1;
-						} else if ((t[0][0] == oFishka) || (t[0][1] == oFishka)
-								|| (t[1][1] == oFishka) || (t[2][0] == oFishka)
-								|| (t[1][2] == oFishka) || (t[2][2] == oFishka)) {
+						} else if ((t[0][0] == Token.SECOND.getGameToken()) || (t[0][1] == Token.SECOND.getGameToken())
+								|| (t[1][1] == Token.SECOND.getGameToken()) || (t[2][0] == Token.SECOND.getGameToken())
+								|| (t[1][2] == Token.SECOND.getGameToken()) || (t[2][2] == Token.SECOND.getGameToken())) {
 							// если есть фигура противника на клетках линий
 							p = -1;
 						}
@@ -182,12 +178,12 @@ public class AIWinStrategy {
 					//
 
 					if ((i == 1) && (j == 2)) {
-						if ((t[1][0] == xFishka) || (t[1][1] == xFishka)
-								|| (t[0][2] == xFishka) || (t[2][2] == xFishka)) {
+						if ((t[1][0] == Token.FIRST.getGameToken()) || (t[1][1] == Token.FIRST.getGameToken())
+								|| (t[0][2] == Token.FIRST.getGameToken()) || (t[2][2] == Token.FIRST.getGameToken())) {
 							// если есть своя фигура на клетках линий
 							p = 1;
-						} else if ((t[1][0] == oFishka) || (t[1][1] == oFishka)
-								|| (t[0][2] == oFishka) || (t[2][2]) == oFishka) {
+						} else if ((t[1][0] == Token.SECOND.getGameToken()) || (t[1][1] == Token.SECOND.getGameToken())
+								|| (t[0][2] == Token.SECOND.getGameToken()) || (t[2][2]) == Token.SECOND.getGameToken()) {
 							// если есть фигура противника на клетках линий
 							p = -1;
 						}
@@ -200,14 +196,14 @@ public class AIWinStrategy {
 					//
 
 					if ((i == 2) && (j == 2)) {
-						if ((t[0][0] == xFishka) || (t[1][1] == xFishka)
-								|| (t[0][2] == xFishka) || (t[1][2] == xFishka)
-								|| (t[2][0] == xFishka) || (t[2][1] == xFishka)) {
+						if ((t[0][0] == Token.FIRST.getGameToken()) || (t[1][1] == Token.FIRST.getGameToken())
+								|| (t[0][2] == Token.FIRST.getGameToken()) || (t[1][2] == Token.FIRST.getGameToken())
+								|| (t[2][0] == Token.FIRST.getGameToken()) || (t[2][1] == Token.FIRST.getGameToken())) {
 							// если есть своя фигура на клетках линий
 							p = 1;
-						} else if ((t[0][0] == oFishka) || (t[1][1] == oFishka)
-								|| (t[0][2] == oFishka) || (t[1][2] == oFishka)
-								|| (t[2][0] == oFishka) || (t[2][1] == oFishka)) {
+						} else if ((t[0][0] == Token.SECOND.getGameToken()) || (t[1][1] == Token.SECOND.getGameToken())
+								|| (t[0][2] == Token.SECOND.getGameToken()) || (t[1][2] == Token.SECOND.getGameToken())
+								|| (t[2][0] == Token.SECOND.getGameToken()) || (t[2][1] == Token.SECOND.getGameToken())) {
 							// если есть фигура противника на клетках линий
 							p = -1;
 						}

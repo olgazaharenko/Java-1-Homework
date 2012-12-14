@@ -5,8 +5,8 @@ public class Speaker {
 	private static String gameInvitation = "Lets play to 'Crisscross', wouldn't you? If agree, enter 1, if not, enter 2...";
 	private static String gameOverMessage = "Game Over. Restart application to play again.";
 
-	private static String xoPlayerName = "Print your nick name: ";
-	private static String HumanXOFigureChoice = "Print figure to play, X or O: ";
+	private static String xoPlayerXName = "Enter X player's nickname:";
+	private static String xoPlayerOName = "Enter O player's nickname";
 	
 	private static String xCoord = "Enter move's x coordinate: 0, 1 or 2: ";
 	private static String yCoord = "Enter move's y coordinate: 0, 1 or 2: ";
@@ -48,64 +48,31 @@ public class Speaker {
 		return y;
 	}
 
-	public static String doName() {
+	public static String doXName() {
 		String userName = "";
-		userName = ReadUserInputHelper.getUserInput(xoPlayerName);
+		userName = ReadUserInputHelper.getUserInput(xoPlayerXName);
+		return userName;
+	}
+	
+	public static String doOName() {
+		String userName = "";
+		userName = ReadUserInputHelper.getUserInput(xoPlayerOName);
 		return userName;
 	}
 
-	public static void namePlayerWhoMove(String gamerName) {
-		System.out.println(movePlayer + gamerName);
+	public static void namePlayerWhoMove(Team team, int p) {
+		System.out.println(movePlayer + team.getNames(p) + " "+ team.getTokens().get(p));
+	}
+	
+	public static void gameWin(Team team, int winner) {
+		gameXOWinnerIs = gameXOWinnerIs + team.getNames(winner);
+		System.out.print(gameXOWinnerIs);
 	}
 
-	public static String[] doFigure(int aiPlayersAmount) {
-
-		String Fishki[] = new String[2];
-
-		switch (aiPlayersAmount) {
-		case 0: {
-			Fishki[0] = ReadUserInputHelper.getUserInput(HumanXOFigureChoice);
-			System.out.println("Fishki[0] = " + Fishki[0]);
-			{
-				if (Fishki[0].equals("X")) {
-					Fishki[1] = "O";
-				} else if (Fishki[0].equals("O")) {
-					Fishki[1] = "X";
-				}
-			}
-			break;
-		}
-		case 1: {
-			Fishki[0] = ReadUserInputHelper.getUserInput(HumanXOFigureChoice);
-			{
-				if (Fishki[0].equals("X")) {
-					Fishki[1] = "O";
-				} else if (Fishki[0].equals("O")) {
-					Fishki[1] = "X";
-				}
-			}
-			break;
-		}
-		case 2:
-			Fishki[0] = "O";
-			Fishki[1] = "X";
-			break;
-		}
-		return Fishki;
+	public static void gameDraw() {
+		System.out.print(gameXODraw);
 	}
-
-	public static void gameWinner(int WinnerKey, String WinnerName) {
-		switch (WinnerKey) {
-		case 0:
-			System.out.print(gameXODraw);
-			break;
-		case 1:
-			gameXOWinnerIs = gameXOWinnerIs + WinnerName;
-			System.out.print(gameXOWinnerIs);
-			break;
-		}
-	}
-
+	
 	public static void gameOver() {
 		System.out.print(gameOverMessage);
 	}
