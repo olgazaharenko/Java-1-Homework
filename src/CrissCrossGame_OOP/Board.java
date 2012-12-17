@@ -29,11 +29,6 @@ public class Board<gameFieldBox> {
 		}
 	}
 
-	// public String[][] setGameFilledBoardAsFinal(String Box[][]) {
-	// gameFilledBoard = Box;
-	// return gameFilledBoard;
-	// }
-
 	public int getNumberOfEmptyBoxes() {
 		int numberOfEmptyBoxes = 9;
 		for (int i = 0; i <= 2; i++) {
@@ -49,59 +44,35 @@ public class Board<gameFieldBox> {
 
 	public boolean getWinLines() {
 		boolean lines = false;
-
-		// если собрана 0 вертикаль
-		if (this.gameFilledBoard[0][0].equals(this.gameFilledBoard[0][1])
-				&& (this.gameFilledBoard[0][1]
-						.equals(this.gameFilledBoard[0][2])) && ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
+		
+		for (int i = 0; i < boardWidth; i++) { //проверка столбиков
+			if (this.gameFilledBoard[i][0].equals(this.gameFilledBoard[i][1])
+				&& (this.gameFilledBoard[i][0]
+						.equals(this.gameFilledBoard[i][2])) && ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
 			lines = true;
+			break;
+			}
 		}
-
+				
+		for (int i = 0; i < boardWidth; i++) { //проверка строк
 		// если собрана 0 горизонталь
-		if (this.gameFilledBoard[0][0].equals(this.gameFilledBoard[1][0])
-				&& (this.gameFilledBoard[1][0]
-						.equals(this.gameFilledBoard[2][0]))&& ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
+		if (this.gameFilledBoard[0][i].equals(this.gameFilledBoard[1][i])
+				&& (this.gameFilledBoard[0][i]
+						.equals(this.gameFilledBoard[2][i]))&& ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
 			lines = true;
+			break;
 		}
-
-		// если собрана 1 вертикаль
-		if (this.gameFilledBoard[1][0].equals(this.gameFilledBoard[1][1])
-				&& (this.gameFilledBoard[1][1]
-						.equals(this.gameFilledBoard[1][2]))&& ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))){
-			lines = true;
 		}
-
-		// если собрана 1 горизонталь
-		if (this.gameFilledBoard[0][1].equals(this.gameFilledBoard[1][1])
-				&& (this.gameFilledBoard[1][1]
-						.equals(this.gameFilledBoard[2][1]))&& ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
-			lines = true;
-		}
-
-		// если собрана 2 вертикаль
-		if (this.gameFilledBoard[2][0].equals(this.gameFilledBoard[2][1])
-				&& (this.gameFilledBoard[2][1]
-						.equals(this.gameFilledBoard[2][2]))&& ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
-			lines = true;
-		}
-
-		// если собрана 2 горизонталь
-		if (this.gameFilledBoard[0][2].equals(this.gameFilledBoard[1][2])
-				&& (this.gameFilledBoard[1][2]
-						.equals(this.gameFilledBoard[2][2]))&& ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
-			lines = true;
-		}
-
 		// если собрана левая диагональ
 		if (this.gameFilledBoard[0][0].equals(this.gameFilledBoard[1][1])
-				&& (this.gameFilledBoard[1][1]
+				&& (this.gameFilledBoard[0][0]
 						.equals(this.gameFilledBoard[2][2]))&& ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
 			lines = true;
 		}
 
 		// если собрана правая диагональ
 		if (this.gameFilledBoard[2][0].equals(this.gameFilledBoard[1][1])
-				&& (this.gameFilledBoard[1][1]
+				&& (this.gameFilledBoard[2][0]
 						.equals(this.gameFilledBoard[0][2]))&& ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
 			lines = true;
 		}

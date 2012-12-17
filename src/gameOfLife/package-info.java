@@ -1,0 +1,8 @@
+/**
+ * 
+ */
+/**
+ * @author olga
+ *
+ */
+package gameOfLife;
