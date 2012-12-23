@@ -2,16 +2,20 @@ package CrissCrossGame_OOP;
 
 public class AIWinStrategy {
 
+	// Получить состояние поля на момент оценки
+	public static Token t[][] = new Token[3][3];
+
 	public static int checkWinBoxToMove(Board board, int xAI, int yAI) {
 		/*
 		 * Реализация критерия выбора хода компьютером
 		 * 
 		 * определим функцию p - шанс для компьютера выиграть, сделав ход в
-		 * клетку с координатами (i,j) как (1, 0, -1) p = 1, если на одной линии
-		 * с клеткой (i,j) есть клетки, где уже поставлена своя фигура p = 0,
-		 * если все клетки на одной линии с клеткой (i,j) пусты p = -1, если на
-		 * одной линии с клеткой (i,j) более 0 клеток уже заняты противоположной
-		 * фигурой
+		 * клетку с координатами (i,j) как одно из значений (1, 0, -1). 
+		 * p = 1 если на одной линии с клеткой (i,j) есть клетки, где уже поставлена
+		 * своя фигура 
+		 * p = 0, если все клетки на одной линии с клеткой (i,j) пусты 
+		 * p = -1, если на одной линии с клеткой (i,j) более 0 клеток уже
+		 * заняты противоположной фигурой
 		 * 
 		 * выбираем для хода компьютера клетку с наибольшим значением функции p
 		 * 
@@ -20,198 +24,198 @@ public class AIWinStrategy {
 		 * клетке значение функции p по результату проверки
 		 */
 
-		// Получить состояние поля на момент оценки
-		String t[][] = new String[3][3];
-		t = board.getGameFieldBox();
-
 		// изначально считаем, что линии пусты и готовимся к ходу
 		int p = 0;
+		
+		t = board.getGameFieldBox();
+		
+		// берем заданную клетку
+		if ((t[xAI][yAI] != Token.X) && (t[xAI][yAI] != Token.O)) {
+		
+		// в зависимости от координат выбранной клетки пробегаем по линиям:
+		p = AIWinStrategy.checkBox(0,0);
 
-		for (int i = 0; i <= 2; i++) {
-			for (int j = 0; j <= 2; j++) {
+			//
+			// (1,0):
+			// {(0,0),(2,0)}
+			// {(1,1),(1,2)}
+			//
 
-				// берем незанятую клетку
-				if ((t[i][j] != Token.FIRST.getGameToken()) && (t[i][j] != Token.SECOND.getGameToken())) {
+			if ((xAI == 1) && (yAI == 0)) {
+				if ((t[0][0] == Token.X) || (t[2][0] == Token.X)
+						|| (t[1][1] == Token.X) || (t[1][2] == Token.X)) {
+					// если есть своя фигура на клетках линий
+					p = 1;
+				} else if ((t[0][0] == Token.O) || (t[2][0] == Token.O)
+						|| (t[1][1] == Token.O) || (t[1][2] == Token.O)) {
+					// если есть фигура противника на клетках линий
+					p = -1;
+				}
+			}
 
-					// в зависимости от координат выбранной клетки пробегаем по
-					// линиям:
+			// (2,0):
+			// {(0,0),(1,0)}
+			// {(2,1),(2,2)}
+			// {(1,1),(0,2)}
 
-					// (0,0):
-					// {(1,1),(2,2)}
-					// {(0,1),(0,2)}
-					// {(1,0),(2,0)}
-					//
+			if ((xAI == 2) && (yAI == 0)) {
+				if ((t[0][0] == Token.X) || (t[1][0] == Token.X)
+						|| (t[2][1] == Token.X) || (t[2][2] == Token.X)
+						|| (t[1][1] == Token.X) || (t[0][2] == Token.X)) {
+					// если есть своя фигура на клетках линий
+					p = 1;
+				} else if ((t[0][0] == Token.O) || (t[1][0] == Token.O)
+						|| (t[2][1] == Token.O) || (t[2][2] == Token.O)
+						|| (t[1][1] == Token.O) || (t[0][2] == Token.O)) {
+					// если есть фигура противника на клетках линий
+					p = -1;
+				}
+			}
 
-					if ((i == 0) && (j == 0)) {
-						if ((t[1][1] == Token.FIRST.getGameToken())
-								|| (t[2][2] == Token.FIRST.getGameToken())
-								|| (t[0][1] == Token.FIRST.getGameToken())
-								|| (t[0][2] == Token.FIRST.getGameToken() || (t[1][0] == Token.FIRST.getGameToken()) || (t[2][0] == Token.FIRST.getGameToken()))) {
-							// если есть своя фигура на клетках линий
-							p = 1;
-						} else if ((t[1][1] == Token.SECOND.getGameToken())
-								|| (t[2][2] == Token.SECOND.getGameToken())
-								|| (t[0][1] == Token.SECOND.getGameToken())
-								|| (t[0][2] == Token.SECOND.getGameToken() || (t[1][0] == Token.SECOND.getGameToken()) || (t[2][0] == Token.SECOND.getGameToken()))) {
-							// если есть фигура противника на клетках линий
-							p = -1;
-						}
-					}
+			//
+			// (0,1):
+			// {(0,0),(0,2)}
+			// {(1,1),(2,1)}
+			//
 
-					//
-					// (1,0):
-					// {(0,0),(2,0)}
-					// {(1,1),(1,2)}
-					//
+			if ((xAI == 0) && (yAI == 1)) {
+				if ((t[0][0] == Token.X) || (t[0][2] == Token.X)
+						|| (t[1][1] == Token.X) || (t[2][1] == Token.X)) {
+					// если есть своя фигура на клетках линий
+					p = 1;
+				} else if ((t[0][0] == Token.O) || (t[0][2] == Token.O)
+						|| (t[1][1] == Token.O) || (t[2][1]) == Token.O) {
+					// если есть фигура противника на клетках линий
+					p = -1;
+				}
+			}
 
-					if ((i == 1) && (j == 0)) {
-						if ((t[0][0] == Token.FIRST.getGameToken()) || (t[2][0] == Token.FIRST.getGameToken())
-								|| (t[1][1] == Token.FIRST.getGameToken()) || (t[1][2] == Token.FIRST.getGameToken())) {
-							// если есть своя фигура на клетках линий
-							p = 1;
-						} else if ((t[0][0] == Token.SECOND.getGameToken()) || (t[2][0] == Token.SECOND.getGameToken())
-								|| (t[1][1] == Token.SECOND.getGameToken()) || (t[1][2] == Token.SECOND.getGameToken())) {
-							// если есть фигура противника на клетках линий
-							p = -1;
-						}
-					}
+			// (1,1):
+			// {(0,0),(2,2)}
+			// {(0,2),(2,0)}
+			// {(0,1),(2,1)}
+			// {(1,0),(1,2)}
+			//
+			if ((xAI == 1) && (yAI == 1)) {
+				if ((t[0][0] == Token.X) || (t[2][2] == Token.X)
+						|| (t[0][2] == Token.X) || (t[0][1] == Token.X)
+						|| (t[2][1] == Token.X) || (t[1][0] == Token.X)
+						|| (t[1][2] == Token.X)) {
+					// если есть своя фигура на клетках линий
+					p = 1;
+				} else if ((t[0][0] == Token.O) || (t[2][2] == Token.O)
+						|| (t[0][2] == Token.O) || (t[0][1] == Token.O)
+						|| (t[2][1] == Token.O) || (t[1][0] == Token.O)
+						|| (t[1][2] == Token.O)) {
+					// если есть фигура противника на клетках линий
+					p = -1;
+				}
+			}
 
-					// (2,0):
-					// {(0,0),(1,0)}
-					// {(2,1),(2,2)}
-					// {(1,1),(0,2)}
+			// (2,1):
+			// {(2,0),(2,2)}
+			// {(0,1),(2,1)}
+			//
 
-					if ((i == 2) && (j == 0)) {
-						if ((t[0][0] == Token.FIRST.getGameToken()) || (t[1][0] == Token.FIRST.getGameToken())
-								|| (t[2][1] == Token.FIRST.getGameToken()) || (t[2][2] == Token.FIRST.getGameToken())
-								|| (t[1][1] == Token.FIRST.getGameToken()) || (t[0][2] == Token.FIRST.getGameToken())) {
-							// если есть своя фигура на клетках линий
-							p = 1;
-						} else if ((t[0][0] == Token.SECOND.getGameToken()) || (t[1][0] == Token.SECOND.getGameToken())
-								|| (t[2][1] == Token.SECOND.getGameToken()) || (t[2][2] == Token.SECOND.getGameToken())
-								|| (t[1][1] == Token.SECOND.getGameToken()) || (t[0][2] == Token.SECOND.getGameToken())) {
-							// если есть фигура противника на клетках линий
-							p = -1;
-						}
-					}
+			if ((xAI == 2) && (yAI == 1)) {
+				if ((t[2][0] == Token.X) || (t[2][2] == Token.X)
+						|| (t[0][1] == Token.X) || (t[2][1] == Token.X)) {
+					// если есть своя фигура на клетках линий
+					p = 1;
+				} else if ((t[2][0] == Token.O) || (t[2][2] == Token.O)
+						|| (t[0][1] == Token.O) || (t[2][1]) == Token.O) {
+					// если есть фигура противника на клетках линий
+					p = -1;
+				}
+			}
 
-					//
-					// (0,1):
-					// {(0,0),(0,2)}
-					// {(1,1),(2,1)}
-					//
+			// (0,2):
+			// {(0,0),(0,1)}
+			// {(1,1),(2,0)}
+			// {(1,2),(2,2)}
+			//
 
-					if ((i == 0) && (j == 1)) {
-						if ((t[0][0] == Token.FIRST.getGameToken()) || (t[0][2] == Token.FIRST.getGameToken())
-								|| (t[1][1] == Token.FIRST.getGameToken()) || (t[2][1] == Token.FIRST.getGameToken())) {
-							// если есть своя фигура на клетках линий
-							p = 1;
-						} else if ((t[0][0] == Token.SECOND.getGameToken()) || (t[0][2] == Token.SECOND.getGameToken())
-								|| (t[1][1] == Token.SECOND.getGameToken()) || (t[2][1]) == Token.SECOND.getGameToken()) {
-							// если есть фигура противника на клетках линий
-							p = -1;
-						}
-					}
+			if ((xAI == 0) && (yAI == 2)) {
+				if ((t[0][0] == Token.X) || (t[0][1] == Token.X)
+						|| (t[1][1] == Token.X) || (t[2][0] == Token.X)
+						|| (t[1][2] == Token.X) || (t[2][2] == Token.X)) {
+					// если есть своя фигура на клетках линий
+					p = 1;
+				} else if ((t[0][0] == Token.O) || (t[0][1] == Token.O)
+						|| (t[1][1] == Token.O) || (t[2][0] == Token.O)
+						|| (t[1][2] == Token.O) || (t[2][2] == Token.O)) {
+					// если есть фигура противника на клетках линий
+					p = -1;
+				}
+			}
 
-					// (1,1):
-					// {(0,0),(2,2)}
-					// {(0,2),(2,0)}
-					// {(0,1),(2,1)}
-					// {(1,0),(1,2)}
-					//
-					if ((i == 1) && (j == 1)) {
-						if ((t[0][0] == Token.FIRST.getGameToken()) || (t[2][2] == Token.FIRST.getGameToken())
-								|| (t[0][2] == Token.FIRST.getGameToken()) || (t[0][1] == Token.FIRST.getGameToken())
-								|| (t[2][1] == Token.FIRST.getGameToken()) || (t[1][0] == Token.FIRST.getGameToken())
-								|| (t[1][2] == Token.FIRST.getGameToken())) {
-							// если есть своя фигура на клетках линий
-							p = 1;
-						} else if ((t[0][0] == Token.SECOND.getGameToken()) || (t[2][2] == Token.SECOND.getGameToken())
-								|| (t[0][2] == Token.SECOND.getGameToken()) || (t[0][1] == Token.SECOND.getGameToken())
-								|| (t[2][1] == Token.SECOND.getGameToken()) || (t[1][0] == Token.SECOND.getGameToken())
-								|| (t[1][2] == Token.SECOND.getGameToken())) {
-							// если есть фигура противника на клетках линий
-							p = -1;
-						}
-					}
+			// (1,2):
+			// {(1,0),(1,1)}
+			// {(0,2),(2,2)}
+			//
 
-					// (2,1):
-					// {(2,0),(2,2)}
-					// {(0,1),(2,1)}
-					//
+			if ((xAI == 1) && (yAI == 2)) {
+				if ((t[1][0] == Token.X) || (t[1][1] == Token.X)
+						|| (t[0][2] == Token.X) || (t[2][2] == Token.X)) {
+					// если есть своя фигура на клетках линий
+					p = 1;
+				} else if ((t[1][0] == Token.O) || (t[1][1] == Token.O)
+						|| (t[0][2] == Token.O) || (t[2][2]) == Token.O) {
+					// если есть фигура противника на клетках линий
+					p = -1;
+				}
+			}
 
-					if ((i == 2) && (j == 1)) {
-						if ((t[2][0] == Token.FIRST.getGameToken()) || (t[2][2] == Token.FIRST.getGameToken())
-								|| (t[0][1] == Token.FIRST.getGameToken()) || (t[2][1] == Token.FIRST.getGameToken())) {
-							// если есть своя фигура на клетках линий
-							p = 1;
-						} else if ((t[2][0] == Token.SECOND.getGameToken()) || (t[2][2] == Token.SECOND.getGameToken())
-								|| (t[0][1] == Token.SECOND.getGameToken()) || (t[2][1]) == Token.SECOND.getGameToken()) {
-							// если есть фигура противника на клетках линий
-							p = -1;
-						}
-					}
+			// (2,2):
+			// {(0,0),(1,1)}
+			// {(0,2),(1,2)}
+			// {(2,0),(2,1)}
+			//
 
-					// (0,2):
-					// {(0,0),(0,1)}
-					// {(1,1),(2,0)}
-					// {(1,2),(2,2)}
-					//
-
-					if ((i == 0) && (j == 2)) {
-						if ((t[0][0] == Token.FIRST.getGameToken()) || (t[0][1] == Token.FIRST.getGameToken())
-								|| (t[1][1] == Token.FIRST.getGameToken()) || (t[2][0] == Token.FIRST.getGameToken())
-								|| (t[1][2] == Token.FIRST.getGameToken()) || (t[2][2] == Token.FIRST.getGameToken())) {
-							// если есть своя фигура на клетках линий
-							p = 1;
-						} else if ((t[0][0] == Token.SECOND.getGameToken()) || (t[0][1] == Token.SECOND.getGameToken())
-								|| (t[1][1] == Token.SECOND.getGameToken()) || (t[2][0] == Token.SECOND.getGameToken())
-								|| (t[1][2] == Token.SECOND.getGameToken()) || (t[2][2] == Token.SECOND.getGameToken())) {
-							// если есть фигура противника на клетках линий
-							p = -1;
-						}
-					}
-
-					// (1,2):
-					// {(1,0),(1,1)}
-					// {(0,2),(2,2)}
-					//
-
-					if ((i == 1) && (j == 2)) {
-						if ((t[1][0] == Token.FIRST.getGameToken()) || (t[1][1] == Token.FIRST.getGameToken())
-								|| (t[0][2] == Token.FIRST.getGameToken()) || (t[2][2] == Token.FIRST.getGameToken())) {
-							// если есть своя фигура на клетках линий
-							p = 1;
-						} else if ((t[1][0] == Token.SECOND.getGameToken()) || (t[1][1] == Token.SECOND.getGameToken())
-								|| (t[0][2] == Token.SECOND.getGameToken()) || (t[2][2]) == Token.SECOND.getGameToken()) {
-							// если есть фигура противника на клетках линий
-							p = -1;
-						}
-					}
-
-					// (2,2):
-					// {(0,0),(1,1)}
-					// {(0,2),(1,2)}
-					// {(2,0),(2,1)}
-					//
-
-					if ((i == 2) && (j == 2)) {
-						if ((t[0][0] == Token.FIRST.getGameToken()) || (t[1][1] == Token.FIRST.getGameToken())
-								|| (t[0][2] == Token.FIRST.getGameToken()) || (t[1][2] == Token.FIRST.getGameToken())
-								|| (t[2][0] == Token.FIRST.getGameToken()) || (t[2][1] == Token.FIRST.getGameToken())) {
-							// если есть своя фигура на клетках линий
-							p = 1;
-						} else if ((t[0][0] == Token.SECOND.getGameToken()) || (t[1][1] == Token.SECOND.getGameToken())
-								|| (t[0][2] == Token.SECOND.getGameToken()) || (t[1][2] == Token.SECOND.getGameToken())
-								|| (t[2][0] == Token.SECOND.getGameToken()) || (t[2][1] == Token.SECOND.getGameToken())) {
-							// если есть фигура противника на клетках линий
-							p = -1;
-						}
-					}
+			if ((xAI == 2) && (yAI == 2)) {
+				if ((t[0][0] == Token.X) || (t[1][1] == Token.X)
+						|| (t[0][2] == Token.X) || (t[1][2] == Token.X)
+						|| (t[2][0] == Token.X) || (t[2][1] == Token.X)) {
+					// если есть своя фигура на клетках линий
+					p = 1;
+				} else if ((t[0][0] == Token.O) || (t[1][1] == Token.O)
+						|| (t[0][2] == Token.O) || (t[1][2] == Token.O)
+						|| (t[2][0] == Token.O) || (t[2][1] == Token.O)) {
+					// если есть фигура противника на клетках линий
+					p = -1;
 				}
 			}
 		}
 		return p;
 	}
 
-}
+	public static int checkBox(int xAI, int yAI) {
+		int q = 0;
+		// (0,0):
+		// {(1,1),(2,2)}
+		// {(0,1),(0,2)}
+		// {(1,0),(2,0)}
+		//
+
+		if ((xAI == 0) && (yAI == 0)) {
+			if ((t[1][1] == Token.X)
+				|| (t[2][2] == Token.X)
+				|| (t[0][1] == Token.X)
+				|| (t[0][2] == Token.X 
+				|| (t[1][0] == Token.X) 
+				|| (t[2][0] == Token.X))) {
+		// если есть своя фигура на клетках линий
+		q = 1;
+		} else if ((t[1][1] == Token.O)
+				|| (t[2][2] == Token.O)
+				|| (t[0][1] == Token.O)
+				|| (t[0][2] == Token.O) 
+				|| (t[1][0] == Token.O) 
+				|| (t[2][0] == Token.O)) {
+		// если есть фигура противника на клетках линий
+		q = -1;
+		}
+		}
+		return q;
+	}
+	}

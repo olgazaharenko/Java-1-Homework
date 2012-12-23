@@ -9,7 +9,7 @@ public class Team {
 	
 	public List<Player> listOfPlayers = new ArrayList<Player>();
 	public List<String> listOfGamersNames = new ArrayList<String>();
-	public List<String> listOfPlayersFigures = new ArrayList<String>();
+	public List<Token> listOfPlayersFigures = new ArrayList<Token>();
 	
 	Team() {
 		gamers = Speaker.defineGamersPair();
@@ -54,9 +54,9 @@ public class Team {
 		listOfGamersNames = UserMenu.meetTheGamers();
 		return listOfGamersNames;
 	}
-	public List<String> setTokens() {
-		listOfPlayersFigures.add(0, Token.FIRST.getGameToken());
-		listOfPlayersFigures.add(1, Token.SECOND.getGameToken());
+	public List<Token> setTokens() {
+		listOfPlayersFigures.add(0, Token.X);
+		listOfPlayersFigures.add(1, Token.O);
 		return listOfPlayersFigures;
 	}
 	
@@ -69,7 +69,7 @@ public class Team {
 	public String getNames(int winner) {
 		return listOfGamersNames.get(winner);
 	}
-	public List<String> getTokens() {
+	public List<Token> getTokens() {
 		return listOfPlayersFigures;
 	}
 }

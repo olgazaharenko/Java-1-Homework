@@ -28,7 +28,7 @@ public class UserMenu {
 		System.out.println("=============================================");
 	}
 	
-	public static void drawField(String[][] gameFilledBoard) {
+	public static void drawField(Token[][] gameFilledBoard) {
 		System.out.println(longEmptyLine);
 		System.out.println(Border);
 		System.out.println(lineLeft + "0" + lineLeftEnd + gameFilledBoard [0][0] + lineBetween + gameFilledBoard [1][0] + lineBetween + gameFilledBoard [2][0] + lineRightStart + "0" + lineRight);

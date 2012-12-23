@@ -1,30 +1,28 @@
 package CrissCrossGame_OOP;
 
-import java.util.List;
-
-public class Board<gameFieldBox> {
+public class Board {
 
 	public int boardWidth;
 	public boolean isEmpty;
-	public String[][] winFilledBoard;
-	public String[][] gameFilledBoard;
+	public Token[][] winFilledBoard;
+	public Token[][] gameFilledBoard;
 
 	Board() {
 		boardWidth = 3;
 		isEmpty = true;
 
-		gameFilledBoard = new String[this.boardWidth][this.boardWidth];
-		winFilledBoard = new String[this.boardWidth][this.boardWidth];
+		gameFilledBoard = new Token[this.boardWidth][this.boardWidth];
+		winFilledBoard = new Token[this.boardWidth][this.boardWidth];
 
 		for (int i = 0; i <= 2; i++) {
 			for (int j = 0; j <= 2; j++) {
-				gameFilledBoard[i][j] = Token.EMPTY.getGameToken();
+				gameFilledBoard[i][j] = Token.NO;
 			}
 		}
 
 		for (int i = 0; i <= 2; i++) {
 			for (int j = 0; j <= 2; j++) {
-				winFilledBoard[i][j] = Token.EMPTY.getGameToken();
+				winFilledBoard[i][j] = Token.NO;
 			}
 		}
 	}
@@ -33,8 +31,8 @@ public class Board<gameFieldBox> {
 		int numberOfEmptyBoxes = 9;
 		for (int i = 0; i <= 2; i++) {
 			for (int j = 0; j <= 2; j++) {
-				if ((gameFilledBoard[i][j].equals(Token.FIRST.getGameToken()) || (gameFilledBoard[i][j]
-						.equals(Token.SECOND.getGameToken())))) {
+				if ((gameFilledBoard[i][j].equals(Token.X) || (gameFilledBoard[i][j]
+						.equals(Token.O)))) {
 					numberOfEmptyBoxes = numberOfEmptyBoxes - 1;
 				}
 			}
@@ -46,9 +44,8 @@ public class Board<gameFieldBox> {
 		boolean lines = false;
 		
 		for (int i = 0; i < boardWidth; i++) { //проверка столбиков
-			if (this.gameFilledBoard[i][0].equals(this.gameFilledBoard[i][1])
-				&& (this.gameFilledBoard[i][0]
-						.equals(this.gameFilledBoard[i][2])) && ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
+			if (this.gameFilledBoard[i][0] == (this.gameFilledBoard[i][1])
+				&& (this.gameFilledBoard[i][0] == (this.gameFilledBoard[i][2])) && ((this.gameFilledBoard[i][0] != Token.NO))) {
 			lines = true;
 			break;
 			}
@@ -56,9 +53,8 @@ public class Board<gameFieldBox> {
 				
 		for (int i = 0; i < boardWidth; i++) { //проверка строк
 		// если собрана 0 горизонталь
-		if (this.gameFilledBoard[0][i].equals(this.gameFilledBoard[1][i])
-				&& (this.gameFilledBoard[0][i]
-						.equals(this.gameFilledBoard[2][i]))&& ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
+		if (this.gameFilledBoard[0][i] == (this.gameFilledBoard[1][i])
+				&& (this.gameFilledBoard[0][i] == (this.gameFilledBoard[2][i]))&&((this.gameFilledBoard[i][0] != Token.NO))) {
 			lines = true;
 			break;
 		}
@@ -66,14 +62,14 @@ public class Board<gameFieldBox> {
 		// если собрана левая диагональ
 		if (this.gameFilledBoard[0][0].equals(this.gameFilledBoard[1][1])
 				&& (this.gameFilledBoard[0][0]
-						.equals(this.gameFilledBoard[2][2]))&& ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
+						.equals(this.gameFilledBoard[2][2]))&& ((this.gameFilledBoard[0][0] == Token.X) || (this.gameFilledBoard[0][0] == Token.O))) {
 			lines = true;
 		}
 
 		// если собрана правая диагональ
 		if (this.gameFilledBoard[2][0].equals(this.gameFilledBoard[1][1])
 				&& (this.gameFilledBoard[2][0]
-						.equals(this.gameFilledBoard[0][2]))&& ((this.gameFilledBoard[0][0] == Token.FIRST.getGameToken()) || (this.gameFilledBoard[0][0] == Token.SECOND.getGameToken()))) {
+						.equals(this.gameFilledBoard[0][2]))&& ((this.gameFilledBoard[0][0] == Token.X) || (this.gameFilledBoard[0][0] == Token.O))) {
 			lines = true;
 		}
 		return lines;
@@ -81,31 +77,31 @@ public class Board<gameFieldBox> {
 
 	public boolean isCellEmpty(int i, int j) {
 		boolean isEmpty = false;
-		if (gameFilledBoard[i][j] == Token.EMPTY.getGameToken()) {
+		if (gameFilledBoard[i][j] == Token.NO) {
 			isEmpty = true;
 		}
 		return isEmpty;
 	}
 
-	public String setCellValue(int p) {
-		String value = Token.EMPTY.getGameToken();
+	public Token setCellValue(int p) {
+		Token value = Token.NO;
 		if (p == 0) {
-			value = Token.FIRST.getGameToken();
+			value = Token.X;
 		}
 		if (p == 1) {
-			value = Token.SECOND.getGameToken();
+			value = Token.O;
 		}
 		return value;
 	}
 
 	public String setCellEmpty(int p) {
-		String value = Token.EMPTY.getGameToken();
+		String value = Token.NO.toString();
 		return value;
 	}
 
-	public String[][] drawField(Team team, int p) {
+	public Token[][] drawField(Team team, int p) {
 
-		int XY[] = team.getPlayers(team.getTeam()).get(p).doMove(this, team);
+		int XY[] = team.getPlayers(team.getTeam()).get(p).doMove(this);
 
 		for (int i = 0; i <= 2; i++) {
 
@@ -125,8 +121,16 @@ public class Board<gameFieldBox> {
 		return boardWidth;
 	}
 
-	public String[][] getGameFieldBox() {
+	public Token[][] getGameFieldBox() {
 		return gameFilledBoard;
 	}
-
+	
+	public Token[][] setGameFilledBox(Token[][] myField) {
+		for (int i = 0; i <= 2; i++) {
+			for (int j = 0; j <= 2; j++) {
+				gameFilledBoard[i][j] = myField[i][j]; 
+			}
+		}
+		return gameFilledBoard;		
+	}
 }

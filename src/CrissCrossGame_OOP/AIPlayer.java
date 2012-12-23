@@ -3,16 +3,16 @@ package CrissCrossGame_OOP;
 public class AIPlayer extends Player {
 
 	@Override
-	public int[] doMove(Board xoBoard, Team xoTeam) {
+	public int[] doMove(Board xoBoard) {
 		int XY[] = new int[2];
-		String[][] emptyGameFieldBox = new String[3][3];
+		Token[][] emptyGameFieldBox = new Token[3][3];
 
 		emptyGameFieldBox = xoBoard.getGameFieldBox();
 		for (int i = 0; i <= 2; i++) {
 			for (int j = 0; j <= 2; j++) {
 				// исключая заполненные клетки
-				if ((emptyGameFieldBox[i][j] != Token.FIRST.getGameToken())
-						&& (emptyGameFieldBox[i][j] != Token.SECOND.getGameToken())) {
+				if ((emptyGameFieldBox[i][j] != Token.X
+						&& (emptyGameFieldBox[i][j] != Token.O))) {
 
 					// по каждой клетке проверяем, если вероятность выиграть
 					// равна 0 или 1,

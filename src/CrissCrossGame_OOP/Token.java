@@ -1,15 +1,21 @@
 package CrissCrossGame_OOP;
 
 public enum Token {
-	FIRST("X"), SECOND("O"), EMPTY("_");
+	X("X"), O("O"), NO("_");
 
-	private String gameToken;
+	private String value;
 
 	Token(String gameToken) {
-		this.gameToken = gameToken;
+		this.value = gameToken;
 	}
 	
-	public String getGameToken() {
-		return this.gameToken;
+	/*public String getGameToken() {
+		return value;
+	}*/
+	
+	@Override
+	public String toString() {
+		return value;
 	}
+	
 }
