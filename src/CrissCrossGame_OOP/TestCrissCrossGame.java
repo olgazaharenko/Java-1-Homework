@@ -9,11 +9,11 @@ public class TestCrissCrossGame {
 	boolean win = false;
 	int zeroBoxes = 9;
 	Board xoBoard = new Board();
+	Token[][] testBoard = new Token[3][3];
 	
 	@Test
 	public void testCaseDraw() {
 		
-		Token[][] testBoard = new Token[3][3];
 		testBoard[0][0] = Token.X;
 		testBoard[0][1] = Token.O;
 		testBoard[0][2] = Token.X;
@@ -30,28 +30,8 @@ public class TestCrissCrossGame {
 	}
 	
 	@Test
-	public void testCaseNoDraw() {
+	public void testCaseNoDrawNoWinZeroBoxes7() {
 		
-		Token testBoard[][] = new Token[3][3];
-		testBoard[0][0] = Token.NO;
-		testBoard[0][1] = Token.NO;
-		testBoard[0][2] = Token.NO;
-		testBoard[1][0] = Token.NO;
-		testBoard[1][1] = Token.X;
-		testBoard[1][2] = Token.NO;
-		testBoard[2][0] = Token.NO;
-		testBoard[2][1] = Token.NO;
-		testBoard[2][2] = Token.NO;
-		
-		xoBoard.setGameFilledBox(testBoard);
-		zeroBoxes = xoBoard.getNumberOfEmptyBoxes();
-		Assert.assertFalse(zeroBoxes == 0);		
-	}
-	
-	@Test
-	public void testCaseNoDrawNoWin() {
-		
-		Token testBoard[][] = new Token[3][3];
 		testBoard[0][0] = Token.NO;
 		testBoard[0][1] = Token.NO;
 		testBoard[0][2] = Token.NO;
@@ -67,11 +47,28 @@ public class TestCrissCrossGame {
 		Assert.assertTrue(zeroBoxes == 7);		
 	}
 
+	@Test
+	public void testCaseNoDrawNoWinNoLines() {
 
+		testBoard[0][0] = Token.NO;
+		testBoard[0][1] = Token.NO;
+		testBoard[0][2] = Token.NO;
+		testBoard[1][0] = Token.NO;
+		testBoard[1][1] = Token.X;
+		testBoard[1][2] = Token.NO;
+		testBoard[2][0] = Token.O;
+		testBoard[2][1] = Token.NO;
+		testBoard[2][2] = Token.NO;
+
+		xoBoard.setGameFilledBox(testBoard);
+		lines = xoBoard.getWinLines();
+		Assert.assertFalse(lines);
+	}
+	
+	
 	@Test
 	public void testCaseXVerticalLeftLineWin() {
 
-		Token testBoard[][] = new Token[3][3];
 		testBoard[0][0] = Token.X;
 		testBoard[0][1] = Token.X;
 		testBoard[0][2] = Token.X;
@@ -87,11 +84,10 @@ public class TestCrissCrossGame {
 
 		Assert.assertTrue(lines);
 	}
-
+	
 	@Test
 	public void testCaseOVerticalLeftLineWin() {
 		
-		Token testBoard[][] = new Token[3][3];
 		testBoard[0][0] = Token.O;
 		testBoard[0][1] = Token.O;
 		testBoard[0][2] = Token.O;
@@ -105,14 +101,13 @@ public class TestCrissCrossGame {
 		xoBoard.setGameFilledBox(testBoard);
 		lines = xoBoard.getWinLines();
 
-		Assert.assertTrue(lines == true);
+		Assert.assertTrue(lines);
 
 	}
 	
 	@Test
 	public void testCaseOVerticalMediumLineWin() {
 		
-		Token testBoard[][] = new Token[3][3];
 		testBoard[0][0] = Token.X;
 		testBoard[0][1] = Token.O;
 		testBoard[0][2] = Token.X;
@@ -126,14 +121,13 @@ public class TestCrissCrossGame {
 		xoBoard.setGameFilledBox(testBoard);
 		lines = xoBoard.getWinLines();
 
-		Assert.assertTrue(lines == true);
+		Assert.assertTrue(lines);
 
 	}
 	
 	@Test
 	public void testCaseOVerticalRightLineWin() {
 		
-		Token testBoard[][] = new Token[3][3];
 		testBoard[0][0] = Token.X;
 		testBoard[0][1] = Token.O;
 		testBoard[0][2] = Token.X;
@@ -147,14 +141,13 @@ public class TestCrissCrossGame {
 		xoBoard.setGameFilledBox(testBoard);
 		lines = xoBoard.getWinLines();
 
-		Assert.assertTrue(lines == true);
+		Assert.assertTrue(lines);
 
 	}
 	
 	@Test
 	public void testCaseXVerticalRightLineWin() {
 		
-		Token testBoard[][] = new Token[3][3];
 		testBoard[0][0] = Token.O;
 		testBoard[0][1] = Token.X;
 		testBoard[0][2] = Token.O;
@@ -168,14 +161,13 @@ public class TestCrissCrossGame {
 		xoBoard.setGameFilledBox(testBoard);
 		lines = xoBoard.getWinLines();
 
-		Assert.assertTrue(lines == true);
+		Assert.assertTrue(lines);
 
 	}
 	
 	@Test
 	public void testCaseXLeftDiagonalWin() {
 
-		Token testBoard[][] = new Token[3][3];
 		testBoard[0][0] = Token.X;
 		testBoard[0][1] = Token.O;
 		testBoard[0][2] = Token.O;
@@ -189,13 +181,12 @@ public class TestCrissCrossGame {
 		xoBoard.setGameFilledBox(testBoard);
 		lines = xoBoard.getWinLines();
 		
-		Assert.assertTrue(lines == true);
+		Assert.assertTrue(lines);
 	}
 	
 	@Test
 	public void testCaseOLeftDiagonalWin() {
 
-		Token testBoard[][] = new Token[3][3];
 		testBoard[0][0] = Token.O;
 		testBoard[0][1] = Token.X;
 		testBoard[0][2] = Token.X;
@@ -209,14 +200,13 @@ public class TestCrissCrossGame {
 		xoBoard.setGameFilledBox(testBoard);
 		lines = xoBoard.getWinLines();
 		
-		Assert.assertTrue(lines == true);
+		Assert.assertTrue(lines);
 		
 	}
 	
 	@Test
 	public void testCaseOTopHorizontalWin() {
 
-		Token testBoard[][] = new Token[3][3];
 		testBoard[0][0] = Token.O;
 		testBoard[0][1] = Token.X;
 		testBoard[0][2] = Token.X;
@@ -230,13 +220,12 @@ public class TestCrissCrossGame {
 		xoBoard.setGameFilledBox(testBoard);
 		lines = xoBoard.getWinLines();
 
-		Assert.assertTrue(lines == true);
+		Assert.assertTrue(lines);
 	}
 
 	@Test
 	public void testCaseOVilkaWin() {
 
-		Token testBoard[][] = new Token[3][3];
 		testBoard[0][0] = Token.O;
 		testBoard[0][1] = Token.X;
 		testBoard[0][2] = Token.X;
@@ -250,13 +239,12 @@ public class TestCrissCrossGame {
 		xoBoard.setGameFilledBox(testBoard);
 		lines = xoBoard.getWinLines();
 		
-		Assert.assertTrue(lines == true);
+		Assert.assertTrue(lines);
 	}
 	
 	@Test
 	public void testCaseOBottomHorizontalWin() {
 
-		Token testBoard[][] = new Token[3][3];
 		testBoard[0][0] = Token.X;
 		testBoard[0][1] = Token.O;
 		testBoard[0][2] = Token.O;
@@ -270,13 +258,12 @@ public class TestCrissCrossGame {
 		xoBoard.setGameFilledBox(testBoard);
 		lines = xoBoard.getWinLines();
 
-		Assert.assertTrue(lines == true);
+		Assert.assertTrue(lines);
 	}
 	
 	@Test
 	public void testCaseXBottomHorizontalWin() {
 
-		Token testBoard[][] = new Token[3][3];
 		testBoard[0][0] = Token.O;
 		testBoard[0][1] = Token.X;
 		testBoard[0][2] = Token.X;
@@ -290,13 +277,12 @@ public class TestCrissCrossGame {
 		xoBoard.setGameFilledBox(testBoard);
 		lines = xoBoard.getWinLines();
 
-		Assert.assertTrue(lines == true);
+		Assert.assertTrue(lines);
 	}
 	
 	@Test
 	public void testCaseXMediumHorizontalWin() {
 		
-		Token testBoard[][] = new Token[3][3];
 		testBoard[0][0] = Token.O;
 		testBoard[0][1] = Token.X;
 		testBoard[0][2] = Token.X;
@@ -310,6 +296,6 @@ public class TestCrissCrossGame {
 		xoBoard.setGameFilledBox(testBoard);
 		lines = xoBoard.getWinLines();
 
-		Assert.assertTrue(lines == true);
+		Assert.assertTrue(lines);
 	}
 }

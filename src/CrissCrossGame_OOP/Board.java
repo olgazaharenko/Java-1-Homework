@@ -11,8 +11,8 @@ public class Board {
 		boardWidth = 3;
 		isEmpty = true;
 
-		gameFilledBoard = new Token[this.boardWidth][this.boardWidth];
-		winFilledBoard = new Token[this.boardWidth][this.boardWidth];
+		gameFilledBoard = new Token[boardWidth][boardWidth];
+		winFilledBoard = new Token[boardWidth][boardWidth];
 
 		for (int i = 0; i <= 2; i++) {
 			for (int j = 0; j <= 2; j++) {
@@ -44,32 +44,35 @@ public class Board {
 		boolean lines = false;
 		
 		for (int i = 0; i < boardWidth; i++) { //проверка столбиков
-			if (this.gameFilledBoard[i][0] == (this.gameFilledBoard[i][1])
-				&& (this.gameFilledBoard[i][0] == (this.gameFilledBoard[i][2])) && ((this.gameFilledBoard[i][0] != Token.NO))) {
-			lines = true;
-			break;
+			if (gameFilledBoard[i][0] != Token.NO) {
+				if (gameFilledBoard[i][0].equals(gameFilledBoard[i][1])
+						&& (gameFilledBoard[i][0].equals(gameFilledBoard[i][2]))) {
+					lines = true;
+					break;
+				}
 			}
 		}
 				
 		for (int i = 0; i < boardWidth; i++) { //проверка строк
 		// если собрана 0 горизонталь
-		if (this.gameFilledBoard[0][i] == (this.gameFilledBoard[1][i])
-				&& (this.gameFilledBoard[0][i] == (this.gameFilledBoard[2][i]))&&((this.gameFilledBoard[i][0] != Token.NO))) {
-			lines = true;
-			break;
+			if (gameFilledBoard[0][i] != Token.NO) {
+				if (gameFilledBoard[0][i].equals(gameFilledBoard[1][i])
+						&& (gameFilledBoard[0][i].equals(gameFilledBoard[2][i]))) {
+					lines = true;
+					break;
+				}
+			}
 		}
-		}
+		
 		// если собрана левая диагональ
-		if (this.gameFilledBoard[0][0].equals(this.gameFilledBoard[1][1])
-				&& (this.gameFilledBoard[0][0]
-						.equals(this.gameFilledBoard[2][2]))&& ((this.gameFilledBoard[0][0] == Token.X) || (this.gameFilledBoard[0][0] == Token.O))) {
+		if (gameFilledBoard[0][0].equals(gameFilledBoard[1][1])
+				&& (gameFilledBoard[0][0].equals(gameFilledBoard[2][2]))) {
 			lines = true;
 		}
 
 		// если собрана правая диагональ
-		if (this.gameFilledBoard[2][0].equals(this.gameFilledBoard[1][1])
-				&& (this.gameFilledBoard[2][0]
-						.equals(this.gameFilledBoard[0][2]))&& ((this.gameFilledBoard[0][0] == Token.X) || (this.gameFilledBoard[0][0] == Token.O))) {
+		else if (gameFilledBoard[2][0].equals(gameFilledBoard[1][1])
+				&& (gameFilledBoard[2][0].equals(gameFilledBoard[0][2]))) {
 			lines = true;
 		}
 		return lines;
@@ -106,10 +109,8 @@ public class Board {
 		for (int i = 0; i <= 2; i++) {
 
 			for (int j = 0; j <= 2; j++) {
-				System.out.println("Is i : j CellEmpty?" + i + " : " + j + " "
-						+ this.isCellEmpty(i, j));
-				if ((i == XY[0]) && (j == XY[1]) && (this.isCellEmpty(i, j))) {
-					gameFilledBoard[i][j] = this.setCellValue(p);
+				if ((i == XY[0]) && (j == XY[1]) && (isCellEmpty(i, j))) {
+					gameFilledBoard[i][j] = setCellValue(p);
 				}
 			}
 		}

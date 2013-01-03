@@ -14,16 +14,15 @@ public class Game {
 	}
 
 	public void go() {
-		this.play(xoBoard);
+		play(xoBoard);
 	}
 
 	private void play(Board xoBoard) {
 		while (!stopGame) {
 			for (int turn = 0; turn <= 1; turn++) {
-				System.out.println("turn = " + turn);
 				Speaker.namePlayerWhoMove(team, turn);
-				this.makeMove(turn);
-				stopGame = this.checkWin(turn);
+				makeMove(turn);
+				stopGame = checkWin(turn);
 			}
 		}
 	}
@@ -32,8 +31,6 @@ public class Game {
 		
 		int zeroBoxes = xoBoard.getNumberOfEmptyBoxes();
 		win = xoBoard.getWinLines();
-		System.out.println("zeroBoxes = " + zeroBoxes);
-		System.out.println("win = " + win);
 
 		if ((zeroBoxes == 0) && !win) {draw = true;}
 		

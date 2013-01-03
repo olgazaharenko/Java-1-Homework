@@ -8,11 +8,7 @@ public enum Token {
 	Token(String gameToken) {
 		this.value = gameToken;
 	}
-	
-	/*public String getGameToken() {
-		return value;
-	}*/
-	
+		
 	@Override
 	public String toString() {
 		return value;

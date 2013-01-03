@@ -6,15 +6,15 @@ public class AIPlayer extends Player {
 	public int[] doMove(Board xoBoard) {
 		int XY[] = new int[2];
 		Token[][] emptyGameFieldBox = new Token[3][3];
-
+		
+		//перечитываем текущее состояние доски
 		emptyGameFieldBox = xoBoard.getGameFieldBox();
 		for (int i = 0; i <= 2; i++) {
 			for (int j = 0; j <= 2; j++) {
-				// исключая заполненные клетки
-				if ((emptyGameFieldBox[i][j] != Token.X
-						&& (emptyGameFieldBox[i][j] != Token.O))) {
+				// по каждой пустой клетке проверяем
+				if ((emptyGameFieldBox[i][j].equals(Token.NO))) {
 
-					// по каждой клетке проверяем, если вероятность выиграть
+					//если вероятность выиграть
 					// равна 0 или 1,
 					int q = AIWinStrategy.checkWinBoxToMove(xoBoard, i, j);
 

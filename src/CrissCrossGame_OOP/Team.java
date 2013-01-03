@@ -13,18 +13,9 @@ public class Team {
 	
 	Team() {
 		gamers = Speaker.defineGamersPair();
-		this.setPlayers(gamers);
-		this.setNames();
-		this.setTokens();
-		
-		System.out.println("Team object fields: ");
-		System.out.println("gamers = " + gamers);
-		System.out.println("Player 1 name is " + listOfGamersNames.get(0).toString());
-		System.out.println("Player 2 name is " + listOfGamersNames.get(1).toString());
-		System.out.println("We have next figures to play with:" + listOfPlayersFigures.size());
-		System.out.println("Player 1 figure is " + listOfPlayersFigures.get(0).toString());
-		System.out.println("Player 2 figure is " + listOfPlayersFigures.get(1).toString());
-		
+		setPlayers(gamers);
+		setNames();
+		setTokens();
 	}
 	
 	public List<Player> setPlayers(int gamers) {
