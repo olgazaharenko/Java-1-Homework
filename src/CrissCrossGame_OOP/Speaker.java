@@ -65,8 +65,7 @@ public class Speaker {
 	}
 	
 	public static void gameWin(Team team, int winner) {
-		gameXOWinnerIs = gameXOWinnerIs + team.getNames(winner);
-		System.out.print(gameXOWinnerIs);
+		System.out.print(gameXOWinnerIs + team.getNames(winner));
 	}
 
 	public static void gameDraw() {

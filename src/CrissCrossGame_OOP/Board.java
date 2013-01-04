@@ -45,8 +45,10 @@ public class Board {
 		
 		for (int i = 0; i < boardWidth; i++) { //проверка столбиков
 			if (gameFilledBoard[i][0] != Token.NO) {
+				
 				if (gameFilledBoard[i][0].equals(gameFilledBoard[i][1])
 						&& (gameFilledBoard[i][0].equals(gameFilledBoard[i][2]))) {
+					System.out.println("Column appears!");
 					lines = true;
 					break;
 				}
@@ -58,6 +60,7 @@ public class Board {
 			if (gameFilledBoard[0][i] != Token.NO) {
 				if (gameFilledBoard[0][i].equals(gameFilledBoard[1][i])
 						&& (gameFilledBoard[0][i].equals(gameFilledBoard[2][i]))) {
+					System.out.println("Row appears!");
 					lines = true;
 					break;
 				}
@@ -65,14 +68,17 @@ public class Board {
 		}
 		
 		// если собрана левая диагональ
-		if (gameFilledBoard[0][0].equals(gameFilledBoard[1][1])
-				&& (gameFilledBoard[0][0].equals(gameFilledBoard[2][2]))) {
+		
+			if (gameFilledBoard[0][0].equals(gameFilledBoard[1][1])
+				&& (gameFilledBoard[0][0].equals(gameFilledBoard[2][2])) && (gameFilledBoard[1][1] != Token.NO)) {
+			System.out.println("Left diagonal appears!");
 			lines = true;
-		}
-
+			}
+			
 		// если собрана правая диагональ
 		else if (gameFilledBoard[2][0].equals(gameFilledBoard[1][1])
-				&& (gameFilledBoard[2][0].equals(gameFilledBoard[0][2]))) {
+				&& (gameFilledBoard[2][0].equals(gameFilledBoard[0][2])) && (gameFilledBoard[1][1] != Token.NO)) {
+			System.out.println("Right diagonal appears!");
 			lines = true;
 		}
 		return lines;
@@ -107,7 +113,6 @@ public class Board {
 		int XY[] = team.getPlayers(team.getTeam()).get(p).doMove(this);
 
 		for (int i = 0; i <= 2; i++) {
-
 			for (int j = 0; j <= 2; j++) {
 				if ((i == XY[0]) && (j == XY[1]) && (isCellEmpty(i, j))) {
 					gameFilledBoard[i][j] = setCellValue(p);
