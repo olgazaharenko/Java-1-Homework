@@ -21,9 +21,9 @@ public class Game {
 		while (!stopGame) {
 			for (int turn = 0; turn <= 1; turn++) {
 				Speaker.namePlayerWhoMove(team, turn);
-				System.out.println("turn = " + turn);
 				makeMove(turn);
 				stopGame = checkWin(turn);
+				if (stopGame) {break;}
 			}
 		}
 	}
