@@ -14,20 +14,17 @@ public class AIPlayer extends Player {
 		
 		for (int i = 0; i <= 2; i++) {
 			for (int j = 0; j <= 2; j++) {
-				System.out.println("Box to check: " + i + "; " + j);
 				// по каждой пустой клетке проверяем
 				if ((currentGameFieldBox[i][j].equals(Token.NO))) {
 
 					//если вероятность выиграть
 					// равна 0 или 1,
 					int q = AIWinStrategy.checkWinBoxToMove(xoBoard, i, j);
-					System.out.println("q = " + q);
 					if (q >= 0) {
 						// то делаем ход в первую из клеток с достаточным
 						// уровнем вероятности выиграть
 						XY[0] = i;
 						XY[1] = j;
-						System.out.println("Selected box to move: " + i + "; " + j);
 						break;
 					}
 				}
